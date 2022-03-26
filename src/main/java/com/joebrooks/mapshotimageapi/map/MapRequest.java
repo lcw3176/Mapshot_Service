@@ -1,17 +1,11 @@
 package com.joebrooks.mapshotimageapi.map;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data
 public class MapRequest {
 
     private boolean layerMode;
