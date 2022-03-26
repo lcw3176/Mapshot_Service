@@ -16,7 +16,7 @@ public class MapService {
     private final WebDriverWait waiter;
 
     public byte[] getImage(String url){
-        firefoxDriver.get("https://www.naver.com");
+        firefoxDriver.get(url);
         waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("checker_true")));
 
         return firefoxDriver.getFullPageScreenshotAs(OutputType.BYTES);
