@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class WebDriverWaitConfig {
 
-    private final FirefoxDriver firefoxDriver;
+    private final CustomChromeDriver chromeDriver;
 
     @Bean
     public WebDriverWait webDriverWait(){
         long timeOutSeconds = 30;
 
-        return new WebDriverWait(firefoxDriver, timeOutSeconds);
+        return new WebDriverWait(chromeDriver, timeOutSeconds);
     }
 }
