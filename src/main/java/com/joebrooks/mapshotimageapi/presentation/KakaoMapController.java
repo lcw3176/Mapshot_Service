@@ -14,23 +14,30 @@ public class KakaoMapController {
 
     private final MapService mapService;
 
-    @GetMapping
-    public ResponseEntity<Boolean> getRequestAvailable() {
-
-//        if(captureService.isAvailable()){
-//            return ResponseEntity.ok().body(true);
-//        }
+//    @GetMapping
+//    public ResponseEntity<Boolean> getRequestAvailable() {
 //
-//        return ResponseEntity.ok().body(false);
+////        if(captureService.isAvailable()){
+////            return ResponseEntity.ok().body(true);
+////        }
+////
+////        return ResponseEntity.ok().body(false);
+//
+//        return ResponseEntity.ok(true);
+//    }
+//
+//    @PostMapping
+//    public ResponseEntity<byte[]> getFullSizeMapImage(@RequestBody MapRequest kakaoMapInfo) {
+//
+//        return ResponseEntity.ok()
+//                .contentType(MediaType.IMAGE_JPEG)
+//                .body(mapService.getImage(kakaoMapInfo.getUrl()));
+//    }
 
-        return ResponseEntity.ok(true);
-    }
-
-    @PostMapping
-    public ResponseEntity<byte[]> getFullSizeMapImage(@RequestBody MapRequest kakaoMapInfo) {
-
+    @GetMapping
+    public ResponseEntity<byte[]> test(){
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG)
-                .body(mapService.getImage(kakaoMapInfo.getUrl()));
+                .body(mapService.getImage("hello"));
     }
 }
