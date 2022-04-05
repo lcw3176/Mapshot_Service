@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotimageapi.global.log;
+package com.joebrooks.mapshotimageapi.global.sns;
 
 import com.joebrooks.mapshotimageapi.global.exception.ExceptionResponse;
 
