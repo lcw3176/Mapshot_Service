@@ -1,12 +1,12 @@
-package com.joebrooks.mapshotimageapi.map;
+package com.joebrooks.mapshotimageapi.kakaoMap;
 
 
-import lombok.*;
+import lombok.Data;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Data
-public class MapRequest {
+public class KakaoMapRequest {
 
     private boolean layerMode;
     private double lat;
@@ -15,16 +15,15 @@ public class MapRequest {
     private String type;
 
 
-    public String getUrl(){
-        UriComponents uri = UriComponentsBuilder
-                .fromPath("https://mapshot-image-api.herokuapp.com/map/kakao/crawl")
+    public UriComponents getUri(){
+
+        return UriComponentsBuilder
+                .fromPath("http://localhost:8080/map/gen/kakao")
                 .queryParam("layerMode", this.layerMode)
                 .queryParam("lat", this.lat)
                 .queryParam("lng", this.lng)
                 .queryParam("level", this.level)
                 .queryParam("type", this.type)
                 .build(true);
-
-        return uri.toString();
     }
 }
