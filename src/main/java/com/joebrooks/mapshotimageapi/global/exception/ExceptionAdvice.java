@@ -1,6 +1,6 @@
 package com.joebrooks.mapshotimageapi.global.exception;
 
-import com.joebrooks.mapshotimageapi.global.log.IMessageClient;
+import com.joebrooks.mapshotimageapi.global.sns.IMessageClient;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.connector.ClientAbortException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
