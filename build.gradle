@@ -35,6 +35,10 @@ dependencies {
     implementation 'org.seleniumhq.selenium:selenium-chrome-driver:4.1.2'
     implementation 'org.seleniumhq.selenium:selenium-api:4.1.2'
 
+    // 익셉션 유틸
+    implementation 'org.apache.commons:commons-lang3:3.0'
+    // json
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
 
 }
