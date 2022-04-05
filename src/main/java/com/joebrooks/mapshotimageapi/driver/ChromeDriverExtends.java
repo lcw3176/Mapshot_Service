@@ -13,13 +13,13 @@ import java.lang.reflect.Method;
 import java.util.Base64;
 import java.util.Map;
 
-public class CustomChromeDriver extends ChromeDriver {
+public class ChromeDriverExtends extends ChromeDriver {
 
-    public CustomChromeDriver(ChromeOptions options) throws Exception {
+    public ChromeDriverExtends(ChromeOptions options) throws Exception {
         this(ChromeDriverService.createDefaultService(), options);
     }
 
-    public CustomChromeDriver(ChromeDriverService service, ChromeOptions options) throws Exception {
+    public ChromeDriverExtends(ChromeDriverService service, ChromeOptions options) throws Exception {
         super(service, options);
         CommandInfo cmd = new CommandInfo("/session/:sessionId/chromium/send_command_and_get_result", HttpMethod.POST);
         Method defineCommand = HttpCommandExecutor.class.getDeclaredMethod("defineCommand", String.class, CommandInfo.class);
