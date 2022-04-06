@@ -1,6 +1,7 @@
 package com.joebrooks.mapshotimageapi.driver;
 
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,5 +25,12 @@ public class ChromeDriverConfig {
     @Bean(destroyMethod = "quit")
     public ChromeDriverExtends chromeDriver() throws Exception {
         return new ChromeDriverExtends(chromeOptions());
+    }
+
+    @Bean
+    public WebDriverWait webDriverWait() throws Exception {
+        long timeOutSeconds = 30;
+
+        return new WebDriverWait(chromeDriver(), timeOutSeconds);
     }
 }
