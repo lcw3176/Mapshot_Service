@@ -38,7 +38,7 @@ public abstract class HttpClient {
                     .uri(path)
                     .acceptCharset(StandardCharsets.UTF_8)
                     .retrieve()
-                    .onStatus(HttpStatus::isError, response -> Mono.error(new IllegalStateException("failed get")));
+                    .onStatus(HttpStatus::isError, response -> Mono.error(new RuntimeException("failed get")));
 
         } catch (Exception e){
             throw new RuntimeException(e.getMessage(), e);
@@ -53,7 +53,7 @@ public abstract class HttpClient {
                     .acceptCharset(StandardCharsets.UTF_8)
                     .bodyValue(body)
                     .retrieve()
-                    .onStatus(HttpStatus::isError, response -> Mono.error(new IllegalStateException("failed post")));
+                    .onStatus(HttpStatus::isError, response -> Mono.error(new RuntimeException("failed post")));
 
         } catch(Exception e){
             throw new RuntimeException(e.getMessage(), e);
