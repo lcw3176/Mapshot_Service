@@ -11,6 +11,7 @@ public class ChromeDriverConfig {
     @Bean
     public ChromeOptions chromeOptions(){
         String chromeDriverPath = "CHROMEDRIVER_PATH";
+        String chromeBinaryPath = "CHROME_BINARY";
 
         System.setProperty("webdriver.chrome.driver", System.getenv(chromeDriverPath));
         ChromeOptions options = new ChromeOptions();
@@ -20,6 +21,7 @@ public class ChromeDriverConfig {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--single-process");
         options.addArguments("--remote-debugging-port=9222");
+        options.setBinary(System.getenv(chromeBinaryPath));
 
         return options;
     }
