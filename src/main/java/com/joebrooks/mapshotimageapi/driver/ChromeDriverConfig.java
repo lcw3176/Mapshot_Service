@@ -19,6 +19,7 @@ public class ChromeDriverConfig {
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--single-process");
+        options.addArguments("--remote-debugging-port=9222");
 
         return options;
     }
