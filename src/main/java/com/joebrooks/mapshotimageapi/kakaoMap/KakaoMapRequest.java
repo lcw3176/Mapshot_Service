@@ -18,7 +18,7 @@ public class KakaoMapRequest {
     public UriComponents getUri(){
 
         return UriComponentsBuilder
-                .fromPath("http://localhost:8080/map/gen/kakao")
+                .fromPath("http://localhost:8080/map/kakao/gen")
                 .queryParam("layerMode", this.layerMode)
                 .queryParam("lat", this.lat)
                 .queryParam("lng", this.lng)
