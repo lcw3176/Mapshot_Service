@@ -19,9 +19,6 @@ public class ChromeDriverConfig {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--single-process");
-        options.addArguments("--remote-debugging-port=9222");
-        options.addArguments("--disable-setuid-sandbox");
         options.setBinary(System.getenv(chromeBinaryPath));
 
         return options;
