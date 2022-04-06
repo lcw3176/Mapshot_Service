@@ -18,6 +18,7 @@ public class ChromeDriverConfig {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--single-process");
 
         return options;
     }
