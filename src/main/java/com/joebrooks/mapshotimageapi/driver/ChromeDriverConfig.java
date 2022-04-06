@@ -21,6 +21,7 @@ public class ChromeDriverConfig {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--single-process");
         options.addArguments("--remote-debugging-port=9222");
+        options.addArguments("--disable-setuid-sandbox");
         options.setBinary(System.getenv(chromeBinaryPath));
 
         return options;
