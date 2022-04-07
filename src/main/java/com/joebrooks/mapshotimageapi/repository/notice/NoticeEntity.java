@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotimageapi.repository.patchNote;
+package com.joebrooks.mapshotimageapi.repository.notice;
 
 import com.joebrooks.mapshotimageapi.repository.BaseTimeEntity;
 import lombok.AllArgsConstructor;
@@ -12,12 +12,19 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "patch_note")
-public class PatchNoteEntity extends BaseTimeEntity {
+@Entity(name = "notice")
+public class NoticeEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private NoticeType noticeType;
 
     @Column(name = "content")
     private String content;
