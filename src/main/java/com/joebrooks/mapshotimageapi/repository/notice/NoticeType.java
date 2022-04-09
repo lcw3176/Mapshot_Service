@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public enum NoticeType {
     UPDATE("업데이트"),
-    FIX("오류 수정"),
-    RESERVED_CHECK("점검 예정");
+    FIX("오류수정"),
+    RESERVED_CHECK("점검예정");
 
     private String title;
 
