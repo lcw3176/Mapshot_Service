@@ -1,5 +1,6 @@
 package com.joebrooks.mapshotimageapi.repository.admin;
 
+import com.joebrooks.mapshotimageapi.admin.login.AdminLoginRequest;
 import com.joebrooks.mapshotimageapi.global.encrypto.SHA256;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,9 @@ public class AdminService {
 
     private final AdminRepository adminRepository;
 
-    public Optional<AdminEntity> login(String id, String pw) throws NoSuchAlgorithmException {
-        return adminRepository.findByNickNameAndPassword(SHA256.encrypt(id), SHA256.encrypt(pw));
+    public Optional<AdminEntity> login(AdminLoginRequest adminRequest) throws NoSuchAlgorithmException {
+        return adminRepository.findByNickNameAndPassword(
+                SHA256.encrypt(adminRequest.getNickName()),
+                SHA256.encrypt(adminRequest.getPassword()));
     }
 }
