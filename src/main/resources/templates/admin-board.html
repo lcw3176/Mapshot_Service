@@ -1,0 +1,112 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<th:block layout:fragment="layout_content">
+
+        <!-- Fonts -->
+        <link rel="dns-prefetch" th:href="@{https://fonts.gstatic.com}">
+        <link th:href="@{https://fonts.googleapis.com/css?family=Nunito}" rel="stylesheet" type="text/css">
+
+        <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+        <link rel="stylesheet" th:href="@{https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css}">
+        <link rel="stylesheet" th:href="@{/css/bulma-list.css}">
+
+        <section class="section is-main-section">
+            <div class="tile is-ancestor">
+                <div class="tile is-parent">
+                    <div class="card tile is-child">
+                        <div class="card-content">
+                            <div class="level is-mobile">
+                                <div class="level-item">
+                                    <div class="is-widget-label"><h3 class="subtitle is-spaced">
+                                        오늘 방문 유저
+                                    </h3>
+                                        <h1 class="title" th:text="${#numbers.formatInteger(todayUser, 0, 'COMMA')}">
+                                        </h1>
+                                    </div>
+                                </div>
+                                <div class="level-item has-widget-icon">
+                                    <div class="is-widget-icon"><span class="icon has-text-info is-large"><i
+                                            class="mdi mdi-account-circle mdi-48px"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tile is-parent">
+                    <div class="card tile is-child">
+                        <div class="card-content">
+                            <div class="level is-mobile">
+                                <div class="level-item">
+                                    <div class="is-widget-label"><h3 class="subtitle is-spaced">
+                                        누적 방문 유저
+                                    </h3>
+                                        <h1 class="title" th:text="${#numbers.formatInteger(totalUser, 0, 'COMMA')}">
+                                        </h1>
+                                    </div>
+                                </div>
+                                <div class="level-item has-widget-icon">
+                                    <div class="is-widget-icon"><span class="icon has-text-success is-large"><i
+                                            class="mdi mdi-finance mdi-48px"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        <span class="icon"><i class="mdi mdi-bulletin-board"></i></span>
+                        공지사항
+                    </p>
+                </header>
+                <div class="card-content">
+                    <div class="container is-fluid mt-5">
+                        <div class="list has-visible-pointer-controls">
+                            <div class="list-item box">
+                                <div class="list-item-controls">
+                                    <div class="buttons is-right">
+                                        <a class="button is-link is-rounded is-inverted"
+                                        href="/admin/board/create">
+                                        <span class="icon">
+                                            <i class="mdi mdi-plus-circle-outline mdi-36px"></i>
+                                        </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="list-item box">
+                                <div class="list-item-image">
+                                    <span class="tag">업데이트</span>
+                                </div>
+
+                                <div class="list-item-content">
+                                    <div class="list-item-title">업데이트 알림</div>
+                                    <div class="list-item-description">22/04/09</div>
+                                </div>
+
+
+                                <div class="list-item-controls">
+                                    <div class="buttons is-right">
+                                        <button class="button is-light">
+                                            <span>편집</span>
+                                        </button>
+
+                                        <button class="button is-danger">
+                                            <span>삭제</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+</th:block>
+</html>

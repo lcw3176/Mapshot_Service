@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
-public class ExceptionAdvice {
+public class RestControllerExceptionAdvice {
 
     private final IMessageClient iMessageClient;
 
