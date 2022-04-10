@@ -1,6 +1,6 @@
 package com.joebrooks.mapshotimageapi.global.exception;
 
-import com.joebrooks.mapshotimageapi.admin.AdminLoginException;
+import com.joebrooks.mapshotimageapi.admin.login.AdminLoginException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,7 +16,7 @@ public class ControllerExceptionAdvice {
         log.info("\n adminLoginException" +
                  "\n id: {}" +
                  "\n pw: {}",
-                adminLoginException.getId(),
-                adminLoginException.getPw());
+                adminLoginException.getAdminRequest().getNickName(),
+                adminLoginException.getAdminRequest().getPassword());
     }
 }
