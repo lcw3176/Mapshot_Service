@@ -7,7 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,5 +22,9 @@ public class NoticeService {
 
     public Page<NoticeEntity> getPosts(int index){
         return noticeRepository.findAll(PageRequest.of(index, 10, Sort.by("id").descending()));
+    }
+
+    public Optional<NoticeEntity> getPost(long id){
+        return noticeRepository.findById(id);
     }
 }
