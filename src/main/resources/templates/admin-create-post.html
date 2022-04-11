@@ -8,6 +8,7 @@
                 <label class="label">제목</label>
                 <div class="control">
                     <input class="input" type="text" th:field="*{title}" placeholder="Text input">
+                    <span class="has-text-danger" th:text="${valid_title}"></span>
                 </div>
             </div>
 
@@ -15,7 +16,7 @@
                 <label class="label">분류</label>
                 <div class="control">
                     <div class="select">
-                        <select>
+                        <select th:field="*{noticeType}">
                             <option th:each="type : ${noticeType}" th:text="${type.title}" th:value="${type}"></option>
                         </select>
                     </div>
@@ -26,6 +27,7 @@
                 <label class="label">내용</label>
                 <div class="control">
                     <textarea class="textarea" th:field="*{content}" placeholder="Textarea"></textarea>
+                    <span class="has-text-danger" th:text="${valid_content}"></span>
                 </div>
             </div>
 
