@@ -25,7 +25,7 @@ public class ManualController {
         model.addAttribute("manual", ManualType.values());
         model.addAttribute("pageNumber", manualNum);
 
-        return "manual";
+        return "fragment/manual/manual";
     }
 
      private enum ManualType {

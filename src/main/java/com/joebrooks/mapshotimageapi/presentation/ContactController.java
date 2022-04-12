@@ -11,6 +11,6 @@ public class ContactController {
     @GetMapping
     public String showContact(){
 
-        return "contact";
+        return "fragment/contact/contact";
     }
 }

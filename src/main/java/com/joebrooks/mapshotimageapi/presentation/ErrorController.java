@@ -10,6 +10,6 @@ public class ErrorController {
 
     @GetMapping
     public String showErrorForm(){
-        return "error-page";
+        return "fragment/error/error-page";
     }
 }

@@ -31,11 +31,11 @@ public class NoticeController {
 
             model.addAttribute("post", noticeEntity);
             
-            return "notice-detail";
+            return "fragment/notice/notice-detail";
         } else {
             model.addAttribute("posts", noticeService.getPosts(0));
 
-            return "notice";
+            return "fragment/notice/notice";
         }
 
     }
