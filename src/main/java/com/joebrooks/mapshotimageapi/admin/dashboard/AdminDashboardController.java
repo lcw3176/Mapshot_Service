@@ -30,14 +30,14 @@ public class AdminDashboardController {
         model.addAttribute("totalUser", 24000);
         model.addAttribute("posts", posts);
 
-        return "admin-board";
+        return "fragment/admin/admin-board";
     }
 
     @GetMapping("/create")
     public String showCreatePostPage(Model model, AdminCreateNoticeRequest adminCreateNoticeRequest){
         model.addAttribute("noticeType", NoticeType.values());
 
-        return "admin-create-post";
+        return "fragment/admin/admin-create-post";
     }
 
     @PostMapping("/create")
@@ -52,7 +52,7 @@ public class AdminDashboardController {
                 model.addAttribute(validKeyName, error.getDefaultMessage());
             }
 
-            return "admin-create-post";
+            return "fragment/admin/admin-create-post";
         }
 
         noticeService.addPost(NoticeEntity.builder()
