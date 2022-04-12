@@ -1,10 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/layout">
+      layout:decorate="~{layout/layout}">
 <th:block layout:fragment="layout_content">
-    <div class="container is-fluid tabs mt-5">
+    <div class="container is-fluid tabs is-boxed mt-5">
         <ul>
-            <li th:each="m, i : ${manual}" th:classappend="${pageNumber == i.index + 1} ? 'manuals is-active': 'manuals'">
+            <li th:each="m, i : ${manual}" th:classappend="${pageNumber == i.index + 1} ? 'is-active': ''">
                 <a th:href="${i.index + 1}" th:text="${m.info}"></a>
             </li>
         </ul>

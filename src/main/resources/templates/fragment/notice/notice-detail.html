@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<th:block layout:fragment="layout_content">
+  <div class="container is-fluid mt-5">
+
+    <div class="box">
+
+      <article class="media">
+        <div class="media-content">
+            <div class="content">
+                <small class="tag" th:text="${post.noticeType.getTitle()}"></small>
+                <strong th:text="${post.title}"></strong>
+            </div>
+
+            <div class="content">
+                <small class="tag">작성일</small>
+                <small th:text="${#temporals.format(post.createdDate, 'yy.MM.dd HH:mm:ss')}"></small>
+            </div>
+
+            <div class="content">
+                <p th:text="${post.content}"></p>
+            </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+
+
+</th:block>
+</html>
