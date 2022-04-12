@@ -1,5 +1,6 @@
 package com.joebrooks.mapshotimageapi.presentation;
 
+import com.joebrooks.mapshotimageapi.global.util.DigitValidationUtil;
 import com.joebrooks.mapshotimageapi.repository.notice.NoticeEntity;
 import com.joebrooks.mapshotimageapi.repository.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -22,23 +23,20 @@ public class NoticeController {
     public String showNoticeList(@RequestParam(name = "post", required = false) Optional<String> post,
                                  Model model){
 
-        post.ifPresent((postNumber) -> {
-            for(char i : postNumber.toCharArray()){
-                if(!Character.isDigit(i)){
-                    return;
-                }
-            }
-
-            NoticeEntity noticeEntity = noticeService.getPost(Long.parseLong(postNumber))
+        if(post.isPresent() && DigitValidationUtil.isDigit(post.get())){
+            NoticeEntity noticeEntity = noticeService.getPost(Long.parseLong(post.get()))
                     .orElseThrow(() -> {
-                        throw new IllegalStateException("잘못된 post 접근");
+                        throw new IllegalStateException("잘못된 공지사항 접근");
                     });
 
             model.addAttribute("post", noticeEntity);
-        });
+            
+            return "notice-detail";
+        } else {
+            model.addAttribute("posts", noticeService.getPosts(0));
 
-        model.addAttribute("posts", noticeService.getPosts(0));
+            return "notice";
+        }
 
-        return "notice";
     }
 }
