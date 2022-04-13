@@ -20,7 +20,7 @@ public class AdminLoginController {
 
     @GetMapping
     public String showLoginPage(Model model, AdminLoginRequest adminLoginRequest){
-        return "admin-login";
+        return "fragment/admin/admin-login";
     }
 
 

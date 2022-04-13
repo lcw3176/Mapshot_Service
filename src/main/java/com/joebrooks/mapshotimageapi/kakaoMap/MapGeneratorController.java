@@ -1,6 +1,5 @@
 package com.joebrooks.mapshotimageapi.kakaoMap;
 
-import com.joebrooks.mapshotimageapi.kakaoMap.KakaoMapRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
