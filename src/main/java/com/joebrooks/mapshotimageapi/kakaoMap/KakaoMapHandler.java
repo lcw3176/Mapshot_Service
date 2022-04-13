@@ -3,6 +3,7 @@ package com.joebrooks.mapshotimageapi.kakaoMap;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -18,6 +19,7 @@ import java.util.LinkedList;
 public class KakaoMapHandler extends TextWebSocketHandler {
 
     private static final LinkedList<WebSocketSession> waitList = new LinkedList<>();
+    private final ApplicationEventPublisher publisher;
 
     private final KakaoMapService kakaoMapService;
     private final ObjectMapper mapper = new ObjectMapper();
@@ -30,44 +32,45 @@ public class KakaoMapHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-        if(kakaoMapService.isAvailable() && waitList.size() >= 1){
-            WebSocketSession currentUser = waitList.get(0);
+//        publisher.publishEvent(mapper.readValue(message.getPayload(), KakaoMapRequest.class));
 
-            if(currentUser.equals(session)){
-                try{
-                    KakaoMapResponse waitEndResponse = KakaoMapResponse.builder()
-                            .isMyTurn(true)
-                            .build();
-
-                    session.sendMessage(new TextMessage(mapper.writeValueAsString(waitEndResponse))); // 처리 중 메세지 보내주기
-
-                    KakaoMapRequest request = mapper.readValue(message.getPayload(), KakaoMapRequest.class);
-                    byte[] data = kakaoMapService.getImage(request.getUri());
-
-                    KakaoMapResponse imageResponse = KakaoMapResponse.builder()
-                            .imageComplete(true)
-                            .imageData(data)
-                            .build();
-
-                    currentUser.sendMessage(new TextMessage(mapper.writeValueAsString(imageResponse))); // 이미지 데이터 보내주기
-
-                    return;
-                } catch (Exception e){
-                    log.info("카카오 맵 예외");
-                    log.info(e.getMessage());
-                } finally {
-                    waitList.remove(session);
-                }
-
-            }
-        }
-
-        KakaoMapResponse response = KakaoMapResponse.builder()
-                                        .isMyTurn(false)
-                                        .leftCount(waitList.indexOf(session) + 1)
-                                        .build();
-
-        session.sendMessage(new TextMessage(mapper.writeValueAsString(response))); // 대기 인원 수 보내주기
+//        if(kakaoMapService.isAvailable() && waitList.size() >= 1){
+//            WebSocketSession currentUser = waitList.get(0);
+//
+//            if(currentUser.equals(session)){
+//                try{
+//                    KakaoMapResponse waitEndResponse = KakaoMapResponse.builder()
+//                            .isMyTurn(true)
+//                            .build();
+//
+//                    session.sendMessage(new TextMessage(mapper.writeValueAsString(waitEndResponse))); // 처리 중 메세지 보내주기
+//
+//                    KakaoMapRequest request = mapper.readValue(message.getPayload(), KakaoMapRequest.class);
+//                    byte[] data = kakaoMapService.getImage(request.getUri());
+//
+//                    KakaoMapResponse imageResponse = KakaoMapResponse.builder()
+//                            .imageComplete(true)
+//                            .imageData(data)
+//                            .build();
+//
+//                    currentUser.sendMessage(new TextMessage(mapper.writeValueAsString(imageResponse))); // 이미지 데이터 보내주기
+//
+//                    return;
+//                } catch (Exception e){
+//                    log.error(e.getMessage(), e);
+//                } finally {
+//                    waitList.remove(session);
+//                }
+//
+//            }
+//        }
+//
+//        KakaoMapResponse response = KakaoMapResponse.builder()
+//                                        .isMyTurn(false)
+//                                        .leftCount(waitList.indexOf(session) + 1)
+//                                        .build();
+//
+//        session.sendMessage(new TextMessage(mapper.writeValueAsString(response))); // 대기 인원 수 보내주기
     }
 
     @Override
