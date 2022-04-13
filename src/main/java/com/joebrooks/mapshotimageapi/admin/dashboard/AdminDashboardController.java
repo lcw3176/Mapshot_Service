@@ -30,37 +30,7 @@ public class AdminDashboardController {
         model.addAttribute("totalUser", 24000);
         model.addAttribute("posts", posts);
 
-        return "admin-board";
+        return "fragment/admin/admin-board";
     }
 
-    @GetMapping("/create")
-    public String showCreatePostPage(Model model, AdminCreateNoticeRequest adminCreateNoticeRequest){
-        model.addAttribute("noticeType", NoticeType.values());
-
-        return "admin-create-post";
-    }
-
-    @PostMapping("/create")
-    public String registerPost(Model model, @Valid AdminCreateNoticeRequest noticeRequest, Errors errors){
-
-        if(errors.hasErrors()){
-            model.addAttribute("adminCreateNoticeRequest", noticeRequest);
-            model.addAttribute("noticeType", NoticeType.values());
-
-            for (FieldError error : errors.getFieldErrors()) {
-                String validKeyName = String.format("valid_%s", error.getField());
-                model.addAttribute(validKeyName, error.getDefaultMessage());
-            }
-
-            return "admin-create-post";
-        }
-
-        noticeService.addPost(NoticeEntity.builder()
-                .title(noticeRequest.getTitle())
-                .noticeType(noticeRequest.getNoticeType())
-                .content(noticeRequest.getContent())
-                .build());
-
-        return "redirect:/admin/board";
-    }
 }
