@@ -12,14 +12,26 @@ public class ChromeDriverConfig {
     public ChromeOptions chromeOptions(){
         String chromeDriverPath = "CHROMEDRIVER_PATH";
         String chromeBinaryPath = "CHROME_BINARY";
-
-        System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--disable-dev-shm-usage");
-//        options.setBinary(System.getenv(chromeBinaryPath));
+
+        if(System.getProperty("os.name").toLowerCase().contains("win")){
+            System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
+
+            options.addArguments("--headless");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--disable-dev-shm-usage");
+        } else {
+            System.setProperty("webdriver.chrome.driver", chromeDriverPath);
+
+            options.addArguments("--headless");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--disable-dev-shm-usage");
+            options.setBinary(System.getenv(chromeBinaryPath));
+        }
+
+
 
         return options;
     }
