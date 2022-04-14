@@ -7,7 +7,8 @@
         <div class="list">
             <div class="list-item box" th:each="post : ${posts}">
                 <div class="list-item-image">
-                    <span class="tag" th:text="${post.noticeType.getTitle()}"></span>
+                    <span class="tag" th:classappend="${post.noticeType == post.noticeType.UPDATE} ? 'is-info': 'is-danger'"
+                          th:text="${post.noticeType.getTitle()}"></span>
                 </div>
 
                 <div class="list-item-content">

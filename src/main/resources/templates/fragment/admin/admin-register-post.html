@@ -3,7 +3,7 @@
       layout:decorate="~{layout/layout}">
 <th:block layout:fragment="layout_content">
     <div class="container is-fluid mt-5">
-        <form th:action="@{/admin/board/create}" th:object="${adminCreateNoticeRequest}" method="post">
+        <form th:action="@{/admin/board/register}" th:object="${registerNoticeRequest}" method="post">
             <div class="field">
                 <label class="label">제목</label>
                 <div class="control">
@@ -17,7 +17,7 @@
                 <div class="control">
                     <div class="select">
                         <select th:field="*{noticeType}">
-                            <option th:each="type : ${noticeType}" th:text="${type.title}" th:value="${type}"></option>
+                            <option th:each="type : ${types}" th:text="${type.title}" th:value="${type}"></option>
                         </select>
                     </div>
                 </div>

@@ -3,7 +3,7 @@
       layout:decorate="~{layout/layout}">
 <th:block layout:fragment="layout_content">
     <div class="container is-fluid mt-5">
-        <h1>ERROR PAGE</h1>
+        <h1 th:text="${'status: ' + status}"></h1>
     </div>
 </th:block>
 </html>

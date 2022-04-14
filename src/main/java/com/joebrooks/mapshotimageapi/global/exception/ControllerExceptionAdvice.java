@@ -16,22 +16,18 @@ import javax.servlet.ServletResponse;
 public class ControllerExceptionAdvice {
 
     @ExceptionHandler(AdminLoginException.class)
-    public ModelAndView adminLoginException(ServletResponse response, AdminLoginException adminLoginException){
+    public void adminLoginException(AdminLoginException adminLoginException){
         log.info("\n adminLoginException" +
                  "\n id: {}" +
                  "\n pw: {}",
                 adminLoginException.getAdminRequest().getNickName(),
                 adminLoginException.getAdminRequest().getPassword());
-
-        return new ModelAndView("redirect:/error-page");
     }
 
     @ExceptionHandler(IllegalStateException.class)
-    public ModelAndView illegalStateException(IllegalStateException illegalStateException){
+    public void illegalStateException(IllegalStateException illegalStateException){
         log.info("\nIllegalStateException" +
                  "\n{}", illegalStateException.getMessage());
 
-
-        return new ModelAndView("redirect:/error-page");
     }
 }

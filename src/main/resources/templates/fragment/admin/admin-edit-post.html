@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<th:block layout:fragment="layout_content">
+    <div class="container is-fluid mt-5">
+        <form th:action="@{/admin/board/edit}" th:object="${editNoticeRequest}" method="post">
+            <div class="field">
+                <label class="label">ID</label>
+                <div class="control">
+                    <input class="input" type="number" th:field="*{id}" readonly>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">제목</label>
+                <div class="control">
+                    <input class="input" type="text" th:field="*{title}" placeholder="Text input">
+                    <span class="has-text-danger" th:text="${valid_title}"></span>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">분류</label>
+                <div class="control">
+                    <div class="select">
+                        <select th:field="*{noticeType}">
+                            <option th:each="type : ${types}" th:if="*{noticeType} != ${type}" th:text="${type.title}" th:value="${type}"></option>
+                            <option th:each="type : ${types}" th:unless="*{noticeType} != ${type}" th:text="${type.title}" th:value="${type}" selected></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">내용</label>
+                <div class="control">
+                    <textarea class="textarea" th:field="*{content}" placeholder="Textarea"></textarea>
+                    <span class="has-text-danger" th:text="${valid_content}"></span>
+                </div>
+            </div>
+
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-link" type="submit">등록</button>
+                </div>
+                <div class="control">
+                    <button class="button is-link is-light">취소</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</th:block>
+</html>
