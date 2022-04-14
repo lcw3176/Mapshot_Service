@@ -27,4 +27,12 @@ public class NoticeService {
     public Optional<NoticeEntity> getPost(long id){
         return noticeRepository.findById(id);
     }
+
+    public void removePost(long id){
+        noticeRepository.deleteById(id);
+    }
+
+    public void save(NoticeEntity noticeEntity){
+        noticeRepository.save(noticeEntity);
+    }
 }

@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 @Builder
-public class AdminCreateNoticeRequest {
+public class AdminEditNoticeRequest {
+
+    private Long id;
 
     @NotEmpty(message = "제목을 입력해 주세요")
     private String title;
@@ -19,3 +21,4 @@ public class AdminCreateNoticeRequest {
     private String content;
 
 }
+

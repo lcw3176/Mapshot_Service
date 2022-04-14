@@ -9,7 +9,8 @@
       <article class="media">
         <div class="media-content">
             <div class="content">
-                <small class="tag" th:text="${post.noticeType.getTitle()}"></small>
+                <small class="tag" th:text="${post.noticeType.getTitle()}"
+                       th:classappend="${post.noticeType == post.noticeType.UPDATE} ? 'is-info': 'is-danger'"></small>
                 <strong th:text="${post.title}"></strong>
             </div>
 
