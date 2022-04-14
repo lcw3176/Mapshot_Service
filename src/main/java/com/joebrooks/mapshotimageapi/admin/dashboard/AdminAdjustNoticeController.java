@@ -59,7 +59,14 @@ public class AdminAdjustNoticeController {
     public String showEditPostPage(@RequestParam(name = "post", required = false) Optional<Long> post,
                              Model model){
 
-        NoticeEntity noticeEntity = noticeService.getPost(post.get()).get();
+        long postNumber = post.orElseThrow(() -> {
+            throw new RuntimeException("no such post");
+        });
+
+        NoticeEntity noticeEntity = noticeService.getPost(postNumber).orElseThrow(() -> {
+            throw new RuntimeException("no such post");
+        });
+
         model.addAttribute("editNoticeRequest",  AdminEditNoticeRequest.builder()
                         .id(noticeEntity.getId())
                         .title(noticeEntity.getTitle())
@@ -104,7 +111,12 @@ public class AdminAdjustNoticeController {
 
     @GetMapping("/delete")
     public String adjustPost(@RequestParam(name = "post", required = false) Optional<Long> post) {
-        noticeService.removePost(post.get());
+
+        long postNumber = post.orElseThrow(() -> {
+            throw new RuntimeException("no such post");
+        });
+
+        noticeService.removePost(postNumber);
 
         return "redirect:/admin/board";
     }
