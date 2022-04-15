@@ -1,5 +1,6 @@
 package com.joebrooks.mapshotimageapi.presentation;
 
+import com.joebrooks.mapshotimageapi.global.util.PageGenerator;
 import com.joebrooks.mapshotimageapi.repository.notice.NoticeEntity;
 import com.joebrooks.mapshotimageapi.repository.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class NoticeController {
 
     private final NoticeService noticeService;
+    private final PageGenerator pageGenerator;
 
     @GetMapping
     public String showNotices(@RequestParam(name = "post", required = false) Optional<Long> post,
@@ -33,18 +35,10 @@ public class NoticeController {
 
             return "fragment/notice/notice-detail";
         } else {
-            int totalPage = Math.max((int) (noticeService.getSize() / 10), 1);
-
-            nowPage = nowPage < 1 ? 1 : nowPage;
-            nowPage = nowPage > totalPage ? totalPage : nowPage;
-
-            int startPage = Math.max((nowPage) / 10, 1);
-            int lastPage = Math.min(startPage + 10, totalPage);
-
-            model.addAttribute("posts", noticeService.getPosts(nowPage - 1));
-            model.addAttribute("startPage", startPage);
-            model.addAttribute("lastPage", lastPage);
-            model.addAttribute("nowPage", nowPage);
+            model.addAttribute("posts", noticeService.getPosts(pageGenerator.getNowPage(nowPage) - 1));
+            model.addAttribute("startPage", pageGenerator.getStartPage(nowPage));
+            model.addAttribute("lastPage", pageGenerator.getLastPage(nowPage));
+            model.addAttribute("nowPage", pageGenerator.getNowPage(nowPage));
 
             return "fragment/notice/notice";
         }
