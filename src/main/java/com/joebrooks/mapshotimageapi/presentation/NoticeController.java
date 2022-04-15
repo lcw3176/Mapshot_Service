@@ -39,10 +39,12 @@ public class NoticeController {
             return "fragment/notice/notice-detail";
         } else {
             int nowPage = DigitValidator.isDigit(page) ? Integer.parseInt(page) : 1;
-            model.addAttribute("posts", noticeService.getPosts(pageGenerator.getNowPage(nowPage) - 1));
-            model.addAttribute("startPage", pageGenerator.getStartPage(nowPage));
-            model.addAttribute("lastPage", pageGenerator.getLastPage(nowPage));
-            model.addAttribute("nowPage", pageGenerator.getNowPage(nowPage));
+            pageGenerator.init(nowPage);
+            
+            model.addAttribute("posts", noticeService.getPosts(pageGenerator.getNowPage() - 1));
+            model.addAttribute("startPage", pageGenerator.getStartPage());
+            model.addAttribute("lastPage", pageGenerator.getLastPage());
+            model.addAttribute("nowPage", pageGenerator.getNowPage());
 
             return "fragment/notice/notice";
         }
