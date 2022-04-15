@@ -1,5 +1,6 @@
 package com.joebrooks.mapshotimageapi.presentation;
 
+import com.joebrooks.mapshotimageapi.global.util.DigitValidator;
 import com.joebrooks.mapshotimageapi.global.util.PageGenerator;
 import com.joebrooks.mapshotimageapi.repository.notice.NoticeEntity;
 import com.joebrooks.mapshotimageapi.repository.notice.NoticeService;
@@ -21,12 +22,14 @@ public class NoticeController {
     private final PageGenerator pageGenerator;
 
     @GetMapping
-    public String showNotices(@RequestParam(name = "post", required = false) Optional<Long> post,
-                              @RequestParam(name = "page", required = false, defaultValue = "1") Integer nowPage,
+    public String showNotices(@RequestParam(name = "post", required = false) Optional<String> post,
+                              @RequestParam(name = "page", required = false, defaultValue = "1") String page,
                                  Model model){
 
-        if(post.isPresent()){
-            NoticeEntity noticeEntity = noticeService.getPost(post.get())
+        if(post.isPresent() && DigitValidator.isDigit(post.get())){
+            long postNum = Long.parseLong(post.get());
+
+            NoticeEntity noticeEntity = noticeService.getPost(postNum)
                     .orElseThrow(() -> {
                         throw new IllegalStateException("잘못된 공지사항 접근");
                     });
@@ -35,6 +38,7 @@ public class NoticeController {
 
             return "fragment/notice/notice-detail";
         } else {
+            int nowPage = DigitValidator.isDigit(page) ? Integer.parseInt(page) : 1;
             model.addAttribute("posts", noticeService.getPosts(pageGenerator.getNowPage(nowPage) - 1));
             model.addAttribute("startPage", pageGenerator.getStartPage(nowPage));
             model.addAttribute("lastPage", pageGenerator.getLastPage(nowPage));

@@ -1,5 +1,6 @@
 package com.joebrooks.mapshotimageapi.presentation;
 
+import com.joebrooks.mapshotimageapi.global.util.DigitValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,12 @@ public class ManualController {
     }
 
     @GetMapping("/{page}")
-    public String showManual(Model model, @PathVariable(value = "page", required = false) Optional<Integer> page){
-        int manualNum = page.orElse(1);
+    public String showManual(Model model, @PathVariable(value = "page", required = false) Optional<String> page){
+        int manualNum = 1;
+
+        if(page.isPresent() && DigitValidator.isDigit(page.get())){
+            manualNum = Integer.parseInt(page.get());
+        }
 
         model.addAttribute("manual", ManualType.values());
         model.addAttribute("pageNumber", manualNum);
