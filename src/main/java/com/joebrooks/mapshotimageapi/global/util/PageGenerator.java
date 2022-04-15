@@ -9,25 +9,29 @@ import org.springframework.stereotype.Component;
 public class PageGenerator {
 
     private final NoticeService noticeService;
+    private int nowPage;
 
-    private int getTotalPage(){
-        return Math.max((int) (noticeService.getSize() / 10), 1);
-    }
-
-    public int getNowPage(int nowPage){
+    public void init(int nowPage){
         nowPage = Math.max(nowPage, 1);
         nowPage = Math.min(nowPage, getTotalPage());
+        this.nowPage = nowPage;
+    }
 
-        return nowPage;
+    private int getTotalPage(){
+        return (int) ((noticeService.getSize() / 10) + 1);
+    }
+
+    public int getNowPage(){
+        return this.nowPage;
     }
 
 
-    public int getStartPage(int nowPage){
-        return Math.max((getNowPage(nowPage)) / 10, 1);
+    public int getStartPage(){
+        return Math.max(nowPage / 10, 1);
     }
 
-    public int getLastPage(int nowPage){
-        return Math.min(getStartPage(nowPage) + 10, getTotalPage());
+    public int getLastPage(){
+        return Math.min(((nowPage / 10) + 1) * 10, getTotalPage());
     }
 
 }

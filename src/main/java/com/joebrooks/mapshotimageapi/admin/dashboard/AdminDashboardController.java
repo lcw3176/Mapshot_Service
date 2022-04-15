@@ -21,11 +21,13 @@ public class AdminDashboardController {
     @GetMapping
     public String showAdminPage(Model model, @RequestParam(name = "page", required = false, defaultValue = "1") String page){
         int nowPage = DigitValidator.isDigit(page) ? Integer.parseInt(page) : 1;
+        pageGenerator.init(nowPage);
+        int index = pageGenerator.getNowPage() - 1;
 
-        model.addAttribute("posts", noticeService.getPosts(pageGenerator.getNowPage(nowPage) - 1));
-        model.addAttribute("startPage", pageGenerator.getStartPage(nowPage));
-        model.addAttribute("lastPage", pageGenerator.getLastPage(nowPage));
-        model.addAttribute("nowPage", pageGenerator.getNowPage(nowPage));
+        model.addAttribute("posts", noticeService.getPosts(index));
+        model.addAttribute("startPage", pageGenerator.getStartPage());
+        model.addAttribute("lastPage", pageGenerator.getLastPage());
+        model.addAttribute("nowPage", pageGenerator.getNowPage());
 
         model.addAttribute("todayUser", 1200);
         model.addAttribute("totalUser", 24000);
