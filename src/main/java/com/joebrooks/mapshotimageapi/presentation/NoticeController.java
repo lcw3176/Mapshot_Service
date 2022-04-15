@@ -20,11 +20,12 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @GetMapping
-    public String showNoticeList(@RequestParam(name = "post", required = false) Optional<String> post,
+    public String showNotices(@RequestParam(name = "post", required = false) Optional<Long> post,
+                              @RequestParam(name = "page", required = false, defaultValue = "1") Integer nowPage,
                                  Model model){
 
-        if(post.isPresent() && DigitValidationUtil.isDigit(post.get())){
-            NoticeEntity noticeEntity = noticeService.getPost(Long.parseLong(post.get()))
+        if(post.isPresent()){
+            NoticeEntity noticeEntity = noticeService.getPost(post.get())
                     .orElseThrow(() -> {
                         throw new IllegalStateException("잘못된 공지사항 접근");
                     });
@@ -33,7 +34,18 @@ public class NoticeController {
 
             return "fragment/notice/notice-detail";
         } else {
-            model.addAttribute("posts", noticeService.getPosts(0));
+            int totalPage = Math.max((int) (noticeService.getSize() / 10), 1);
+
+            nowPage = nowPage < 1 ? 1 : nowPage;
+            nowPage = nowPage > totalPage ? totalPage : nowPage;
+
+            int startPage = Math.max((nowPage) / 10, 1);
+            int lastPage = Math.min(startPage + 10, totalPage);
+
+            model.addAttribute("posts", noticeService.getPosts(nowPage - 1));
+            model.addAttribute("startPage", startPage);
+            model.addAttribute("lastPage", lastPage);
+            model.addAttribute("nowPage", nowPage);
 
             return "fragment/notice/notice";
         }
