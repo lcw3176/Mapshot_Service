@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 @Service
@@ -15,9 +16,20 @@ import java.util.Optional;
 public class NoticeService {
 
     private final NoticeRepository noticeRepository;
+    private long noticeSize;
+
+    @PostConstruct
+    private void init(){
+        fetchSize();
+    }
+
+    private void fetchSize(){
+        noticeSize = noticeRepository.count();
+    }
 
     public void addPost(NoticeEntity noticeEntity){
         noticeRepository.save(noticeEntity);
+        fetchSize();
     }
 
     public Page<NoticeEntity> getPosts(int index){
@@ -34,5 +46,9 @@ public class NoticeService {
 
     public void save(NoticeEntity noticeEntity){
         noticeRepository.save(noticeEntity);
+    }
+
+    public long getSize(){
+        return noticeSize;
     }
 }
