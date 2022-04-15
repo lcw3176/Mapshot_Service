@@ -1,6 +1,5 @@
 package com.joebrooks.mapshotimageapi.presentation;
 
-import com.joebrooks.mapshotimageapi.global.util.DigitValidationUtil;
 import com.joebrooks.mapshotimageapi.repository.notice.NoticeEntity;
 import com.joebrooks.mapshotimageapi.repository.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
