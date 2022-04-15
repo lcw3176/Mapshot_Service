@@ -1,5 +1,6 @@
 package com.joebrooks.mapshotimageapi.admin.dashboard;
 
+import com.joebrooks.mapshotimageapi.global.util.DigitValidator;
 import com.joebrooks.mapshotimageapi.global.util.PageGenerator;
 import com.joebrooks.mapshotimageapi.repository.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,8 @@ public class AdminDashboardController {
     private final PageGenerator pageGenerator;
 
     @GetMapping
-    public String showAdminPage(Model model, @RequestParam(name = "page", required = false, defaultValue = "1") Integer nowPage){
+    public String showAdminPage(Model model, @RequestParam(name = "page", required = false, defaultValue = "1") String page){
+        int nowPage = DigitValidator.isDigit(page) ? Integer.parseInt(page) : 1;
 
         model.addAttribute("posts", noticeService.getPosts(pageGenerator.getNowPage(nowPage) - 1));
         model.addAttribute("startPage", pageGenerator.getStartPage(nowPage));
