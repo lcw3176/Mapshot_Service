@@ -13,13 +13,20 @@ public class ChromeDriverConfig {
         String chromeDriverPath = "CHROMEDRIVER_PATH";
         String chromeBinaryPath = "CHROME_BINARY";
 
-        System.setProperty("webdriver.chrome.driver", System.getenv(chromeDriverPath));
         ChromeOptions options = new ChromeOptions();
+
+        if(System.getProperty("os.name").toLowerCase().contains("win")){
+            System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
+        } else {
+            System.setProperty("webdriver.chrome.driver", System.getenv(chromeDriverPath));
+            options.setBinary(System.getenv(chromeBinaryPath));
+        }
+
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-dev-shm-usage");
-        options.setBinary(System.getenv(chromeBinaryPath));
+        options.addArguments("--incognito");
 
         return options;
     }
