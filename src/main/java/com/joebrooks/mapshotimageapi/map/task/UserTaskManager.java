@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotimageapi.map.user;
+package com.joebrooks.mapshotimageapi.map.task;
 
 import com.joebrooks.mapshotimageapi.driver.DriverService;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +16,35 @@ import java.util.Queue;
 @Slf4j
 public class UserTaskManager {
 
-    private final Queue<UserMapRequest> taskQueue = new LinkedList<>();
+    private volatile Queue<UserMapRequest> taskQueue = new LinkedList<>();
     private final DriverService driverService;
     private final ApplicationEventPublisher publisher;
 
+    @PostConstruct
+    private void init(){
+        Thread thread = new Thread(() -> {
+            while(true){
+                while (taskQueue.size() >= 1){
+                    try{
+                        UserMapRequest request = taskQueue.poll();
+                        publisher.publishEvent(UserMapResponse.builder()
+                                        .index(0)
+                                        .imageData(driverService.capturePage(request.getUri()))
+                                        .build());
+
+                    } catch (Exception e){
+                        log.error("지도 캡쳐 에러", e);
+                    }
+
+                }
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
+    }
 
     public void addTask(UserMapRequest request) {
         taskQueue.add(request);
-        log.info("애드 : {}", taskQueue.size());
     }
 
     public int getWaiterCount(){
@@ -37,23 +58,6 @@ public class UserTaskManager {
                 break;
             }
         }
-    }
-
-
-    public void run() {
-        try{
-            log.info("큐 인출");
-            UserMapRequest request = taskQueue.poll();
-            publisher.publishEvent(UserMapResponse.builder()
-                    .imageComplete(true)
-                    .imageData(driverService.capturePage(request.getUri()))
-                    .build());
-
-            log.info("퍼블리시");
-        } catch (Exception e){
-            log.error("getImage 에러", e);
-        }
-
     }
 
 }
