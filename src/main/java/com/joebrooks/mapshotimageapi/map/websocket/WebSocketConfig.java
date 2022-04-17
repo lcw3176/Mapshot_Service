@@ -1,6 +1,5 @@
-package com.joebrooks.mapshotimageapi.map.user;
+package com.joebrooks.mapshotimageapi.map.websocket;
 
-import com.joebrooks.mapshotimageapi.kakaoMap.KakaoMapHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -12,12 +11,12 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    private final KakaoMapHandler kakaoMapHandler;
+    private final UserSocketHandler userSocketHandler;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(kakaoMapHandler, "/map/gen")
-                .setAllowedOrigins("*")
+        registry.addHandler(userSocketHandler, "/map/gen")
+                .setAllowedOrigins("http://127.0.0.1:5500")
                 .withSockJS();
     }
 }
