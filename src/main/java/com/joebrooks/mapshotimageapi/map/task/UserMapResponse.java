@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotimageapi.map.user;
+package com.joebrooks.mapshotimageapi.map.task;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -15,14 +15,9 @@ public class UserMapResponse {
 
     private WebSocketSession session;
 
-    @JsonProperty("left_count")
-    private int leftCount;
+    @JsonProperty("index")
+    private int index;
 
-    @JsonProperty("is_my_turn")
-    private boolean isMyTurn;
-
-    @JsonProperty("image_complete")
-    private boolean imageComplete;
 
     @JsonProperty("image_data")
     private byte[] imageData;

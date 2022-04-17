@@ -1,7 +1,10 @@
-package com.joebrooks.mapshotimageapi.map.user;
+package com.joebrooks.mapshotimageapi.map.task;
 
 import com.joebrooks.mapshotimageapi.map.CompanyType;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,6 +23,9 @@ public class UserMapRequest {
     private CompanyType companyType;
     private WebSocketSession session;
 
+    public void setSession(WebSocketSession session){
+        this.session = session;
+    }
 
     public UriComponents getUri(){
 
