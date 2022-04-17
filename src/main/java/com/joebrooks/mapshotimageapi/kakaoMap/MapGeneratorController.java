@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/map/kakao/gen")
+@RequestMapping("/map/gen/kakao")
 public class MapGeneratorController {
 
     @GetMapping

@@ -1,5 +1,6 @@
-package com.joebrooks.mapshotimageapi.kakaoMap;
+package com.joebrooks.mapshotimageapi.map.user;
 
+import com.joebrooks.mapshotimageapi.kakaoMap.KakaoMapHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -15,7 +16,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(kakaoMapHandler, "/map/kakao")
+        registry.addHandler(kakaoMapHandler, "/map/gen")
                 .setAllowedOrigins("*")
                 .withSockJS();
     }

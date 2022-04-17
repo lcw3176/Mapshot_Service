@@ -52,4 +52,5 @@ public class ChromeDriverExtends extends ChromeDriver {
         Object result = ((Map<String, ?>)response).get("result");
         return ((Map<String, ?>)result).get("value");
     }
+
 }
