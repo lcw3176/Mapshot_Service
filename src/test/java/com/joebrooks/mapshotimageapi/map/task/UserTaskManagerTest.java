@@ -1,7 +1,8 @@
-package com.joebrooks.mapshotimageapi.map.user;
+package com.joebrooks.mapshotimageapi.map.task;
 
 import com.joebrooks.mapshotimageapi.driver.DriverService;
 import com.joebrooks.mapshotimageapi.map.CompanyType;
+import com.joebrooks.mapshotimageapi.map.websocket.UserSocketHandler;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +12,6 @@ import org.springframework.web.util.UriComponents;
 import java.io.IOException;
 import static org.awaitility.Awaitility.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -46,7 +46,7 @@ class UserTaskManagerTest {
                 .build());
 
         await().until(() -> userTaskManager.getWaiterCount() == 0);
-        verify(userSocketHandler, times(1)).sendMapToUser(any(UserMapResponse.class));
+        verify(userSocketHandler, times(1)).afterMapGenerationCompleted(any(UserMapResponse.class));
 
     }
 }
