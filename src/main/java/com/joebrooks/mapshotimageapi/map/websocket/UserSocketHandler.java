@@ -34,7 +34,7 @@ public class UserSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
         UserMapRequest request = mapper.readValue(message.getPayload(), UserMapRequest.class);
         request.setSession(session);
-//        userTaskManager.addTask(request);
+        userTaskManager.addTask(request);
 
 
         UserMapResponse response = UserMapResponse.builder()
