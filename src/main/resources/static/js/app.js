@@ -1,9 +1,7 @@
 window.addEventListener("load", function () {
     var naverProfile = new mapshot.profile.Naver();
-    naverProfile.setKey("ny5d4sdo0e");
-    var proxyUrl = "https://mapshot.herokuapp.com/map/kakao";
     var kakaoProfile = new mapshot.profile.Kakao();
-    kakaoProfile.setProxyUrl(proxyUrl);
+
     var coor = new mapshot.coors.LatLng();
     var naverTile = new mapshot.maps.NaverTile();
     var kakaoTile = new mapshot.maps.KakaoTile();
@@ -16,10 +14,6 @@ window.addEventListener("load", function () {
     var progressBar = document.getElementById("progressBar");
 
     var isKakaoRun = false;
-
-    var proxlServerWakpeUp = new XMLHttpRequest();
-    proxlServerWakpeUp.open("GET", "https://mapshot.herokuapp.com/heroku/wakeup")
-    proxlServerWakpeUp.send();
 
     // 카카오 지도 설정
 
@@ -57,7 +51,10 @@ window.addEventListener("load", function () {
         if (e.button == 2 && rectangle != null) {
             rectangle.setMap(null);
         }
-    }; // 카카오 지도 설정 끝
+    };
+    // 카카오 지도 설정 끝
+
+
     // 맵샷 네이버 이벤트 리스너 정의
 
 
@@ -74,6 +71,7 @@ window.addEventListener("load", function () {
         progressBar.setAttribute("class", "progress is-danger");
         document.getElementById("captureStatus").innerText = progressBar.value + "/" + progressBar.max + " 수집 완료";
     }); // 네이버 이벤트 리스너 정의 끝
+
     // 맵샷 카카오 이벤트 리스너 정의
 
     document.body.addEventListener("kakaoTileOnProgress", function (e) {
@@ -84,7 +82,8 @@ window.addEventListener("load", function () {
     document.body.addEventListener("kakaoTileOnError", function (e) {
         document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
         progressBar.setAttribute("value", 0);
-    }); // 맵샷 카카오 이벤트 리스너 정의 끝
+    });
+    // 맵샷 카카오 이벤트 리스너 정의 끝
 
     setZoomLevel = function setZoomLevel(_km, id) {
         var matches = document.getElementsByClassName("zoom");
@@ -215,42 +214,32 @@ window.addEventListener("load", function () {
         }
 
         var fileName = document.getElementById("bunzi-address").innerText;
-        var waitCount = 0;
+
         progressBar.removeAttribute("value");
         progressBar.setAttribute("class", "progress is-warning");
         document.getElementById("captureStatus").innerText = "서버 요청 대기중입니다. 곧 완료됩니다.";
         isKakaoRun = true;
 
-        function onWaitFunc(responseText) {
-            waitCount++;
 
-            if (waitCount >= 10) {
-                document.getElementById("captureStatus").innerHTML = "사용자가 많아 대기중입니다. 조금만 더 기다려주세요";
+        progressBar.setAttribute("class", "progress is-info");
+        document.getElementById("captureStatus").innerText = "서버에 요청중입니다. 잠시 기다려주세요";
+
+        kakaoTile.drawPost(kakaoProfile, function (blob) {
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                navigator.msSaveBlob(blob, "mapshot_" + fileName + ".jpg");
+                document.getElementById("captureStatus").innerText = "완료되었습니다.";
+            } else {
+                url = URL.createObjectURL(blob);
+                var tag = document.getElementById("resultHref");
+                tag.href = url;
+                tag.download = "mapshot_" + fileName + ".jpg";
+                var span = document.getElementById("resultSpan");
+                span.innerHTML = "mapshot_" + fileName + ".jpg";
+                document.getElementById("captureStatus").innerText = "완료되었습니다. 생성된 링크를 확인하세요";
             }
-        }
-
-        kakaoTile.wait(proxyUrl, "true", 2000, onWaitFunc, function () {
-            progressBar.setAttribute("class", "progress is-info");
-            document.getElementById("captureStatus").innerText = "서버에 요청중입니다. 잠시 기다려주세요";
-            kakaoTile.drawPost(kakaoProfile, function (blob) {
-                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                    navigator.msSaveBlob(blob, "mapshot_" + fileName + ".jpg");
-                    document.getElementById("captureStatus").innerText = "완료되었습니다.";
-                } else {
-                    url = URL.createObjectURL(blob);
-                    var tag = document.getElementById("resultHref");
-                    tag.href = url;
-                    tag.download = "mapshot_" + fileName + ".jpg";
-                    var span = document.getElementById("resultSpan");
-                    span.innerHTML = "mapshot_" + fileName + ".jpg";
-                    document.getElementById("captureStatus").innerText = "완료되었습니다. 생성된 링크를 확인하세요";
-                }
-
-                progressBar.setAttribute("value", 100);
-                isKakaoRun = false;
-            });
+            progressBar.setAttribute("value", 100);
+            isKakaoRun = false;
         });
-
 
     };
 
