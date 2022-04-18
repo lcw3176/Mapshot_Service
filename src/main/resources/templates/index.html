@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-hello
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<th:block layout:fragment="layout_content">
+  <script type="text/javascript"
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=46d97694c5e976ec8af172aebc94c130&libraries=services"></script>
+  <script type="text/javascript" th:src="@{/js/canvas-toBlob.js}"></script>
+  <script type="text/javascript" th:src="@{/js/mapshot.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/app.js}"></script>
+  <script type="text/javascript" th:src="@{/js/map.js}"></script>
 
-</html>
+  <div class="container is-fluid mt-5 menu">
+
+  </div>
+</th:block>
+
