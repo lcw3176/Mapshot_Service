@@ -24,31 +24,34 @@ public class UserTaskManager {
     private void init(){
         Thread thread = new Thread(() -> {
             while(true){
-                while (taskQueue.size() >= 1){
+                while(taskQueue.size() >= 1) {
                     try{
                         UserMapRequest request = taskQueue.poll();
                         publisher.publishEvent(UserMapResponse.builder()
-                                        .index(0)
-                                        .imageData(driverService.capturePage(request.getUri()))
-                                        .build());
-
+                                .index(0)
+                                .imageData(driverService.capturePage(request.getUri()))
+                                .isDone(true)
+                                .session(request.getSession())
+                                .build());
                     } catch (Exception e){
                         log.error("지도 캡쳐 에러", e);
                     }
+                }
 
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    log.error("지도 캡쳐 에러", e);
                 }
             }
         });
-        thread.setDaemon(true);
+
         thread.start();
     }
 
+
     public void addTask(UserMapRequest request) {
         taskQueue.add(request);
-    }
-
-    public int getWaiterCount(){
-        return taskQueue.size();
     }
 
     public void removeSessionIfPresent(WebSocketSession session){
