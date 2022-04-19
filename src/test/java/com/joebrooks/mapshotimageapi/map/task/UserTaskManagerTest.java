@@ -10,6 +10,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.util.UriComponents;
 
 import java.io.IOException;
+import java.time.Duration;
+
 import static org.awaitility.Awaitility.*;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -45,7 +47,7 @@ class UserTaskManagerTest {
                 .session(null)
                 .build());
 
-        await().until(() -> userTaskManager.getWaiterCount() == 0);
+        await().during(Duration.ofSeconds(10));
         verify(userSocketHandler, times(1)).afterMapGenerationCompleted(any(UserMapResponse.class));
 
     }

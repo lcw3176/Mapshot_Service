@@ -41,17 +41,22 @@ public class UserSocketHandler extends TextWebSocketHandler {
                 .index(sessionList.size() - 1)
                 .build();
 
-        session.sendMessage(new TextMessage(mapper.writeValueAsString(response)));
+        if(session.isOpen()){
+            session.sendMessage(new TextMessage(mapper.writeValueAsString(response)));
+        }
+
     }
 
     @EventListener
     public void afterMapGenerationCompleted(UserMapResponse response) throws IOException {
-        response.getSession().sendMessage(new TextMessage(mapper.writeValueAsString(response)));
-        sessionList.remove(response.getSession());
+        if(response.getSession().isOpen()){
+            response.getSession().sendMessage(new TextMessage(mapper.writeValueAsString(response)));
+            response.getSession().close();
+        }
 
         for(int i = 0; i < sessionList.size(); i++){
             UserMapResponse refreshedResponse = UserMapResponse.builder()
-                    .index(sessionList.size() - 1)
+                    .index(sessionList.indexOf(sessionList.get(i)))
                     .build();
 
             sessionList.get(i).sendMessage(new TextMessage(mapper.writeValueAsString(refreshedResponse)));
