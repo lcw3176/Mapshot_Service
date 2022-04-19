@@ -26,7 +26,7 @@ public class NoticeEntity extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private NoticeType noticeType;
 
-    @Column(name = "content")
+    @Column(name = "content", length = 2000)
     private String content;
 
     public void changeTitle(String title){
