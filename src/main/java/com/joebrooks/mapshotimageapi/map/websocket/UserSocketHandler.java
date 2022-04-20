@@ -1,9 +1,8 @@
 package com.joebrooks.mapshotimageapi.map.websocket;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.joebrooks.mapshotimageapi.map.task.UserMapRequest;
-import com.joebrooks.mapshotimageapi.map.task.UserMapResponse;
-import com.joebrooks.mapshotimageapi.map.task.UserTaskManager;
+import com.joebrooks.mapshotimageapi.map.TaskManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -22,7 +21,7 @@ import java.util.LinkedList;
 public class UserSocketHandler extends TextWebSocketHandler {
 
     private final LinkedList<WebSocketSession> sessionList = new LinkedList<>();
-    private final UserTaskManager userTaskManager;
+    private final TaskManager taskManager;
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
@@ -31,42 +30,71 @@ public class UserSocketHandler extends TextWebSocketHandler {
     }
 
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-        UserMapRequest request = mapper.readValue(message.getPayload(), UserMapRequest.class);
-        request.setSession(session);
-        userTaskManager.addTask(request);
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) {
+        UserMapRequest request;
 
-
-        UserMapResponse response = UserMapResponse.builder()
-                .index(sessionList.size() - 1)
-                .build();
-
-        if(session.isOpen()){
-            session.sendMessage(new TextMessage(mapper.writeValueAsString(response)));
+        try{
+            request = mapper.readValue(message.getPayload(), UserMapRequest.class);
+            request.setSession(session);
+        } catch (JsonProcessingException e){
+            log.error("유효하지 않은 지도 포맷", e);
+            return;
         }
 
+        sendWaitNumberToUser(session);
+        taskManager.addRequest(request);
+        taskManager.execute();
     }
 
     @EventListener
-    public void afterMapGenerationCompleted(UserMapResponse response) throws IOException {
+    public void sendCompletedMapImage(UserMapResponse response){
         if(response.getSession().isOpen()){
-            response.getSession().sendMessage(new TextMessage(mapper.writeValueAsString(response)));
-            response.getSession().close();
-        }
-
-        for(int i = 0; i < sessionList.size(); i++){
-            UserMapResponse refreshedResponse = UserMapResponse.builder()
-                    .index(sessionList.indexOf(sessionList.get(i)))
-                    .build();
-
-            sessionList.get(i).sendMessage(new TextMessage(mapper.writeValueAsString(refreshedResponse)));
+            try {
+                response.getSession().sendMessage(new TextMessage(mapper.writeValueAsString(response)));
+                response.getSession().close();
+            } catch (IOException e) {
+                log.error("지도 전송 실패", e);
+            } finally {
+                sendWaitNumberToLeftUsers();
+            }
         }
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         super.afterConnectionClosed(session, status);
-        userTaskManager.removeSessionIfPresent(session);
         sessionList.remove(session);
+        taskManager.removeRequest(session);
+    }
+
+    private void sendWaitNumberToUser(WebSocketSession session) {
+        UserMapResponse refreshedResponse = UserMapResponse.builder()
+                .index(sessionList.indexOf(session))
+                .done(false)
+                .build();
+
+        try{
+            session.sendMessage(new TextMessage(mapper.writeValueAsString(refreshedResponse)));
+        } catch (IOException e){
+            log.error("대기열 알람 전송 에러", e);
+        }
+
+    }
+
+
+    private void sendWaitNumberToLeftUsers() {
+        for(int i = 0; i < sessionList.size(); i++){
+            UserMapResponse refreshedResponse = UserMapResponse.builder()
+                    .index(sessionList.indexOf(sessionList.get(i)))
+                    .done(false)
+                    .build();
+
+            try{
+                sessionList.get(i).sendMessage(new TextMessage(mapper.writeValueAsString(refreshedResponse)));
+            } catch (IOException e){
+                log.error("대기열 알람 전송 에러", e);
+            }
+
+        }
     }
 }
