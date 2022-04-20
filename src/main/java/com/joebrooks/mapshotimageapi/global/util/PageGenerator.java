@@ -18,7 +18,7 @@ public class PageGenerator {
     }
 
     private int getTotalPage(){
-        return (int) ((noticeService.getSize() / 10) + 1);
+        return (int) (((noticeService.getSize() - 1) / 10) + 1);
     }
 
     public int getNowPage(){
