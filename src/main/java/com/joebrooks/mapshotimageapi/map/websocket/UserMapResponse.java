@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotimageapi.map.task;
+package com.joebrooks.mapshotimageapi.map.websocket;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,10 +20,10 @@ public class UserMapResponse {
     @JsonProperty("index")
     private int index;
 
-    @JsonProperty("is_done")
-    private boolean isDone;
+    @JsonProperty("done")
+    private boolean done;
 
-    @JsonProperty("image_data")
+    @JsonProperty("imageData")
     private byte[] imageData;
 
 }

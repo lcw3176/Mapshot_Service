@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotimageapi.map.task;
+package com.joebrooks.mapshotimageapi.map.websocket;
 
 import com.joebrooks.mapshotimageapi.map.CompanyType;
 import lombok.AllArgsConstructor;
