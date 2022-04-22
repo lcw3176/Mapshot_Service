@@ -21,7 +21,6 @@
 
 ### Infra
 - Oracle Cloud Server(CentOS 8), Cloud Flare(https, domain)
-- Nginx(무중단 배포)
 - Jenkins, Github WebHook
 - Slack API
 
