@@ -27,7 +27,7 @@ public class UserMapRequest {
     public UriComponents getUri(){
 
         return UriComponentsBuilder
-                .fromPath("http://localhost:8080/map/gen/" + this.companyType.getType())
+                .fromPath("https://richshrimp.tk/map/gen/" + this.companyType.getType())
                 .queryParam("layerMode", this.layerMode)
                 .queryParam("lat", this.lat)
                 .queryParam("lng", this.lng)
