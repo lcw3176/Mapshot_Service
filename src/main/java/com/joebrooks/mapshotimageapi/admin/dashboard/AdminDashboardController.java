@@ -29,9 +29,6 @@ public class AdminDashboardController {
         model.addAttribute("lastPage", pageGenerator.getLastPage());
         model.addAttribute("nowPage", pageGenerator.getNowPage());
 
-        model.addAttribute("todayUser", 1200);
-        model.addAttribute("totalUser", 24000);
-
         return "fragment/admin/admin-board";
     }
 
