@@ -16,12 +16,12 @@ public class ManualController {
     @GetMapping
     public String setPageAndRedirect(){
 
-        return "redirect:/manual/1";
+        return "redirect:/manual/0";
     }
 
     @GetMapping("/{page}")
     public String showManual(Model model, @PathVariable(value = "page", required = false) Optional<String> page){
-        int manualNum = 1;
+        int manualNum = 0;
 
         if(page.isPresent() && DigitValidator.isDigit(page.get())){
             manualNum = Integer.parseInt(page.get());
@@ -34,6 +34,7 @@ public class ManualController {
     }
 
      private enum ManualType {
+         Zero("사용 전"),
          One("좌표 탐색"),
          Two("반경 설정"),
          Three("지도 종류"),
