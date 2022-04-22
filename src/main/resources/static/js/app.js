@@ -4,7 +4,6 @@ window.addEventListener("load", function () {
 
     var coor = new mapshot.coors.LatLng();
     var naverTile = new mapshot.maps.NaverTile();
-    var kakaoTile = new mapshot.maps.KakaoTile();
     var map = new Map();
     var rectangle = null;
     var traceMode = false;
@@ -56,8 +55,6 @@ window.addEventListener("load", function () {
 
 
     // 맵샷 네이버 이벤트 리스너 정의
-
-
     document.body.addEventListener("naverTileOnLoadStart", function (e) {
         progressBar.max = e.detail.total;
         progressBar.value = 0;
@@ -72,18 +69,6 @@ window.addEventListener("load", function () {
         document.getElementById("captureStatus").innerText = progressBar.value + "/" + progressBar.max + " 수집 완료";
     }); // 네이버 이벤트 리스너 정의 끝
 
-    // 맵샷 카카오 이벤트 리스너 정의
-
-    document.body.addEventListener("kakaoTileOnProgress", function (e) {
-        progressBar.max = 100;
-        document.getElementById("captureStatus").innerText = e.detail.percentage + " / 100";
-        progressBar.setAttribute("value", e.detail.percentage);
-    });
-    document.body.addEventListener("kakaoTileOnError", function (e) {
-        document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
-        progressBar.setAttribute("value", 0);
-    });
-    // 맵샷 카카오 이벤트 리스너 정의 끝
 
     setZoomLevel = function setZoomLevel(_km, id) {
         var matches = document.getElementsByClassName("zoom");
@@ -217,33 +202,79 @@ window.addEventListener("load", function () {
 
         progressBar.removeAttribute("value");
         progressBar.setAttribute("class", "progress is-warning");
-        document.getElementById("captureStatus").innerText = "서버 요청 대기중입니다. 곧 완료됩니다.";
+        document.getElementById("captureStatus").innerText = "서버에 요청중입니다. 잠시 기다려주세요";
         isKakaoRun = true;
 
 
-        progressBar.setAttribute("class", "progress is-info");
-        document.getElementById("captureStatus").innerText = "서버에 요청중입니다. 잠시 기다려주세요";
+        var sock = new SockJS("https://richshrimp.tk/map/gen");
+        sock.onopen = function() {
+            sock.send(kakaoProfile.getParamsToJson());
+        };
 
-        kakaoTile.drawPost(kakaoProfile, function (blob) {
-            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                navigator.msSaveBlob(blob, "mapshot_" + fileName + ".jpg");
-                document.getElementById("captureStatus").innerText = "완료되었습니다.";
+        // document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
+        // progressBar.setAttribute("value", 0);
+
+        sock.onmessage = function(message) {
+            var json = JSON.parse(message.data);
+
+            if(json.done){
+                var blob = b64toBlob(json.imageData, 'image/jpeg');
+
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                    navigator.msSaveBlob(blob, "mapshot_" + fileName + ".jpg");
+                    document.getElementById("captureStatus").innerText = "완료되었습니다.";
+                } else {
+                    url = URL.createObjectURL(blob);
+                    var tag = document.getElementById("resultHref");
+                    tag.href = url;
+                    tag.download = "mapshot_" + fileName + ".jpg";
+                    var span = document.getElementById("resultSpan");
+                    span.innerHTML = "mapshot_" + fileName + ".jpg";
+                    document.getElementById("captureStatus").innerText = "완료되었습니다. 생성된 링크를 확인하세요";
+                }
+                progressBar.setAttribute("value", 100);
+                isKakaoRun = false;
             } else {
-                url = URL.createObjectURL(blob);
-                var tag = document.getElementById("resultHref");
-                tag.href = url;
-                tag.download = "mapshot_" + fileName + ".jpg";
-                var span = document.getElementById("resultSpan");
-                span.innerHTML = "mapshot_" + fileName + ".jpg";
-                document.getElementById("captureStatus").innerText = "완료되었습니다. 생성된 링크를 확인하세요";
+                if(json.index === 0){
+                    document.getElementById("captureStatus").innerText =
+                        "지도 생성중 입니다. 곧 완료됩니다.";
+                } else {
+                    document.getElementById("captureStatus").innerText =
+                        json.index + " 명의 유저가 생성 대기중 입니다.";
+                }
             }
-            progressBar.setAttribute("value", 100);
-            isKakaoRun = false;
-        });
+        };
+    }
 
-    };
+    function b64toBlob(b64Data, contentType, sliceSize) {
+
+        if( b64Data == "" || b64Data == undefined ) return null;
+
+        contentType = contentType || '';
+        sliceSize = sliceSize || 512;
+
+        var byteCharacters = atob(b64Data);
+        var byteArrays = [];
+
+        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            var slice = byteCharacters.slice(offset, offset + sliceSize);
+            var byteNumbers = new Array(slice.length);
+
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            var byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+
+        return new Blob(byteArrays, {type: contentType});
+    }
+
+
 
     function naverCapture() {
+        progressBar.setAttribute("class", "progress is-warning");
         naverProfile.setLevel(mapRadius);
         naverTile.draw(coor, mapRadius, naverProfile, function (canvas) {
             var fileName = document.getElementById("bunzi-address").innerText;
@@ -265,6 +296,7 @@ window.addEventListener("load", function () {
             }
         });
     };
+
 
     document.getElementById("default_click_level").click();
     document.getElementById("default_click_map").click();

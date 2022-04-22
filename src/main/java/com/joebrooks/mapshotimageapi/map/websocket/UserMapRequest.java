@@ -1,15 +1,12 @@
 package com.joebrooks.mapshotimageapi.map.websocket;
 
 import com.joebrooks.mapshotimageapi.map.CompanyType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -30,7 +27,7 @@ public class UserMapRequest {
     public UriComponents getUri(){
 
         return UriComponentsBuilder
-                .fromPath("http://localhost:8080/map/gen/" + this.companyType.getType())
+                .fromPath("https://richshrimp.tk/map/gen/" + this.companyType.getType())
                 .queryParam("layerMode", this.layerMode)
                 .queryParam("lat", this.lat)
                 .queryParam("lng", this.lng)
