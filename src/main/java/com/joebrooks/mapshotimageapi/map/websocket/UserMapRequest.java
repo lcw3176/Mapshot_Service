@@ -31,7 +31,7 @@ public class UserMapRequest {
 
         return UriComponentsBuilder
                 .newInstance()
-                .scheme(uri.getScheme())
+                .scheme("https")
                 .host(uri.getHost())
                 .path("/map/gen/" + this.companyType.getType())
                 .queryParam("layerMode", this.layerMode)

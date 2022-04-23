@@ -64,6 +64,7 @@ public class UserSocketHandler extends TextWebSocketHandler {
         super.afterConnectionClosed(session, status);
         sessionList.remove(session);
         taskManager.removeRequest(session);
+        sendWaitCountToLeftUsers();
     }
 
     private void sendWaitCountToUser(WebSocketSession session) {
