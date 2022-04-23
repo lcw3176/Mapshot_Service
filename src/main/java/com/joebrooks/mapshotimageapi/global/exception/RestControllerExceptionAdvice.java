@@ -1,44 +1,29 @@
 package com.joebrooks.mapshotimageapi.global.exception;
 
-import com.joebrooks.mapshotimageapi.global.sns.IMessageClient;
+import com.joebrooks.mapshotimageapi.global.sns.SlackClient;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.ClientAbortException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.NoSuchSessionException;
-import org.openqa.selenium.WebDriverException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
+@Slf4j
 public class RestControllerExceptionAdvice {
 
-    private final IMessageClient iMessageClient;
-
-
-    @ExceptionHandler(NoSuchSessionException.class)
-    public void clientDisconnectedHandler(){
-
-    }
-
-    @ExceptionHandler({ClientAbortException.class, WebDriverException.class})
-    public void serverTimeOutHandler(){
-
-    }
+    private final SlackClient slackClient;
 
     @ExceptionHandler(Exception.class)
     public void exceptionHandler(Exception e) {
         int len = Math.min(ExceptionUtils.getStackTrace(e).length(), 1700);
 
         ExceptionResponse errorMessage = ExceptionResponse.builder()
-                .name(e.getClass().toString())
+                .name(e.getMessage())
                 .message(ExceptionUtils.getStackTrace(e).substring(0, len))
                 .build();
 
-        sendErrorMessage(errorMessage);
-    }
-
-    private void sendErrorMessage(ExceptionResponse error){
-        iMessageClient.sendMessage(error);
+        slackClient.sendMessage(errorMessage);
+        log.error(e.getMessage(), e);
     }
 }

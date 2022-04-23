@@ -1,6 +1,8 @@
 package com.joebrooks.mapshotimageapi.map;
 
 import com.joebrooks.mapshotimageapi.driver.DriverService;
+import com.joebrooks.mapshotimageapi.global.exception.ExceptionResponse;
+import com.joebrooks.mapshotimageapi.global.sns.SlackClient;
 import com.joebrooks.mapshotimageapi.map.websocket.UserMapRequest;
 import com.joebrooks.mapshotimageapi.map.websocket.UserMapResponse;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,8 @@ public class TaskManager {
     private final DriverService driverService;
     private static final Queue<UserMapRequest> requestQueue = new LinkedList<>();
     private final ApplicationEventPublisher publisher;
+    private final SlackClient slackClient;
+
 
     public void addRequest(UserMapRequest request){
         requestQueue.add(request);
@@ -50,6 +54,7 @@ public class TaskManager {
                         .build());
             } catch (Exception e) {
                 log.error("지도 캡쳐 에러", e);
+                slackClient.sendMessage("지도 캡쳐 에러", e);
                 publisher.publishEvent(UserMapResponse.builder()
                         .done(true)
                         .imageData(null)

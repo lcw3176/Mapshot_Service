@@ -1,7 +1,7 @@
 package com.joebrooks.mapshotimageapi.global.exception;
 
 import com.joebrooks.mapshotimageapi.admin.login.AdminLoginException;
-import com.joebrooks.mapshotimageapi.global.sns.IMessageClient;
+import com.joebrooks.mapshotimageapi.global.sns.SlackClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class ControllerExceptionAdvice {
 
-    private final IMessageClient iMessageClient;
 
+    private final SlackClient slackClient;
 
     @ExceptionHandler(AdminLoginException.class)
     public void adminLoginException(AdminLoginException adminLoginException){
@@ -24,18 +24,16 @@ public class ControllerExceptionAdvice {
                 adminLoginException.getAdminRequest().getNickName(),
                 adminLoginException.getAdminRequest().getPassword());
 
-        sendErrorMessage(adminLoginException);
+        makeErrorMessage(adminLoginException);
     }
 
-    @ExceptionHandler(IllegalStateException.class)
-    public void illegalStateException(IllegalStateException illegalStateException){
-        log.info("\nIllegalStateException" +
-                 "\n{}", illegalStateException.getMessage());
-
-        sendErrorMessage(illegalStateException);
+    @ExceptionHandler(Exception.class)
+    public void illegalStateException(Exception exception){
+        log.error(exception.getMessage(), exception);
+        makeErrorMessage(exception);
     }
 
-    private void sendErrorMessage(Exception e){
+    private void makeErrorMessage(Exception e){
         int len = Math.min(ExceptionUtils.getStackTrace(e).length(), 1700);
 
         ExceptionResponse errorMessage = ExceptionResponse.builder()
@@ -43,6 +41,6 @@ public class ControllerExceptionAdvice {
                 .message(ExceptionUtils.getStackTrace(e).substring(0, len))
                 .build();
 
-        iMessageClient.sendMessage(errorMessage);
+        slackClient.sendMessage(errorMessage);
     }
 }

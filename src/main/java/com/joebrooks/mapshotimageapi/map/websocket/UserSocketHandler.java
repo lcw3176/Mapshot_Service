@@ -2,6 +2,7 @@ package com.joebrooks.mapshotimageapi.map.websocket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.joebrooks.mapshotimageapi.global.sns.SlackClient;
 import com.joebrooks.mapshotimageapi.map.TaskManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ public class UserSocketHandler extends TextWebSocketHandler {
 
     private final LinkedList<WebSocketSession> sessionList = new LinkedList<>();
     private final TaskManager taskManager;
+    private final SlackClient slackClient;
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
@@ -38,6 +40,7 @@ public class UserSocketHandler extends TextWebSocketHandler {
             request.setSession(session);
         } catch (JsonProcessingException e){
             log.error("유효하지 않은 지도 포맷", e);
+            slackClient.sendMessage("유효하지 않은 지도 포맷", e);
             return;
         }
 
@@ -53,6 +56,7 @@ public class UserSocketHandler extends TextWebSocketHandler {
                 response.getSession().sendMessage(new TextMessage(mapper.writeValueAsString(response)));
             } catch (IOException e) {
                 log.error("지도 전송 실패", e);
+                slackClient.sendMessage("지도 전송 실패", e);
             } finally {
                 sendWaitCountToLeftUsers();
             }
@@ -77,6 +81,7 @@ public class UserSocketHandler extends TextWebSocketHandler {
             session.sendMessage(new TextMessage(mapper.writeValueAsString(refreshedResponse)));
         } catch (IOException e){
             log.error("대기열 알람 전송 에러", e);
+            slackClient.sendMessage("대기열 알람 전송 에러", e);
         }
 
     }
@@ -93,6 +98,7 @@ public class UserSocketHandler extends TextWebSocketHandler {
                 sessionList.get(i).sendMessage(new TextMessage(mapper.writeValueAsString(refreshedResponse)));
             } catch (IOException e){
                 log.error("대기열 알람 전송 에러", e);
+                slackClient.sendMessage("대기열 알람 전송 에러", e);
             }
 
         }
