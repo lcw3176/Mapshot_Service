@@ -2,10 +2,8 @@ package com.joebrooks.mapshotimageapi.global.exception;
 
 import com.joebrooks.mapshotimageapi.global.sns.IMessageClient;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.ClientAbortException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.NoSuchSessionException;
-import org.openqa.selenium.WebDriverException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -21,10 +19,10 @@ public class RestControllerExceptionAdvice {
 
     }
 
-    @ExceptionHandler({ClientAbortException.class, WebDriverException.class})
-    public void serverTimeOutHandler(){
-
-    }
+//    @ExceptionHandler({ClientAbortException.class, WebDriverException.class})
+//    public void serverTimeOutHandler(){
+//
+//    }
 
     @ExceptionHandler(Exception.class)
     public void exceptionHandler(Exception e) {
