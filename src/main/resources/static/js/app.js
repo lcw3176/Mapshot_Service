@@ -211,13 +211,18 @@ window.addEventListener("load", function () {
             sock.send(kakaoProfile.getParamsToJson());
         };
 
-        // document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
-        // progressBar.setAttribute("value", 0);
-
         sock.onmessage = function(message) {
             var json = JSON.parse(message.data);
 
             if(json.done){
+                if(json.imageData == null){
+                    document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
+                    progressBar.setAttribute("class", "progress is-danger");
+                    progressBar.setAttribute("value", 100);
+
+                    return;
+                }
+
                 var blob = b64toBlob(json.imageData, 'image/jpeg');
 
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {
