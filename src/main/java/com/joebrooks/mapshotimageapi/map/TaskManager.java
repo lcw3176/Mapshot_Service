@@ -38,19 +38,25 @@ public class TaskManager {
 
     @Async
     public void execute(){
-        try{
-            if(requestQueue.size() >= 1){
-                UserMapRequest request = requestQueue.poll();
+
+        if(requestQueue.size() >= 1) {
+            UserMapRequest request = requestQueue.poll();
+            try {
                 publisher.publishEvent(UserMapResponse.builder()
                         .done(true)
                         .imageData(driverService.capturePage(request.getUri()))
                         .index(0)
                         .session(request.getSession())
                         .build());
+            } catch (Exception e) {
+                log.error("지도 캡쳐 에러", e);
+                publisher.publishEvent(UserMapResponse.builder()
+                        .done(true)
+                        .imageData(null)
+                        .index(0)
+                        .session(request.getSession())
+                        .build());
             }
-        } catch (Exception e){
-            log.error("지도 캡쳐 에러", e);
-
         }
     }
 }
