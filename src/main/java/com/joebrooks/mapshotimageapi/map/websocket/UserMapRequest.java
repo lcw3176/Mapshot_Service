@@ -6,6 +6,8 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,9 +27,13 @@ public class UserMapRequest {
     }
 
     public UriComponents getUri(){
+        URI uri = session.getUri();
 
         return UriComponentsBuilder
-                .fromPath("/map/gen/" + this.companyType.getType())
+                .newInstance()
+                .scheme(uri.getScheme())
+                .host(uri.getHost())
+                .path("/map/gen/" + this.companyType.getType())
                 .queryParam("layerMode", this.layerMode)
                 .queryParam("lat", this.lat)
                 .queryParam("lng", this.lng)
