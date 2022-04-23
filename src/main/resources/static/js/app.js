@@ -206,7 +206,7 @@ window.addEventListener("load", function () {
         isKakaoRun = true;
 
 
-        var sock = new SockJS("https://richshrimp.tk/map/gen");
+        var sock = new SockJS("/map/gen");
         sock.onopen = function() {
             sock.send(kakaoProfile.getParamsToJson());
         };
