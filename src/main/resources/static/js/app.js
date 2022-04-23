@@ -219,6 +219,7 @@ window.addEventListener("load", function () {
                     document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
                     progressBar.setAttribute("class", "progress is-danger");
                     progressBar.setAttribute("value", 100);
+                    sock.close();
 
                     return;
                 }
@@ -239,6 +240,7 @@ window.addEventListener("load", function () {
                 }
                 progressBar.setAttribute("value", 100);
                 isKakaoRun = false;
+                sock.close();
             } else {
                 if(json.index === 0){
                     document.getElementById("captureStatus").innerText =

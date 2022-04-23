@@ -51,7 +51,6 @@ public class UserSocketHandler extends TextWebSocketHandler {
         if(response.getSession().isOpen()){
             try {
                 response.getSession().sendMessage(new TextMessage(mapper.writeValueAsString(response)));
-                response.getSession().close();
             } catch (IOException e) {
                 log.error("지도 전송 실패", e);
             } finally {
