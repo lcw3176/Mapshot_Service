@@ -1,19 +1,20 @@
 package com.joebrooks.mapshotimageapi.global.exception;
 
 import com.joebrooks.mapshotimageapi.admin.login.AdminLoginException;
+import com.joebrooks.mapshotimageapi.global.sns.IMessageClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.codehaus.groovy.control.messages.ExceptionMessage;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.ServletResponse;
 
 @ControllerAdvice
 @RequiredArgsConstructor
 @Slf4j
 public class ControllerExceptionAdvice {
+
+    private final IMessageClient iMessageClient;
+
 
     @ExceptionHandler(AdminLoginException.class)
     public void adminLoginException(AdminLoginException adminLoginException){
@@ -22,6 +23,8 @@ public class ControllerExceptionAdvice {
                  "\n pw: {}",
                 adminLoginException.getAdminRequest().getNickName(),
                 adminLoginException.getAdminRequest().getPassword());
+
+        sendErrorMessage(adminLoginException);
     }
 
     @ExceptionHandler(IllegalStateException.class)
@@ -29,5 +32,17 @@ public class ControllerExceptionAdvice {
         log.info("\nIllegalStateException" +
                  "\n{}", illegalStateException.getMessage());
 
+        sendErrorMessage(illegalStateException);
+    }
+
+    private void sendErrorMessage(Exception e){
+        int len = Math.min(ExceptionUtils.getStackTrace(e).length(), 1700);
+
+        ExceptionResponse errorMessage = ExceptionResponse.builder()
+                .name(e.getClass().toString())
+                .message(ExceptionUtils.getStackTrace(e).substring(0, len))
+                .build();
+
+        iMessageClient.sendMessage(errorMessage);
     }
 }
