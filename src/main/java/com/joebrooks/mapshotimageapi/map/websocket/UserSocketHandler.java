@@ -41,7 +41,7 @@ public class UserSocketHandler extends TextWebSocketHandler {
             return;
         }
 
-        sendWaitNumberToUser(session);
+        sendWaitCountToUser(session);
         taskManager.addRequest(request);
         taskManager.execute();
     }
@@ -55,7 +55,7 @@ public class UserSocketHandler extends TextWebSocketHandler {
             } catch (IOException e) {
                 log.error("지도 전송 실패", e);
             } finally {
-                sendWaitNumberToLeftUsers();
+                sendWaitCountToLeftUsers();
             }
         }
     }
@@ -67,7 +67,7 @@ public class UserSocketHandler extends TextWebSocketHandler {
         taskManager.removeRequest(session);
     }
 
-    private void sendWaitNumberToUser(WebSocketSession session) {
+    private void sendWaitCountToUser(WebSocketSession session) {
         UserMapResponse refreshedResponse = UserMapResponse.builder()
                 .index(sessionList.indexOf(session))
                 .done(false)
@@ -82,7 +82,7 @@ public class UserSocketHandler extends TextWebSocketHandler {
     }
 
 
-    private void sendWaitNumberToLeftUsers() {
+    private void sendWaitCountToLeftUsers() {
         for(int i = 0; i < sessionList.size(); i++){
             UserMapResponse refreshedResponse = UserMapResponse.builder()
                     .index(sessionList.indexOf(sessionList.get(i)))
