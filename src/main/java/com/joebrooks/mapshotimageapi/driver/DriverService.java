@@ -17,11 +17,11 @@ public class DriverService{
     private final WebDriverWait waiter;
 
 
-    public byte[] capturePage(UriComponents uri){
+    public String capturePage(UriComponents uri){
         chromeDriver.get(uri.toString());
         waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("checker_true")));
 
-        return chromeDriver.getFullScreenshot();
+        return chromeDriver.getFullScreenshotAsBase64();
     }
 
 }
