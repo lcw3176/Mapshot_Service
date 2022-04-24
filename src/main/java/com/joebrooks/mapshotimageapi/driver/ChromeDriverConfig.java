@@ -38,7 +38,7 @@ public class ChromeDriverConfig {
 
     @Bean
     public WebDriverWait webDriverWait() throws Exception {
-        long timeOutSeconds = 30;
+        long timeOutSeconds = 40;
 
         return new WebDriverWait(chromeDriver(), timeOutSeconds);
     }

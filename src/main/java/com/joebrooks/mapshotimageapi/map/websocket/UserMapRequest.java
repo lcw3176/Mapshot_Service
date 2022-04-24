@@ -27,12 +27,11 @@ public class UserMapRequest {
     }
 
     public UriComponents getUri(){
-        URI uri = session.getUri();
 
         return UriComponentsBuilder
                 .newInstance()
-                .scheme(uri.getScheme().equals("ws") ? "http" : "https")
-                .host(uri.getHost())
+                .scheme("https")
+                .host("richshrimp.tk")
                 .path("/map/gen/" + this.companyType.getType())
                 .queryParam("layerMode", this.layerMode)
                 .queryParam("lat", this.lat)

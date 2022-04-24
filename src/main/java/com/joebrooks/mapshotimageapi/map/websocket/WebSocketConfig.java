@@ -16,9 +16,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(userSocketHandler, "/map/gen")
-                .setAllowedOrigins(
-                        "https://richshrimp.tk",
-                        "https://www.richshrimp.tk")
+                .setAllowedOrigins("https://richshrimp.tk")
                 .withSockJS();
     }
 }
