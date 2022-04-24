@@ -10,7 +10,6 @@ import org.openqa.selenium.remote.HttpCommandExecutor;
 import org.openqa.selenium.remote.http.HttpMethod;
 
 import java.lang.reflect.Method;
-import java.util.Base64;
 import java.util.Map;
 
 public class ChromeDriverExtends extends ChromeDriver {
@@ -27,7 +26,7 @@ public class ChromeDriverExtends extends ChromeDriver {
         defineCommand.invoke(super.getCommandExecutor(), "sendCommand", cmd);
     }
 
-    public byte[] getFullScreenshot() {
+    public String getFullScreenshotAsBase64() {
         Object metrics = sendEvaluate(
                 "({" +
                         "width: Math.max(window.innerWidth,document.body.scrollWidth,document.documentElement.scrollWidth)|0," +
@@ -38,9 +37,8 @@ public class ChromeDriverExtends extends ChromeDriver {
         sendCommand("Emulation.setDeviceMetricsOverride", metrics);
         Object result = sendCommand("Page.captureScreenshot", ImmutableMap.of("format", "jpeg"));
         sendCommand("Emulation.clearDeviceMetricsOverride", ImmutableMap.of());
-        String base64Encoded = (String)((Map<String, ?>)result).get("data");
 
-        return Base64.getDecoder().decode(base64Encoded);
+        return (String)((Map<String, ?>)result).get("data");
     }
 
     protected Object sendCommand(String cmd, Object params) {
