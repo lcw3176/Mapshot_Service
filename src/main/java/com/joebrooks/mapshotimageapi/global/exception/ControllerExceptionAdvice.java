@@ -4,7 +4,6 @@ import com.joebrooks.mapshotimageapi.admin.login.AdminLoginException;
 import com.joebrooks.mapshotimageapi.global.sns.SlackClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -24,23 +23,13 @@ public class ControllerExceptionAdvice {
                 adminLoginException.getAdminRequest().getNickName(),
                 adminLoginException.getAdminRequest().getPassword());
 
-        makeErrorMessage(adminLoginException);
+        slackClient.sendMessage(adminLoginException);
     }
 
     @ExceptionHandler(Exception.class)
     public void illegalStateException(Exception exception){
         log.error(exception.getMessage(), exception);
-        makeErrorMessage(exception);
+        slackClient.sendMessage(exception);
     }
 
-    private void makeErrorMessage(Exception e){
-        int len = Math.min(ExceptionUtils.getStackTrace(e).length(), 1700);
-
-        ExceptionResponse errorMessage = ExceptionResponse.builder()
-                .name(e.getClass().toString())
-                .message(ExceptionUtils.getStackTrace(e).substring(0, len))
-                .build();
-
-        slackClient.sendMessage(errorMessage);
-    }
 }
