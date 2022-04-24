@@ -1,9 +1,12 @@
 package com.joebrooks.mapshotimageapi.driver;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.time.Duration;
 
 @Configuration
 public class ChromeDriverConfig {
@@ -32,14 +35,16 @@ public class ChromeDriverConfig {
     }
 
     @Bean(destroyMethod = "quit")
-    public ChromeDriverExtends chromeDriver() throws Exception {
+    public ChromeDriverExtends chromeDriverExtends() throws Exception {
         return new ChromeDriverExtends(chromeOptions());
     }
 
     @Bean
-    public WebDriverWait webDriverWait() throws Exception {
-        long timeOutSeconds = 40;
+    public FluentWait<ChromeDriverExtends> webDriverWait() throws Exception {
 
-        return new WebDriverWait(chromeDriver(), timeOutSeconds);
+        return new FluentWait<ChromeDriverExtends>(chromeDriverExtends())
+                .withTimeout(Duration.ofSeconds(60L))
+                .pollingEvery(Duration.ofSeconds(3L))
+                .ignoring(NoSuchElementException.class);
     }
 }

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponents;
 
@@ -13,15 +13,15 @@ import org.springframework.web.util.UriComponents;
 @Slf4j
 public class DriverService{
 
-    private final ChromeDriverExtends chromeDriver;
-    private final WebDriverWait waiter;
+    private final ChromeDriverExtends chromeDriverExtends;
+    private final FluentWait<ChromeDriverExtends> webDriverWait;
 
 
     public String capturePage(UriComponents uri){
-        chromeDriver.get(uri.toString());
-        waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("checker_true")));
+        chromeDriverExtends.get(uri.toString());
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id("checker_true")));
 
-        return chromeDriver.getFullScreenshotAsBase64();
+        return chromeDriverExtends.getFullScreenshotAsBase64();
     }
 
 }
