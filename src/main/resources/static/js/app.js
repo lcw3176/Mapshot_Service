@@ -220,7 +220,7 @@ window.addEventListener("load", function () {
                     progressBar.setAttribute("class", "progress is-danger");
                     progressBar.setAttribute("value", 100);
                     sock.close();
-
+                    isKakaoRun = false;
                     return;
                 }
 
@@ -244,7 +244,7 @@ window.addEventListener("load", function () {
             } else {
                 if(json.index === 0){
                     document.getElementById("captureStatus").innerText =
-                        "지도 생성중 입니다. 곧 완료됩니다.";
+                        "지도 생성중 입니다. 곧 완료되니 잠시만 기다려주세요.";
                 } else {
                     document.getElementById("captureStatus").innerText =
                         json.index + " 명의 유저가 생성 대기중 입니다.";
