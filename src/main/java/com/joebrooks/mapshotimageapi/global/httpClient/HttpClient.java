@@ -35,7 +35,6 @@ public abstract class HttpClient {
     protected void get(String path){
         try {
             getClient(path).get()
-                    .uri(path)
                     .acceptCharset(StandardCharsets.UTF_8)
                     .retrieve()
                     .onStatus(HttpStatus::isError, response -> Mono.error(new RuntimeException("failed get")));
@@ -49,7 +48,6 @@ public abstract class HttpClient {
     public void post(String path, Object body){
         try{
             getClient(path).post()
-                    .uri(path)
                     .acceptCharset(StandardCharsets.UTF_8)
                     .bodyValue(body)
                     .retrieve()
