@@ -24,6 +24,6 @@ public class UserMapResponse {
     private boolean done;
 
     @JsonProperty("imageData")
-    private byte[] imageData;
+    private String imageData;
 
 }
