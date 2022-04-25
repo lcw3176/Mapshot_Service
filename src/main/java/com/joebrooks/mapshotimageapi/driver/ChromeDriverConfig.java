@@ -2,11 +2,14 @@ package com.joebrooks.mapshotimageapi.driver;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.v99.network.Network;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.Duration;
+import java.util.Optional;
 
 @Configuration
 public class ChromeDriverConfig {
@@ -46,5 +49,20 @@ public class ChromeDriverConfig {
                 .withTimeout(Duration.ofSeconds(60L))
                 .pollingEvery(Duration.ofSeconds(3L))
                 .ignoring(NoSuchElementException.class);
+    }
+
+    @Bean
+    public DevTools devTools() throws Exception {
+        DevTools devTools = chromeDriverExtends().getDevTools();
+        devTools.createSession();
+
+        devTools.send(
+                Network.enable(
+                        Optional.empty(),
+                        Optional.empty(),
+                        Optional.of(100000000)));
+        devTools.send(Network.setCacheDisabled(true));
+
+        return devTools;
     }
 }
