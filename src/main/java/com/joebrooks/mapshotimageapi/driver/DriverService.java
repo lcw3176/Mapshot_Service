@@ -17,7 +17,7 @@ public class DriverService{
     private final FluentWait<ChromeDriverExtends> webDriverWait;
 
 
-    public String capturePage(UriComponents uri){
+    public byte[] capturePage(UriComponents uri){
         chromeDriverExtends.get(uri.toString());
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id("checker_true")));
 
