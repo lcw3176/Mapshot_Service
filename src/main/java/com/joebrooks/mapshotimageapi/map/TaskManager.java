@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
-import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -22,47 +21,10 @@ import java.util.Queue;
 public class TaskManager {
 
     private final DriverService driverService;
-//    private static final Queue<UserMapRequest> requestQueue = new LinkedList<>();
-    private static volatile Queue<UserMapRequest> requestQueue = new LinkedList<>();
+    private static final Queue<UserMapRequest> requestQueue = new LinkedList<>();
     private final ApplicationEventPublisher publisher;
     private final SlackClient slackClient;
 
-    @PostConstruct
-    private void init(){
-        Thread thread = new Thread(() -> {
-            while(true){
-                while (requestQueue.size() >= 1) {
-                    UserMapRequest request = requestQueue.poll();
-                    try {
-                        publisher.publishEvent(UserMapResponse.builder()
-                                .done(true)
-                                .imageData(driverService.capturePage(request.getUri()))
-                                .index(0)
-                                .session(request.getSession())
-                                .build());
-                    } catch (Exception e) {
-                        log.error("지도 캡쳐 에러", e);
-                        slackClient.sendMessage("지도 캡쳐 에러", e);
-                        publisher.publishEvent(UserMapResponse.builder()
-                                .done(true)
-                                .imageData(null)
-                                .index(0)
-                                .session(request.getSession())
-                                .build());
-                    }
-                }
-
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        });
-
-        thread.start();
-    }
 
     public void addRequest(UserMapRequest request){
         requestQueue.add(request);
@@ -78,28 +40,28 @@ public class TaskManager {
     }
 
 
-//    @Async
-//    public void execute(){
-//
-//        if(requestQueue.size() >= 1) {
-//            UserMapRequest request = requestQueue.poll();
-//            try {
-//                publisher.publishEvent(UserMapResponse.builder()
-//                        .done(true)
-//                        .imageData(driverService.capturePage(request.getUri()))
-//                        .index(0)
-//                        .session(request.getSession())
-//                        .build());
-//            } catch (Exception e) {
-//                log.error("지도 캡쳐 에러", e);
-//                slackClient.sendMessage("지도 캡쳐 에러", e);
-//                publisher.publishEvent(UserMapResponse.builder()
-//                        .done(true)
-//                        .imageData(null)
-//                        .index(0)
-//                        .session(request.getSession())
-//                        .build());
-//            }
-//        }
-//    }
+    @Async
+    public void execute(){
+
+        if(requestQueue.size() >= 1) {
+            UserMapRequest request = requestQueue.poll();
+            try {
+                publisher.publishEvent(UserMapResponse.builder()
+                        .done(true)
+                        .imageData(driverService.capturePage(request.getUri()))
+                        .index(0)
+                        .session(request.getSession())
+                        .build());
+            } catch (Exception e) {
+                log.error("지도 캡쳐 에러", e);
+                slackClient.sendMessage("지도 캡쳐 에러", e);
+                publisher.publishEvent(UserMapResponse.builder()
+                        .done(true)
+                        .imageData(null)
+                        .index(0)
+                        .session(request.getSession())
+                        .build());
+            }
+        }
+    }
 }

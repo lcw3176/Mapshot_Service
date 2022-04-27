@@ -46,7 +46,7 @@ public class UserSocketHandler extends TextWebSocketHandler {
 
         sendWaitCountToUser(session);
         taskManager.addRequest(request);
-//        taskManager.execute();
+        taskManager.execute();
     }
 
     @EventListener
