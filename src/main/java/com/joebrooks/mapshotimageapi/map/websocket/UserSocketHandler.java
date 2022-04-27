@@ -46,11 +46,11 @@ public class UserSocketHandler extends TextWebSocketHandler {
 
         sendWaitCountToUser(session);
         taskManager.addRequest(request);
-        taskManager.execute();
+//        taskManager.execute();
     }
 
     @EventListener
-    public void sendCompletedMapImage(UserMapResponse response){
+    public void sendMapImage(UserMapResponse response){
         if(response.getSession().isOpen()){
             try {
                 response.getSession().sendMessage(new TextMessage(mapper.writeValueAsString(response)));
