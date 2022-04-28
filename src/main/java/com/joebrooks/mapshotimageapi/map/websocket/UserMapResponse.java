@@ -14,9 +14,6 @@ import org.springframework.web.socket.WebSocketSession;
 @Builder
 public class UserMapResponse {
 
-    @JsonIgnore
-    private WebSocketSession session;
-
     @JsonProperty("index")
     private int index;
 
@@ -24,6 +21,6 @@ public class UserMapResponse {
     private boolean done;
 
     @JsonProperty("imageData")
-    private byte[] imageData;
+    private String imageData;
 
 }

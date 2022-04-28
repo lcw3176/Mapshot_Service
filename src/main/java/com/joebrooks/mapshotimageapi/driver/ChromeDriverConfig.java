@@ -1,14 +1,12 @@
 package com.joebrooks.mapshotimageapi.driver;
 
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v99.network.Network;
-import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.Duration;
 import java.util.Optional;
 
 @Configuration
@@ -39,21 +37,8 @@ public class ChromeDriverConfig {
 
     @Bean(destroyMethod = "quit")
     public ChromeDriverExtends chromeDriverExtends() throws Exception {
-        return new ChromeDriverExtends(chromeOptions());
-    }
-
-    @Bean
-    public FluentWait<ChromeDriverExtends> webDriverWait() throws Exception {
-
-        return new FluentWait<ChromeDriverExtends>(chromeDriverExtends())
-                .withTimeout(Duration.ofSeconds(60L))
-                .pollingEvery(Duration.ofSeconds(3L))
-                .ignoring(NoSuchElementException.class);
-    }
-
-    @Bean
-    public DevTools devTools() throws Exception {
-        DevTools devTools = chromeDriverExtends().getDevTools();
+        ChromeDriverExtends chromeDriverExtends = new ChromeDriverExtends(chromeOptions());
+        DevTools devTools = chromeDriverExtends.getDevTools();
         devTools.createSession();
 
         devTools.send(
@@ -62,7 +47,14 @@ public class ChromeDriverConfig {
                         Optional.empty(),
                         Optional.of(100000000)));
         devTools.send(Network.setCacheDisabled(true));
+        devTools.close();
 
-        return devTools;
+        return chromeDriverExtends;
     }
+
+    @Bean
+    public WebDriverWait webDriverWait() throws Exception {
+        return new WebDriverWait(chromeDriverExtends(), 60L);
+    }
+
 }

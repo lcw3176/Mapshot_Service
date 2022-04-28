@@ -1,12 +1,13 @@
 package com.joebrooks.mapshotimageapi.map.websocket;
 
 import com.joebrooks.mapshotimageapi.map.CompanyType;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
 
 @Data
 @NoArgsConstructor

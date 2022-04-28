@@ -6,7 +6,6 @@ import com.joebrooks.mapshotimageapi.global.sns.SlackClient;
 import com.joebrooks.mapshotimageapi.map.TaskManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -45,29 +44,24 @@ public class UserSocketHandler extends TextWebSocketHandler {
         }
 
         sendWaitCountToUser(session);
-        taskManager.addRequest(request);
-        taskManager.execute();
-    }
-
-    @EventListener
-    public void sendMapImage(UserMapResponse response){
-        if(response.getSession().isOpen()){
-            try {
-                response.getSession().sendMessage(new TextMessage(mapper.writeValueAsString(response)));
-            } catch (IOException e) {
-                log.error("지도 전송 실패", e);
-                slackClient.sendMessage("지도 전송 실패", e);
-            } finally {
-                sendWaitCountToLeftUsers();
+        taskManager.execute(request).thenAccept(result -> {
+            if(session.isOpen()){
+                try {
+                    session.sendMessage(new TextMessage(mapper.writeValueAsString(result)));
+                } catch (Exception e) {
+                    log.error("지도 전송 실패", e);
+                    slackClient.sendMessage("지도 전송 실패", e);
+                } finally {
+                    sendWaitCountToLeftUsers();
+                }
             }
-        }
+        });
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         super.afterConnectionClosed(session, status);
         sessionList.remove(session);
-        taskManager.removeRequest(session);
         sendWaitCountToLeftUsers();
     }
 
