@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class ControllerExceptionAdvice {
 
-
     private final SlackClient slackClient;
 
     @ExceptionHandler(AdminLoginException.class)
@@ -27,7 +26,7 @@ public class ControllerExceptionAdvice {
     }
 
     @ExceptionHandler(Exception.class)
-    public void illegalStateException(Exception exception){
+    public void exceptionHandler(Exception exception){
         log.error(exception.getMessage(), exception);
         slackClient.sendMessage(exception);
     }
