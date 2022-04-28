@@ -14,6 +14,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 @RequiredArgsConstructor
@@ -41,27 +42,16 @@ public class TaskManager {
 
 
     @Async
-    public void execute(){
+    public CompletableFuture<String> execute(){
 
-        if(requestQueue.size() >= 1) {
-            UserMapRequest request = requestQueue.poll();
-            try {
-                publisher.publishEvent(UserMapResponse.builder()
-                        .done(true)
-                        .imageData(driverService.capturePage(request.getUri()))
-                        .index(0)
-                        .session(request.getSession())
-                        .build());
-            } catch (Exception e) {
-                log.error("지도 캡쳐 에러", e);
-                slackClient.sendMessage("지도 캡쳐 에러", e);
-                publisher.publishEvent(UserMapResponse.builder()
-                        .done(true)
-                        .imageData(null)
-                        .index(0)
-                        .session(request.getSession())
-                        .build());
-            }
+        UserMapRequest request = requestQueue.poll();
+        try {
+            return CompletableFuture.completedFuture(driverService.capturePage(request.getUri()));
+        } catch (Exception e) {
+            log.error("지도 캡쳐 에러", e);
+            slackClient.sendMessage("지도 캡쳐 에러", e);
+            return null;
         }
+
     }
 }
