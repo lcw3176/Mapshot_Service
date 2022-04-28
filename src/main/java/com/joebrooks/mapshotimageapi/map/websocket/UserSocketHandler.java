@@ -44,57 +44,24 @@ public class UserSocketHandler extends TextWebSocketHandler {
         }
 
         sendWaitCountToUser(session);
-        log.info("요청");
-        taskManager.addRequest(request);
-        taskManager.execute().thenAccept(result -> {
+        taskManager.execute(request).thenAccept(result -> {
             if(session.isOpen()){
                 try {
-                    log.info("생성 완료");
-                    UserMapResponse response = UserMapResponse.builder()
-                                    .done(true)
-                                    .imageData(result)
-                                    .index(0)
-                                    .build();
-
-                    session.sendMessage(new TextMessage(mapper.writeValueAsString(response)));
-                    log.info("전송");
+                    session.sendMessage(new TextMessage(mapper.writeValueAsString(result)));
                 } catch (Exception e) {
                     log.error("지도 전송 실패", e);
                     slackClient.sendMessage("지도 전송 실패", e);
-
-                    UserMapResponse.builder()
-                            .done(true)
-                            .imageData(null)
-                            .index(0)
-                            .build();
-
                 } finally {
                     sendWaitCountToLeftUsers();
                 }
             }
         });
     }
-    // fixme SSE로 변경, 양방향 통신이 굳이 필요없는듯
-
-//    @EventListener
-//    public void sendMapImage(UserMapResponse response){
-//        if(response.getSession().isOpen()){
-//            try {
-//                response.getSession().sendMessage(new TextMessage(mapper.writeValueAsString(response)));
-//            } catch (IOException e) {
-//                log.error("지도 전송 실패", e);
-//                slackClient.sendMessage("지도 전송 실패", e);
-//            } finally {
-//                sendWaitCountToLeftUsers();
-//            }
-//        }
-//    }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         super.afterConnectionClosed(session, status);
         sessionList.remove(session);
-        taskManager.removeRequest(session);
         sendWaitCountToLeftUsers();
     }
 
