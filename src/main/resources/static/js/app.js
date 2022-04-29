@@ -205,20 +205,20 @@ window.addEventListener("load", function () {
         document.getElementById("captureStatus").innerText = "서버에 요청중입니다. 잠시 기다려주세요";
         isKakaoRun = true;
 
-        var eventSource = new EventSource("/map/gen" + kakaoProfile.getQueryString());
-        eventSource.onopen = function() {
-
+        var sock = new SockJS("/map/gen");
+        sock.onopen = function() {
+            sock.send(kakaoProfile.getParamsToJson());
         };
 
-        eventSource.onmessage = function(message) {
+        sock.onmessage = function(message) {
             var json = JSON.parse(message.data);
 
             if(json.done){
                 if(json.imageData == null){
                     document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
                     progressBar.setAttribute("class", "progress is-danger");
-                    progressBar.value = 100;
-                    eventSource.close();
+                    progressBar.setAttribute("value", 100);
+                    sock.close();
                     isKakaoRun = false;
                     clearInterval(timerId);
                     return;
@@ -238,17 +238,16 @@ window.addEventListener("load", function () {
                     span.innerHTML = "mapshot_" + fileName + ".jpg";
                     document.getElementById("captureStatus").innerText = "완료되었습니다. 생성된 링크를 확인하세요";
                 }
-                progressBar.value = 100;
+                progressBar.setAttribute("value", 100);
                 isKakaoRun = false;
-                eventSource.close();
+                sock.close();
                 clearInterval(timerId);
-
             } else {
                 if(json.index === 0){
                     document.getElementById("captureStatus").innerText =
-                        "지도 생성중 입니다. 최대 50초 가량 소요됩니다.";
+                        "지도 생성중 입니다. 최대 60초 가량 소요됩니다.";
                     progressBar.value = 0;
-                    progressBar.max = 50;
+                    progressBar.max = 60;
                     progressBar.setAttribute("class", "progress is-info");
 
                     timerId = setInterval(function (){
