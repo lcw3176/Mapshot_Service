@@ -205,13 +205,12 @@ window.addEventListener("load", function () {
         document.getElementById("captureStatus").innerText = "서버에 요청중입니다. 잠시 기다려주세요";
         isKakaoRun = true;
 
+        var eventSource = new EventSource("/map/gen" + kakaoProfile.getQueryString());
+        eventSource.onopen = function() {
 
-        var sock = new SockJS("/map/gen");
-        sock.onopen = function() {
-            sock.send(kakaoProfile.getParamsToJson());
         };
 
-        sock.onmessage = function(message) {
+        eventSource.onmessage = function(message) {
             var json = JSON.parse(message.data);
 
             if(json.done){
@@ -219,7 +218,7 @@ window.addEventListener("load", function () {
                     document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
                     progressBar.setAttribute("class", "progress is-danger");
                     progressBar.setAttribute("value", 100);
-                    sock.close();
+                    eventSource.close();
                     isKakaoRun = false;
                     return;
                 }
@@ -240,7 +239,7 @@ window.addEventListener("load", function () {
                 }
                 progressBar.setAttribute("value", 100);
                 isKakaoRun = false;
-                sock.close();
+                eventSource.close();
             } else {
                 if(json.index === 0){
                     document.getElementById("captureStatus").innerText =

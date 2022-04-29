@@ -1,12 +1,10 @@
-package com.joebrooks.mapshotimageapi.map.websocket;
+package com.joebrooks.mapshotimageapi.map.task;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.socket.WebSocketSession;
 
 @Getter
 @NoArgsConstructor
