@@ -23,11 +23,9 @@ public class TaskService {
 
     public SseEmitter addUser(){
         SseEmitter sseEmitter = new SseEmitter(60000L);
-        sseEmitter.onCompletion(sseList::remove);
-        sseEmitter.onTimeout(sseList::remove);
+        sseEmitter.onTimeout(() -> sseList.remove(sseEmitter));
 
         sseList.add(sseEmitter);
-
         return sseEmitter;
     }
 
@@ -58,7 +56,44 @@ public class TaskService {
         } finally {
             sseEmitter.send(response, MediaType.APPLICATION_JSON);
             sseEmitter.complete();
+            sseList.remove(sseEmitter);
+
+            sendWaitCountToLeftUsers();
         }
 
+    }
+
+
+    public void sendWaitCountToUser(SseEmitter sseEmitter) {
+        UserMapResponse refreshedResponse = UserMapResponse.builder()
+                .index(sseList.indexOf(sseEmitter))
+                .done(false)
+                .build();
+
+        try{
+            sseEmitter.send(refreshedResponse, MediaType.APPLICATION_JSON);
+        } catch (IOException e){
+            log.error("대기열 알람 전송 에러", e);
+            slackClient.sendMessage("대기열 알람 전송 에러", e);
+        }
+
+    }
+
+
+    private void sendWaitCountToLeftUsers() {
+        for(int i = 0; i < sseList.size(); i++){
+            UserMapResponse refreshedResponse = UserMapResponse.builder()
+                    .index(sseList.indexOf(sseList.get(i)))
+                    .done(false)
+                    .build();
+
+            try{
+                sseList.get(i).send(refreshedResponse, MediaType.APPLICATION_JSON);
+            } catch (IOException e){
+                log.error("대기열 알람 전송 에러", e);
+                slackClient.sendMessage("대기열 알람 전송 에러", e);
+            }
+
+        }
     }
 }
