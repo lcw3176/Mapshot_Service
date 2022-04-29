@@ -1,41 +1,78 @@
 package com.joebrooks.mapshotimageapi.map.task;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joebrooks.mapshotimageapi.driver.DriverService;
 import com.joebrooks.mapshotimageapi.global.sns.SlackClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class TaskService {
 
-    private final LinkedList<SseEmitter> sseList = new LinkedList<>();
+    private final LinkedList<WebSocketSession> sessionList = new LinkedList<>();
     private final DriverService driverService;
     private final SlackClient slackClient;
+    private final ObjectMapper mapper = new ObjectMapper();
 
-    public SseEmitter addUser(){
-        SseEmitter sseEmitter = new SseEmitter(60000L);
-        sseEmitter.onTimeout(() -> sseList.remove(sseEmitter));
-
-        sseList.add(sseEmitter);
-        return sseEmitter;
+    public void addSession(WebSocketSession session){
+        sessionList.add(session);
     }
 
-    @Async
-    public void execute(UserMapRequest request, SseEmitter sseEmitter) throws IOException {
-        if(!sseList.contains(sseEmitter)){
-            return;
+    public void removeSession(WebSocketSession session){
+        sessionList.remove(session);
+    }
+
+    public void sendWaitersCountToUser(WebSocketSession session) {
+        UserMapResponse refreshedResponse = UserMapResponse.builder()
+                .index(sessionList.indexOf(session))
+                .done(false)
+                .build();
+
+        try{
+            session.sendMessage(new TextMessage(mapper.writeValueAsString(refreshedResponse)));
+        } catch (IOException e){
+            log.error("대기열 알람 전송 에러", e);
+            slackClient.sendMessage("대기열 알람 전송 에러", e);
         }
 
-        UserMapResponse response = null;
+    }
+
+    public void sendLeftCountToWaiters() {
+        for(int i = 0; i < sessionList.size(); i++){
+            UserMapResponse refreshedResponse = UserMapResponse.builder()
+                    .index(sessionList.indexOf(sessionList.get(i)))
+                    .done(false)
+                    .build();
+
+            try{
+                sessionList.get(i).sendMessage(new TextMessage(mapper.writeValueAsString(refreshedResponse)));
+            } catch (IOException e){
+                log.error("대기열 알람 전송 에러", e);
+                slackClient.sendMessage("대기열 알람 전송 에러", e);
+            }
+
+        }
+    }
+
+
+    @Async
+    public CompletableFuture<UserMapResponse> execute(UserMapRequest request){
+        if(!request.getSession().isOpen()){
+            sessionList.remove(request.getSession());
+            return CompletableFuture.completedFuture(null);
+        }
+
+        UserMapResponse response;
 
         try {
             response = UserMapResponse.builder()
@@ -43,6 +80,7 @@ public class TaskService {
                     .imageData(driverService.capturePage(request.getUri()))
                     .index(0)
                     .build();
+
 
         } catch (Exception e) {
             log.error("지도 캡쳐 에러", e);
@@ -53,47 +91,8 @@ public class TaskService {
                     .imageData(null)
                     .index(0)
                     .build();
-        } finally {
-            sseEmitter.send(response, MediaType.APPLICATION_JSON);
-            sseEmitter.complete();
-            sseList.remove(sseEmitter);
-
-            sendWaitCountToLeftUsers();
         }
 
-    }
-
-
-    public void sendWaitCountToUser(SseEmitter sseEmitter) {
-        UserMapResponse refreshedResponse = UserMapResponse.builder()
-                .index(sseList.indexOf(sseEmitter))
-                .done(false)
-                .build();
-
-        try{
-            sseEmitter.send(refreshedResponse, MediaType.APPLICATION_JSON);
-        } catch (IOException e){
-            log.error("대기열 알람 전송 에러", e);
-            slackClient.sendMessage("대기열 알람 전송 에러", e);
-        }
-
-    }
-
-
-    private void sendWaitCountToLeftUsers() {
-        for(int i = 0; i < sseList.size(); i++){
-            UserMapResponse refreshedResponse = UserMapResponse.builder()
-                    .index(sseList.indexOf(sseList.get(i)))
-                    .done(false)
-                    .build();
-
-            try{
-                sseList.get(i).send(refreshedResponse, MediaType.APPLICATION_JSON);
-            } catch (IOException e){
-                log.error("대기열 알람 전송 에러", e);
-                slackClient.sendMessage("대기열 알람 전송 에러", e);
-            }
-
-        }
+        return CompletableFuture.completedFuture(response);
     }
 }
