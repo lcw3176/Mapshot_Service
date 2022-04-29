@@ -199,7 +199,7 @@ window.addEventListener("load", function () {
         }
 
         var fileName = document.getElementById("bunzi-address").innerText;
-
+        var timerId;
         progressBar.removeAttribute("value");
         progressBar.setAttribute("class", "progress is-warning");
         document.getElementById("captureStatus").innerText = "서버에 요청중입니다. 잠시 기다려주세요";
@@ -217,9 +217,10 @@ window.addEventListener("load", function () {
                 if(json.imageData == null){
                     document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
                     progressBar.setAttribute("class", "progress is-danger");
-                    progressBar.setAttribute("value", 100);
+                    progressBar.value = 100;
                     eventSource.close();
                     isKakaoRun = false;
+                    clearInterval(timerId);
                     return;
                 }
 
@@ -237,13 +238,23 @@ window.addEventListener("load", function () {
                     span.innerHTML = "mapshot_" + fileName + ".jpg";
                     document.getElementById("captureStatus").innerText = "완료되었습니다. 생성된 링크를 확인하세요";
                 }
-                progressBar.setAttribute("value", 100);
+                progressBar.value = 100;
                 isKakaoRun = false;
                 eventSource.close();
+                clearInterval(timerId);
+
             } else {
                 if(json.index === 0){
                     document.getElementById("captureStatus").innerText =
-                        "지도 생성중 입니다. 곧 완료되니 잠시만 기다려주세요.";
+                        "지도 생성중 입니다. 최대 50초 가량 소요됩니다.";
+                    progressBar.value = 0;
+                    progressBar.max = 50;
+                    progressBar.setAttribute("class", "progress is-info");
+
+                    timerId = setInterval(function (){
+                        progressBar.value += 1;
+                    }, 1000);
+
                 } else {
                     document.getElementById("captureStatus").innerText =
                         json.index + " 명의 유저가 생성 대기중 입니다.";
