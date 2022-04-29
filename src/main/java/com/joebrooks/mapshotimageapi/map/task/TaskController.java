@@ -20,6 +20,7 @@ public class TaskController {
     public SseEmitter executeTask(@ModelAttribute UserMapRequest userMapRequest) throws IOException {
         SseEmitter sseEmitter = taskService.addUser();
         taskService.execute(userMapRequest, sseEmitter);
+        taskService.sendWaitCountToUser(sseEmitter);
 
         return sseEmitter;
     }
