@@ -31,7 +31,6 @@ public class UserSocketHandler extends TextWebSocketHandler {
 
         try{
             request = mapper.readValue(message.getPayload(), UserMapRequest.class);
-            request.setSession(session);
         } catch (JsonProcessingException e){
             log.error("유효하지 않은 지도 포맷", e);
             slackClient.sendMessage("유효하지 않은 지도 포맷", e);
@@ -41,17 +40,17 @@ public class UserSocketHandler extends TextWebSocketHandler {
         }
 
         taskService.sendWaitersCountToUser(session);
-        taskService.execute(request).thenAccept(result -> {
+        taskService.execute(request, session).thenAccept(result -> {
             if(session.isOpen()){
                 try {
                     session.sendMessage(new TextMessage(mapper.writeValueAsString(result)));
                 } catch (Exception e) {
                     log.error("지도 전송 실패", e);
                     slackClient.sendMessage("지도 전송 실패", e);
-                } finally {
-                    taskService.sendLeftCountToWaiters();
                 }
             }
+
+            taskService.sendLeftCountToWaiters();
         });
     }
 
@@ -59,7 +58,6 @@ public class UserSocketHandler extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         super.afterConnectionClosed(session, status);
         taskService.removeSession(session);
-        taskService.sendLeftCountToWaiters();
     }
 
 }
