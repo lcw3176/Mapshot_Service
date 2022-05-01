@@ -228,6 +228,13 @@ window.addEventListener("load", function () {
 
             if(json.done){
                 sock.close();
+                var kakaoTileOnProgressEvent = new CustomEvent("kakaoTileOnProgress",{
+                    detail:{
+                        percentage:0
+                    }
+                });
+
+                var kakaoTileOnErrorEvent = new CustomEvent("kakaoTileOnError");
 
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', "/map/storage/" + json.uuid, true);
