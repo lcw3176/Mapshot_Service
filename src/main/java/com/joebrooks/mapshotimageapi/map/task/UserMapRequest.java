@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -20,7 +19,7 @@ public class UserMapRequest {
     private int level;
     private String type;
     private CompanyType companyType;
-    private WebSocketSession session;
+
 
     public UriComponents getUri(){
 
