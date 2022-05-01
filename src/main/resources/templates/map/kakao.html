@@ -74,9 +74,10 @@
 
   if(layerMode === true){
     map.addOverlayMapTypeId(kakao.maps.MapTypeId.USE_DISTRICT);
+    map.relayout();
   }
 
-  map.relayout();
+
 
   kakao.maps.event.addListener(map, 'tilesloaded', function() {
     document.getElementById("checker").setAttribute("id", "checker_true");

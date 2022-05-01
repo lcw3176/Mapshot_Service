@@ -18,7 +18,7 @@ public class UserMapResponse {
     @JsonProperty("done")
     private boolean done;
 
-    @JsonProperty("imageData")
-    private String imageData;
+    @JsonProperty("uuid")
+    private String uuid;
 
 }
