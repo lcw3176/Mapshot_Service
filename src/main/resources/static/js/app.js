@@ -217,7 +217,7 @@ window.addEventListener("load", function () {
         document.getElementById("captureStatus").innerText = "서버에 요청중입니다. 잠시 기다려주세요";
         isKakaoRun = true;
 
-        var sock = new SockJS("/map/gen");
+        var sock = new SockJS("/map/register");
         sock.onopen = function() {
             sock.send(kakaoProfile.getParamsToJson());
         };
