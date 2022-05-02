@@ -1,9 +1,12 @@
 window.addEventListener("load", function () {
     var naverProfile = new mapshot.profile.Naver();
     var kakaoProfile = new mapshot.profile.Kakao();
+    kakaoProfile.setProxyUrl("https://richshrimp.tk/map/storage")
 
     var coor = new mapshot.coors.LatLng();
     var naverTile = new mapshot.maps.NaverTile();
+    var kakaoTile = new mapshot.maps.KakaoTile();
+
     var map = new Map();
     var rectangle = null;
     var traceMode = false;
@@ -79,7 +82,9 @@ window.addEventListener("load", function () {
     });
     document.body.addEventListener("kakaoTileOnError", function (e) {
         document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
-        progressBar.setAttribute("value", 0);
+        progressBar.setAttribute("class", "progress is-danger");
+        progressBar.setAttribute("value", 100);
+        isKakaoRun = false;
     }); // 맵샷 카카오 이벤트 리스너 정의 끝
 
 
@@ -223,27 +228,12 @@ window.addEventListener("load", function () {
         };
 
         sock.onmessage = function(message) {
-
             var json = JSON.parse(message.data);
 
             if(json.done){
                 sock.close();
-                var kakaoTileOnProgressEvent = new CustomEvent("kakaoTileOnProgress",{
-                    detail:{
-                        percentage:0
-                    }
-                });
 
-                var kakaoTileOnErrorEvent = new CustomEvent("kakaoTileOnError");
-
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', "/map/storage/" + json.uuid, true);
-
-                xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-                xhr.responseType = 'arraybuffer';
-
-                xhr.onload = function(e) {
-                    var blob = new Blob([this.response]);
+                KakaoTile.requestImage(json.uuid, function (blob){
 
                     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
                         navigator.msSaveBlob(blob, "mapshot_" + fileName + ".jpg");
@@ -257,24 +247,10 @@ window.addEventListener("load", function () {
                         span.innerHTML = "mapshot_" + fileName + ".jpg";
                         document.getElementById("captureStatus").innerText = "완료되었습니다. 생성된 링크를 확인하세요";
                     }
+
                     progressBar.setAttribute("value", 100);
                     isKakaoRun = false;
-                };
-
-                xhr.onprogress = function(e) {
-                    kakaoTileOnProgressEvent.detail.percentage =  parseInt((e.loaded / e.total) * 100);
-                    document.body.dispatchEvent(kakaoTileOnProgressEvent);
-                };
-
-                xhr.onerror = function(){
-                    document.body.dispatchEvent(kakaoTileOnErrorEvent);
-                    document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
-                    progressBar.setAttribute("class", "progress is-danger");
-                    progressBar.setAttribute("value", 100);
-                    isKakaoRun = false;
-                }
-
-                xhr.send();
+                });
 
             } else {
                 if(json.index === 0){
