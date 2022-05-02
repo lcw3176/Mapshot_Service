@@ -233,7 +233,7 @@ window.addEventListener("load", function () {
             if(json.done){
                 sock.close();
 
-                KakaoTile.requestImage(json.uuid, function (blob){
+                kakaoTile.requestImage(kakaoProfile, json.uuid, function (blob){
 
                     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
                         navigator.msSaveBlob(blob, "mapshot_" + fileName + ".jpg");
