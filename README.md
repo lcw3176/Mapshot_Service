@@ -56,4 +56,5 @@
 - Slack API
 
 ## 관련 프로젝트
-
+- 이미지 api 서버: [Mapshot_Image_Api](https://github.com/lcw3176/Mapshot_Image_Api)
+- 지도 조립 라이브러리: [Mapshot-lib](https://github.com/lcw3176/mapshot-lib)
