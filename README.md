@@ -9,9 +9,7 @@
   <a href="#서비스-소개">서비스 소개</a> •
   <a href="#결과-샘플">결과 샘플</a> •
   <a href="#기술-스택">기술 스택</a> •
-  <a href="#best-practice">Best Practice</a> •
-  <a href="#credits">Credits</a> •
-  <a href="examples.md">More Examples</a>
+  <a href="#관련-프로젝트">관련 프로젝트</a>
 </p>  
 <p align="center">
 <img src="https://user-images.githubusercontent.com/59993347/166405868-46283603-7e8f-47dd-9029-8699e6c61a53.gif">
@@ -40,8 +38,6 @@
 <img src="https://user-images.githubusercontent.com/59993347/166407436-3d96ad98-982d-4cd5-9d6a-47b43505602d.jpg" height=600>
 <img src="https://user-images.githubusercontent.com/59993347/166406613-82de886c-fe96-4b2b-9671-11e867ea98a2.jpg">
 
-
-
 ## 기술 스택
 ### BackEnd
 - Java 11, Spring Boot
@@ -58,4 +54,6 @@
 - Jenkins, Github WebHook
 - Nginx 
 - Slack API
+
+## 관련 프로젝트
 
