@@ -1,7 +1,6 @@
 <h1>
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/59993347/166402291-3fd73850-2071-4e5e-94af-9557a9c0cce2.png" height="200">
-  <br>Mapshot
+  <img src="https://user-images.githubusercontent.com/59993347/166405369-0d610a83-68d5-4d31-8215-6eba806fba06.png" height="250">
 </p>
 </h1>
 <p align="center">
