@@ -34,7 +34,7 @@
 종류: 위성
 지도 타입: 네이버
 
-사진 배율에 따른 화질 비교,
+사진 확대 시 이미지 화질 샘플,
 빨간색 테두리가 확대된 범위
 ```
 <img src="https://user-images.githubusercontent.com/59993347/166407436-3d96ad98-982d-4cd5-9d6a-47b43505602d.jpg" height=600>
