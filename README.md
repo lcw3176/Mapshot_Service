@@ -53,7 +53,7 @@
 - Oracle Cloud Server(CentOS 8), Cloud Flare(https, domain)
 - Jenkins, Github WebHook
 - Nginx 
-- Slack API
+- Slack API, Whatap
 
 ## 관련 프로젝트
 - 이미지 api 서버: [Mapshot_Image_Api](https://github.com/lcw3176/Mapshot_Image_Api)
