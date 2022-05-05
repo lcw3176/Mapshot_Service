@@ -1,11 +1,12 @@
 window.addEventListener("load", function () {
     var naverProfile = new mapshot.profile.Naver();
-    var kakaoProfile = new mapshot.profile.Kakao();
-    kakaoProfile.setProxyUrl("https://richshrimp.tk/map/storage")
+    var proxyProfile = new mapshot.profile.Proxy();
+    naverProfile.setKey("ny5d4sdo0e");
+    proxyProfile.setProxyUrl("https://richshrimp.tk/map/storage")
 
     var coor = new mapshot.coors.LatLng();
     var naverTile = new mapshot.maps.NaverTile();
-    var kakaoTile = new mapshot.maps.KakaoTile();
+    var proxyTile = new mapshot.maps.ProxyTile();
 
     var map = new Map();
     var rectangle = null;
@@ -15,7 +16,7 @@ window.addEventListener("load", function () {
     var url;
     var progressBar = document.getElementById("progressBar");
 
-    var isKakaoRun = false;
+    var isProxyRun = false;
 
     // 카카오 지도 설정
 
@@ -34,7 +35,7 @@ window.addEventListener("load", function () {
         }
 
         naverTile.setLevel(mapRadius);
-        kakaoProfile.setCenter(coor);
+        proxyProfile.setCenter(coor);
         var sw = naverTile.getSW(mapRadius, coor);
         var ne = naverTile.getNE(mapRadius, coor);
         rectangle = new kakao.maps.Rectangle({
@@ -73,19 +74,21 @@ window.addEventListener("load", function () {
     }); // 네이버 이벤트 리스너 정의 끝
 
 
-    // 맵샷 카카오 이벤트 리스너 정의
+    // 맵샷 프록시 이벤트 리스너 정의
 
-    document.body.addEventListener("kakaoTileOnProgress", function (e) {
+    document.body.addEventListener("proxyTileOnProgress", function (e) {
         progressBar.max = 100;
         document.getElementById("captureStatus").innerText = e.detail.percentage + " / 100";
         progressBar.setAttribute("value", e.detail.percentage);
     });
-    document.body.addEventListener("kakaoTileOnError", function (e) {
+    document.body.addEventListener("proxyTileOnError", function (e) {
         document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
         progressBar.setAttribute("class", "progress is-danger");
         progressBar.setAttribute("value", 100);
-        isKakaoRun = false;
-    }); // 맵샷 카카오 이벤트 리스너 정의 끝
+        isProxyRun = false;
+    });
+
+    // 맵샷 프록시 이벤트 리스너 정의 끝
 
 
     setZoomLevel = function (_km, id) {
@@ -116,7 +119,7 @@ window.addEventListener("load", function () {
                 break;
         }
 
-        kakaoProfile.setLevel(_km);
+        proxyProfile.setLevel(_km);
         id.setAttribute('class', 'zoom is-active');
     };
 
@@ -128,12 +131,12 @@ window.addEventListener("load", function () {
         }
 
         naverProfile.setMapType(mapType);
-        kakaoProfile.setMapType(mapType);
+        proxyProfile.setMapType(mapType);
         id.setAttribute('class', 'map is-active');
     };
 
     setCompany = function (companyName) {
-        if (kakaoProfile.isLayerMode() && companyName === "naver") {
+        if (proxyProfile.isLayerMode() && (companyName === "naver" || companyName === "google")) {
             alert("지적 편집도는 카카오 지도만 사용 가능합니다");
             return;
         }
@@ -148,9 +151,12 @@ window.addEventListener("load", function () {
             document.getElementById("kakao").setAttribute("class", "company button is-warning");
         } else if (companyName === "naver") {
             document.getElementById("naver").setAttribute("class", "company button is-success");
+        } else if (companyName === "google") {
+            document.getElementById("google").setAttribute("class", "company button is-link");
         }
 
         resultType = companyName;
+        proxyProfile.setCompanyType(companyName);
     };
 
     setTraceMode = function (id) {
@@ -166,11 +172,11 @@ window.addEventListener("load", function () {
     setLayerMode = function (id) {
         if (id.getAttribute("class") != "is-active") {
             id.setAttribute("class", "is-active");
-            kakaoProfile.setLayerMode(true);
+            proxyProfile.setLayerMode(true);
             setCompany("kakao");
         } else {
             id.setAttribute("class", "");
-            kakaoProfile.setLayerMode(false);
+            proxyProfile.setLayerMode(false);
         }
     };
 
@@ -202,16 +208,16 @@ window.addEventListener("load", function () {
             traceRec.setMap(map.getMap());
         }
 
-        if (resultType === "kakao") {
-            kakaoCapture();
+        if (resultType === "kakao" || resultType === "google") {
+            proxyCapture();
         } else if (resultType === "naver") {
             naverCapture();
         }
     };
 
-    function kakaoCapture() {
+    function proxyCapture() {
 
-        if (isKakaoRun) {
+        if (isProxyRun) {
             alert("이미지 요청 중입니다. 잠시만 기다려 주세요");
             return;
         }
@@ -220,11 +226,11 @@ window.addEventListener("load", function () {
         progressBar.removeAttribute("value");
         progressBar.setAttribute("class", "progress is-warning");
         document.getElementById("captureStatus").innerText = "서버에 요청중입니다. 잠시 기다려주세요";
-        isKakaoRun = true;
+        isProxyRun = true;
 
         var sock = new SockJS("/map/register");
         sock.onopen = function() {
-            sock.send(kakaoProfile.getParamsToJson());
+            sock.send(proxyProfile.getParamsToJson());
         };
 
         sock.onmessage = function(message) {
@@ -233,7 +239,7 @@ window.addEventListener("load", function () {
             if(json.done){
                 sock.close();
 
-                kakaoTile.requestImage(kakaoProfile, json.uuid, function (blob){
+                proxyTile.requestImage(proxyProfile, json.uuid, function (blob){
 
                     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
                         navigator.msSaveBlob(blob, "mapshot_" + fileName + ".jpg");
@@ -249,14 +255,14 @@ window.addEventListener("load", function () {
                     }
 
                     progressBar.setAttribute("value", 100);
-                    isKakaoRun = false;
+                    isProxyRun = false;
                 });
 
             } else {
                 if(json.index === 0){
                     document.getElementById("captureStatus").innerText =
                         "지도 생성중 입니다. 최대 60초 가량 소요됩니다.";
-                    progressBar.setAttribute("class", "progress is-info");
+                    progressBar.setAttribute("class", "progress is-primary");
 
                 } else {
                     document.getElementById("captureStatus").innerText =
@@ -288,7 +294,7 @@ window.addEventListener("load", function () {
                 }, "image/jpeg");
             }
         });
-    };
+    }
 
 
     document.getElementById("default_click_level").click();
