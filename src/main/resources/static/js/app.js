@@ -262,7 +262,7 @@ window.addEventListener("load", function () {
                 if(json.index === 0){
                     document.getElementById("captureStatus").innerText =
                         "지도 생성중 입니다. 최대 60초 가량 소요됩니다.";
-                    progressBar.setAttribute("class", "progress is-primary");
+                    progressBar.setAttribute("class", "progress is-info");
 
                 } else {
                     document.getElementById("captureStatus").innerText =
