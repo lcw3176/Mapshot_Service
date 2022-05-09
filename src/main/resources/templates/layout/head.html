@@ -1,16 +1,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="layout_head">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-188506770-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-188506770-1');
+    </script>
+
     <meta charset="utf-8">
-<!--    <meta property="og:url" content="https://mapshot.netlify.app" />-->
+    <meta property="og:url" content="https://kmapshot.com" />
     <meta property="og:title" content="MapShot" />
     <meta property="og:description" content="확대해도 깨지지 않는, 고화질 위성사진 조립" />
     <meta property="og:image" content="https://user-images.githubusercontent.com/59993347/164604100-799efc51-948d-4faa-a0f5-95413b4035db.jpg" />
     <meta name="description" content="고화질의 위성 지도를 넓은 범위로 손쉽게 캡쳐합니다.">
     <meta name="author" content="chanwoolee">
-<!--    <link rel="canonical" href="https://mapshot.netlify.app">-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MapShot</title>
-<!--    <meta name="naver-site-verification" content="540fbe5218267288f52ab92c0d59981c039cc22a" />-->
     <link rel="icon" th:href="@{/img/favicon.ico}">
     <link rel="stylesheet" th:href="@{/css/bulma.min.css}">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
