@@ -8,7 +8,7 @@ public class AdminLoginException extends RuntimeException {
     private final AdminLoginRequest adminRequest;
 
     public AdminLoginException(AdminLoginRequest adminRequest){
-        super();
+        super(adminRequest.toString());
         this.adminRequest = adminRequest;
 
     }

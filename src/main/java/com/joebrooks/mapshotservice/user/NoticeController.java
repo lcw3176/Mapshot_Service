@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotservice.presentation;
+package com.joebrooks.mapshotservice.user;
 
 import com.joebrooks.mapshotservice.global.util.DigitValidator;
 import com.joebrooks.mapshotservice.global.util.PageGenerator;
