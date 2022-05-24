@@ -10,8 +10,12 @@
         gtag('config', 'UA-188506770-1');
     </script>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7390022674285155"
-            crossorigin="anonymous"></script>
+    <script th:if="${!#strings.contains(#httpServletRequest.requestURI, 'error')
+                  && !#strings.contains(#httpServletRequest.requestURI, 'contact')
+                  && !#strings.contains(#httpServletRequest.requestURI, 'admin')}"
+            async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7390022674285155"
+            crossorigin="anonymous">
+    </script>
     <meta charset="utf-8">
     <meta property="og:url" content="https://kmapshot.com" />
     <meta property="og:title" content="MapShot" />
