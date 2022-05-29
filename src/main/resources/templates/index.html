@@ -144,9 +144,48 @@
             </ul>
           </div>
         </div>
-
       </div>
     </div>
+
+    <div class="columns mt-5">
+      <div class="column is-half has-text-centered">
+        <img th:src="@{/img/payments/kakao_qr.png}" id="kakao-qr" class="qrcode" style="display: none">
+      </div>
+
+      <div class="column is-half has-text-centered">
+        <img th:src="@{/img/payments/toss_qr.jpg}" id="toss-qr"  class="qrcode" style="display: none">
+      </div>
+
+    </div>
+
+    <div class="columns mt-5">
+      <div class="column is-half has-text-centered">
+        <img th:src="@{/img/payments/kakao.png}" onmouseover="showQr('kakao-qr')" class="qrcode" onmouseout="closeQr('kakao-qr')">
+      </div>
+
+      <div class="column is-half has-text-centered">
+        <img th:src="@{/img/payments/toss.png}" onmouseover="showQr('toss-qr')" class="qrcode" onmouseout="closeQr('toss-qr')">
+      </div>
+    </div>
+
+
   </div>
+
+  <script>
+    function showQr(type){
+      document.getElementById(type).style.display = 'block';
+    }
+
+    function closeQr(type){
+      document.getElementById(type).style.display = 'none';
+    }
+
+  </script>
+
+  <style>
+    .qrcode{
+      height: 150px;
+    }
+  </style>
 </th:block>
 
