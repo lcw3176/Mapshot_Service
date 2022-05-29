@@ -149,43 +149,50 @@
 
     <div class="columns mt-5">
       <div class="column is-half has-text-centered">
-        <img th:src="@{/img/payments/kakao_qr.png}" id="kakao-qr" class="qrcode" style="display: none">
+        <button class="button is-large is-rounded is-warning" onclick="showQr('kakao-qr')">
+          <span>Donate with</span>
+          <span class="is-italic ml-3 is-underlined">
+            KaKao
+          </span>
+          <span class="is-italic has-text-weight-bold is-underlined">
+            pay
+          </span>
+        </button>
       </div>
 
       <div class="column is-half has-text-centered">
-        <img th:src="@{/img/payments/toss_qr.jpg}" id="toss-qr"  class="qrcode" style="display: none">
+        <button class="button is-large is-rounded is-link" onclick="showQr('toss-qr')">
+          <span>Donate with</span>
+          <span class="is-italic ml-3 has-text-weight-bold is-underlined">
+            toss
+          </span>
+        </button>
       </div>
-
     </div>
 
     <div class="columns mt-5">
       <div class="column is-half has-text-centered">
-        <img th:src="@{/img/payments/kakao.png}" onmouseover="showQr('kakao-qr')" class="qrcode" onmouseout="closeQr('kakao-qr')">
+        <img id="kakao-qr" th:src="@{/img/payments/kakao_qr.png}" style="display: none">
       </div>
 
       <div class="column is-half has-text-centered">
-        <img th:src="@{/img/payments/toss.png}" onmouseover="showQr('toss-qr')" class="qrcode" onmouseout="closeQr('toss-qr')">
+        <img id="toss-qr" th:src="@{/img/payments/toss_qr.jpg}" style="display: none">
       </div>
     </div>
-
 
   </div>
 
   <script>
     function showQr(type){
-      document.getElementById(type).style.display = 'block';
-    }
+      var displayStyle = document.getElementById(type).style.display;
+      if(displayStyle === 'none'){
+        document.getElementById(type).style.display = 'inline-block';
+      } else {
+        document.getElementById(type).style.display = 'none';
+      }
 
-    function closeQr(type){
-      document.getElementById(type).style.display = 'none';
     }
 
   </script>
-
-  <style>
-    .qrcode{
-      height: 150px;
-    }
-  </style>
 </th:block>
 
