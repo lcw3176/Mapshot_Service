@@ -10,12 +10,25 @@ import javax.servlet.Filter;
 public class FilterConfig {
 
     @Bean
-    public FilterRegistrationBean logFilter() {
+    public FilterRegistrationBean httpRequestFilter() {
+        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(new HttpRequestFilter());
+        filterRegistrationBean.setOrder(1);
+        filterRegistrationBean.addUrlPatterns("*");
+
+        return filterRegistrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean adminFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new AdminAuthFilter());
-        filterRegistrationBean.setOrder(1);
+        filterRegistrationBean.setOrder(2);
         filterRegistrationBean.addUrlPatterns("/admin/*");
 
         return filterRegistrationBean;
     }
+
+
+
 }
