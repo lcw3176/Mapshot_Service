@@ -28,7 +28,7 @@ public class AdminAuthFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         try {
-            if (isLoginCheckPath(requestURI)) {
+            if (isNotWhitelistPath(requestURI)) {
                 HttpSession session = httpRequest.getSession(false);
 
                 if (session == null || session.getAttribute("admin") == null) {
@@ -61,7 +61,7 @@ public class AdminAuthFilter implements Filter {
         }
     }
 
-    private boolean isLoginCheckPath(String requestURI) {
+    private boolean isNotWhitelistPath(String requestURI) {
         return !PatternMatchUtils.simpleMatch(whitelist, requestURI);
     }
 
