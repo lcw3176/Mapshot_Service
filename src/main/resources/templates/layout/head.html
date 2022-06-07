@@ -12,7 +12,8 @@
 
     <script th:if="${!#strings.contains(#httpServletRequest.requestURI, 'error')
                   && !#strings.contains(#httpServletRequest.requestURI, 'contact')
-                  && !#strings.contains(#httpServletRequest.requestURI, 'admin')}"
+                  && !#strings.contains(#httpServletRequest.requestURI, 'admin')
+                  && !(#strings.contains(#httpServletRequest.requestURI, 'notice') && #strings.isEmpty(#httpServletRequest.getParameter('post')))}"
             async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7390022674285155"
             crossorigin="anonymous">
     </script>
