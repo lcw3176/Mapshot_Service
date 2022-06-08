@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class HttpRequestFilter implements Filter {
 
-    private static final String[] whitelist = {"/admin/login", "/favicon.ico"};
+    private static final String[] whitelist = {"/admin/login", "/admin/board/register", "/admin/board/edit", "/favicon.ico"};
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
