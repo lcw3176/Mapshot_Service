@@ -1,1 +1,355 @@
-var _0x261260=_0x42f0;(function(_0x35dd7d,_0x3e40fe){var _0x2765c3=_0x42f0,_0x37bf5c=_0x35dd7d();while(!![]){try{var _0x3ce086=parseInt(_0x2765c3(0x100))/0x1*(-parseInt(_0x2765c3(0x115))/0x2)+parseInt(_0x2765c3(0x121))/0x3*(-parseInt(_0x2765c3(0x123))/0x4)+parseInt(_0x2765c3(0x13a))/0x5+-parseInt(_0x2765c3(0x162))/0x6+-parseInt(_0x2765c3(0xfa))/0x7+-parseInt(_0x2765c3(0xeb))/0x8*(-parseInt(_0x2765c3(0xea))/0x9)+parseInt(_0x2765c3(0x118))/0xa;if(_0x3ce086===_0x3e40fe)break;else _0x37bf5c['push'](_0x37bf5c['shift']());}catch(_0x4e82e4){_0x37bf5c['push'](_0x37bf5c['shift']());}}}(_0x312a,0xb88a3),window['addEventListener'](_0x261260(0x12a),function(){var _0x2951f2=_0x261260,_0x34013f=new mapshot[(_0x2951f2(0x15d))][(_0x2951f2(0x134))](),_0x44b50b=new mapshot['profile'][(_0x2951f2(0xf1))]();_0x34013f['setKey'](_0x2951f2(0xec)),_0x44b50b[_0x2951f2(0x164)]('/map/storage');var _0x561c9e=new mapshot[(_0x2951f2(0xef))]['LatLng'](),_0x29875e=new mapshot[(_0x2951f2(0x160))][(_0x2951f2(0x11f))](),_0x53e5dc=new mapshot[(_0x2951f2(0x160))][(_0x2951f2(0xf4))](),_0x4cfb39=new Map(),_0x5aad46=null,_0x11771a=![],_0x3996e2=null,_0x201783=null,_0x1bf4d0,_0x5911df=document[_0x2951f2(0x150)](_0x2951f2(0x119)),_0x421c95=![],_0x252f68=null;document[_0x2951f2(0x150)]('searchPlaces')['onsubmit']=function(){return _0x4cfb39['searchPlaces'](),![];},kakao['maps'][_0x2951f2(0xfd)]['addListener'](_0x4cfb39[_0x2951f2(0x11c)](),_0x2951f2(0x15f),function(_0x398f63){var _0x23b157=_0x2951f2;_0x561c9e[_0x23b157(0x13e)](_0x398f63['latLng'][_0x23b157(0xf5)](),_0x398f63['latLng'][_0x23b157(0xf9)]()),document[_0x23b157(0x150)](_0x23b157(0x11a))['innerText']=_0x561c9e[_0x23b157(0x11e)](),document[_0x23b157(0x150)](_0x23b157(0x159))[_0x23b157(0x166)]=_0x561c9e[_0x23b157(0x10f)]();_0x5aad46!=null&&_0x5aad46[_0x23b157(0x107)](null);_0x29875e[_0x23b157(0x10b)](_0x201783),_0x44b50b[_0x23b157(0x129)](_0x561c9e);var _0x33bef4=_0x29875e[_0x23b157(0x14d)](_0x201783,_0x561c9e),_0x316a58=_0x29875e[_0x23b157(0x117)](_0x201783,_0x561c9e);_0x5aad46=new kakao[(_0x23b157(0x160))][(_0x23b157(0xfe))]({'bounds':new kakao[(_0x23b157(0x160))][(_0x23b157(0x13f))](new kakao[(_0x23b157(0x160))]['LatLng'](_0x33bef4['getY'](),_0x33bef4[_0x23b157(0x10f)]()),new kakao['maps']['LatLng'](_0x316a58[_0x23b157(0x11e)](),_0x316a58[_0x23b157(0x10f)]())),'strokeWeight':0x4,'strokeColor':_0x23b157(0x111),'strokeOpacity':0x1,'strokeStyle':'shortdashdot','fillColor':'#FF8AEF','fillOpacity':0.8}),_0x5aad46[_0x23b157(0x107)](_0x4cfb39[_0x23b157(0x11c)]());}),document[_0x2951f2(0x150)](_0x2951f2(0x14c))['onmousedown']=function(_0x1b35bd){var _0x4cbd58=_0x2951f2;_0x1b35bd[_0x4cbd58(0x120)]===0x2&&_0x5aad46!=null&&_0x5aad46[_0x4cbd58(0x107)](null);},document['body'][_0x2951f2(0xfb)](_0x2951f2(0xf7),function(_0x25285f){var _0x506ddb=_0x2951f2;_0x5911df['max']=_0x25285f[_0x506ddb(0x116)][_0x506ddb(0x167)],_0x5911df[_0x506ddb(0x106)]=0x0;}),document[_0x2951f2(0x104)][_0x2951f2(0xfb)]('naverTileOnProgress',function(_0x74162){var _0x42623f=_0x2951f2;_0x5911df[_0x42623f(0x106)]+=0x1,document[_0x42623f(0x150)]('captureStatus')[_0x42623f(0x166)]=_0x5911df[_0x42623f(0x106)]+'/'+_0x5911df['max']+'\x20수집\x20완료';}),document[_0x2951f2(0x104)]['addEventListener'](_0x2951f2(0xed),function(_0x4bbb3b){var _0x2c6f48=_0x2951f2;_0x5911df[_0x2c6f48(0x106)]+=0x1,_0x5911df[_0x2c6f48(0xf3)](_0x2c6f48(0x141),_0x2c6f48(0x135)),document[_0x2c6f48(0x150)](_0x2c6f48(0x143))['innerText']=_0x5911df['value']+'/'+_0x5911df['max']+_0x2c6f48(0x126);}),document['body'][_0x2951f2(0xfb)]('proxyTileOnError',function(_0x51a929){var _0x36918a=_0x2951f2;document[_0x36918a(0x150)]('captureStatus')[_0x36918a(0x166)]=_0x36918a(0xff),_0x5911df[_0x36918a(0xf3)](_0x36918a(0x141),_0x36918a(0x135)),_0x5911df[_0x36918a(0xf3)](_0x36918a(0x106),0x64),_0x421c95=![];}),setZoomLevel=function(_0x405b0b,_0x3a0478){var _0x176eb5=_0x2951f2,_0x9929cd=document['getElementsByClassName'](_0x176eb5(0x146));for(var _0x96f2ef=0x0;_0x96f2ef<_0x9929cd['length'];_0x96f2ef++){_0x9929cd[_0x96f2ef][_0x176eb5(0xf3)](_0x176eb5(0x141),_0x176eb5(0x146));}switch(_0x405b0b){case 0x1:_0x201783=mapshot[_0x176eb5(0x163)][_0x176eb5(0x12c)];break;case 0x2:_0x201783=mapshot[_0x176eb5(0x163)][_0x176eb5(0x128)];break;case 0x5:_0x201783=mapshot['radius']['Five'];break;case 0xa:_0x201783=mapshot[_0x176eb5(0x163)][_0x176eb5(0x15b)];break;default:break;}_0x3a0478[_0x176eb5(0xf3)](_0x176eb5(0x141),_0x176eb5(0x154));},setBaseMap=function(_0x153a75,_0x45e31e){var _0x118650=_0x2951f2,_0x2ab8c4=document[_0x118650(0x109)](_0x118650(0x14c));for(var _0x4ee282=0x0;_0x4ee282<_0x2ab8c4[_0x118650(0x13d)];_0x4ee282++){_0x2ab8c4[_0x4ee282][_0x118650(0xf3)]('class',_0x118650(0x14c));}_0x34013f[_0x118650(0x14e)](_0x153a75),_0x44b50b[_0x118650(0x14e)](_0x153a75),_0x45e31e['setAttribute'](_0x118650(0x141),_0x118650(0x12f));},setCompany=function(_0x3d225b){var _0x89c72a=_0x2951f2;if(_0x44b50b['isLayerMode']()&&(_0x3d225b==='naver'||_0x3d225b==='google')){alert('지적\x20편집도는\x20카카오\x20지도만\x20사용\x20가능합니다');return;}var _0xfb7d51=document[_0x89c72a(0x109)]('company');for(var _0x1d6e33=0x0;_0x1d6e33<_0xfb7d51[_0x89c72a(0x13d)];_0x1d6e33++){_0xfb7d51[_0x1d6e33][_0x89c72a(0xf3)]('class',_0x89c72a(0x114));}if(_0x3d225b===_0x89c72a(0x15c))document[_0x89c72a(0x150)](_0x89c72a(0x15c))[_0x89c72a(0xf3)](_0x89c72a(0x141),_0x89c72a(0x147));else{if(_0x3d225b===_0x89c72a(0x14a))document[_0x89c72a(0x150)](_0x89c72a(0x14a))[_0x89c72a(0xf3)](_0x89c72a(0x141),_0x89c72a(0x10d));else _0x3d225b==='google'&&document[_0x89c72a(0x150)](_0x89c72a(0xf6))[_0x89c72a(0xf3)]('class','company\x20button\x20is-link');}_0x3996e2=_0x3d225b,_0x44b50b[_0x89c72a(0x142)](_0x3d225b);},setTraceMode=function(_0x29300){var _0x377a35=_0x2951f2;_0x29300[_0x377a35(0x14f)](_0x377a35(0x141))!==_0x377a35(0x110)?(_0x29300['setAttribute'](_0x377a35(0x141),_0x377a35(0x110)),_0x11771a=!![]):(_0x29300[_0x377a35(0xf3)](_0x377a35(0x141),''),_0x11771a=![]);},setLayerMode=function(_0x3c9389){var _0x4e0d4d=_0x2951f2;_0x3c9389[_0x4e0d4d(0x14f)](_0x4e0d4d(0x141))!==_0x4e0d4d(0x110)?(_0x3c9389[_0x4e0d4d(0xf3)]('class','is-active'),_0x44b50b[_0x4e0d4d(0x13c)](!![]),setCompany('kakao')):(_0x3c9389[_0x4e0d4d(0xf3)](_0x4e0d4d(0x141),''),_0x44b50b[_0x4e0d4d(0x13c)](![]));},startCapture=function(){var _0x679d6e=_0x2951f2;_0x1bf4d0!=null&&URL[_0x679d6e(0x112)](_0x1bf4d0);if(_0x561c9e[_0x679d6e(0x10f)]()===undefined||_0x561c9e[_0x679d6e(0x11e)]()===undefined){alert(_0x679d6e(0x127));return;}if(_0x3996e2==null){alert(_0x679d6e(0x105));return;}if(_0x421c95){alert('이미지\x20요청\x20중입니다.\x20잠시만\x20기다려\x20주세요');return;}if(_0x11771a){var _0xe6bb11=new kakao[(_0x679d6e(0x160))]['Rectangle']({'bounds':_0x5aad46[_0x679d6e(0x124)](),'strokeWeight':0x4,'strokeColor':_0x679d6e(0x149),'strokeOpacity':0x1,'strokeStyle':_0x679d6e(0x10c),'fillColor':_0x679d6e(0x125),'fillOpacity':0.8});_0xe6bb11[_0x679d6e(0x107)](_0x4cfb39[_0x679d6e(0x11c)]());}if(_0x3996e2==='kakao'||_0x3996e2==='google')_0x57f85b();else _0x3996e2==='naver'&&_0x154a9d();};function _0x57f85b(){var _0x31659e=_0x2951f2,_0x4bb071=0x3e8,_0x125fad=0x1f4;_0x44b50b[_0x31659e(0x12e)](_0x201783);var _0x23d2f8=document[_0x31659e(0x150)](_0x31659e(0x144))[_0x31659e(0x166)];_0x5911df['removeAttribute'](_0x31659e(0x106)),_0x5911df[_0x31659e(0xf3)](_0x31659e(0x141),_0x31659e(0x11d)),document['getElementById'](_0x31659e(0x143))[_0x31659e(0x166)]='서버에\x20요청중입니다.\x20잠시\x20기다려주세요',_0x421c95=!![];var _0x23d340=document[_0x31659e(0x12b)](_0x31659e(0x108));_0x44b50b[_0x31659e(0x152)]()===_0x31659e(0xf6)?(_0x23d340['width']=_0x44b50b[_0x31659e(0x165)]()-_0x125fad,_0x23d340[_0x31659e(0x139)]=_0x44b50b[_0x31659e(0x165)]()-_0x125fad):(_0x23d340[_0x31659e(0x158)]=_0x44b50b[_0x31659e(0x165)](),_0x23d340[_0x31659e(0x139)]=_0x44b50b[_0x31659e(0x165)]());var _0x3e48ce=_0x23d340[_0x31659e(0x15a)]('2d'),_0x3dd556=parseInt(_0x44b50b[_0x31659e(0x165)]()/_0x4bb071),_0x4884f7=_0x3dd556*_0x3dd556,_0x1cf1b6=0x0,_0x2f73a9=new SockJS(_0x31659e(0x15e));_0x2f73a9['onopen']=function(){var _0x2432f8=_0x31659e;_0x2f73a9[_0x2432f8(0x103)](_0x44b50b[_0x2432f8(0xf2)]());},_0x2f73a9[_0x31659e(0x132)]=function(_0xfd7dad){var _0x429fcd=_0x31659e,_0x157058=JSON[_0x429fcd(0x101)](_0xfd7dad[_0x429fcd(0x11b)]);if(_0x157058[_0x429fcd(0xee)]===0x0&&_0x157058[_0x429fcd(0x130)]!==null)_0x1cf1b6===0x0&&(_0x5911df[_0x429fcd(0x113)]=0x64,document[_0x429fcd(0x150)](_0x429fcd(0x143))[_0x429fcd(0x166)]=0x0+'\x20/\x20100',_0x5911df[_0x429fcd(0xf3)](_0x429fcd(0x106),0x0)),_0x53e5dc[_0x429fcd(0x155)](_0x44b50b,_0x157058[_0x429fcd(0x130)],function(_0x431d2e){var _0x4e4c06=_0x429fcd;if(_0x44b50b[_0x4e4c06(0x152)]()===_0x4e4c06(0xf6)&&_0x157058['x']+_0x4bb071===_0x3dd556*_0x4bb071&&_0x157058['y']+_0x4bb071!==_0x3dd556*_0x4bb071)_0x3e48ce[_0x4e4c06(0x140)](_0x431d2e,0x0,0x0,_0x431d2e[_0x4e4c06(0x158)],_0x431d2e[_0x4e4c06(0x139)],_0x157058['x']-_0x125fad,_0x157058['y'],_0x4bb071,_0x4bb071);else{if(_0x44b50b[_0x4e4c06(0x152)]()===_0x4e4c06(0xf6)&&_0x157058['x']+_0x4bb071!==_0x3dd556*_0x4bb071&&_0x157058['y']+_0x4bb071===_0x3dd556*_0x4bb071)_0x3e48ce['drawImage'](_0x431d2e,0x0,0x0,_0x431d2e[_0x4e4c06(0x158)],_0x431d2e['height'],_0x157058['x'],_0x157058['y']-_0x125fad,_0x4bb071,_0x4bb071);else _0x44b50b[_0x4e4c06(0x152)]()===_0x4e4c06(0xf6)&&_0x157058['x']+_0x4bb071===_0x3dd556*_0x4bb071&&_0x157058['y']+_0x4bb071===_0x3dd556*_0x4bb071?_0x3e48ce[_0x4e4c06(0x140)](_0x431d2e,0x0,0x0,_0x431d2e[_0x4e4c06(0x158)],_0x431d2e[_0x4e4c06(0x139)],_0x157058['x']-_0x125fad,_0x157058['y']-_0x125fad,_0x4bb071,_0x4bb071):_0x3e48ce[_0x4e4c06(0x140)](_0x431d2e,0x0,0x0,_0x431d2e[_0x4e4c06(0x158)],_0x431d2e[_0x4e4c06(0x158)],_0x157058['x'],_0x157058['y'],_0x4bb071,_0x4bb071);}_0x1cf1b6++,document['getElementById'](_0x4e4c06(0x143))[_0x4e4c06(0x166)]=parseInt(_0x1cf1b6/_0x4884f7*0x64)[_0x4e4c06(0x13b)]()+'\x20/\x20100',_0x5911df[_0x4e4c06(0xf3)](_0x4e4c06(0x106),(_0x1cf1b6/_0x4884f7*0x64)['toString']()),_0x1cf1b6===_0x4884f7&&(_0x245094(_0x23d340,_0x23d2f8),_0x5911df[_0x4e4c06(0xf3)](_0x4e4c06(0x106),0x64),_0x421c95=![],_0x252f68=null,_0x2f73a9[_0x4e4c06(0x138)]());});else{if(_0x157058[_0x429fcd(0xee)]===0x0&&_0x252f68==null)_0x252f68=new Date(),_0x252f68[_0x429fcd(0x151)](_0x252f68[_0x429fcd(0x156)]()+0x1),document[_0x429fcd(0x150)](_0x429fcd(0x143))[_0x429fcd(0x166)]=_0x429fcd(0x161)+_0x252f68[_0x429fcd(0x12d)](),_0x5911df['setAttribute'](_0x429fcd(0x141),_0x429fcd(0x102));else _0x157058[_0x429fcd(0xee)]>0x0&&(document[_0x429fcd(0x150)](_0x429fcd(0x143))[_0x429fcd(0x166)]=_0x157058['index']+'\x20명의\x20유저가\x20생성\x20대기중\x20입니다.\x20예상\x20대기시간:\x20'+_0x157058[_0x429fcd(0xee)]+'분');}};}function _0x154a9d(){var _0x40a9bb=_0x2951f2;_0x421c95=!![],_0x5911df[_0x40a9bb(0xf3)](_0x40a9bb(0x141),_0x40a9bb(0x102)),_0x34013f['setLevel'](_0x201783);var _0x59ba8e=document['getElementById'](_0x40a9bb(0x144))[_0x40a9bb(0x166)];_0x29875e[_0x40a9bb(0x145)](_0x561c9e,_0x201783,_0x34013f,function(_0x1571de){_0x245094(_0x1571de,_0x59ba8e),_0x421c95=![];});}function _0x245094(_0x1bb2f6,_0x1e41cb){var _0xd4183d=_0x2951f2;_0x1bb2f6['msToBlob']?_0x1bb2f6[_0xd4183d(0xf0)](function(_0x5f1744){var _0x45f62b=_0xd4183d;navigator['msSaveBlob'](_0x5f1744,_0x45f62b(0xf8)+_0x1e41cb+_0x45f62b(0x10a)),document[_0x45f62b(0x150)](_0x45f62b(0x143))[_0x45f62b(0x166)]='완료되었습니다.';},_0xd4183d(0x122)):_0x1bb2f6[_0xd4183d(0xf0)](function(_0x584260){var _0x54e541=_0xd4183d;_0x1bf4d0=URL[_0x54e541(0x10e)](_0x584260);var _0x162d67=document[_0x54e541(0x150)](_0x54e541(0x137));_0x162d67[_0x54e541(0xfc)]=_0x1bf4d0,_0x162d67[_0x54e541(0x157)]=_0x54e541(0xf8)+_0x1e41cb+_0x54e541(0x10a),document['getElementById'](_0x54e541(0x153))[_0x54e541(0x133)]='mapshot_'+_0x1e41cb+_0x54e541(0x10a),document[_0x54e541(0x150)](_0x54e541(0x143))[_0x54e541(0x166)]=_0x54e541(0x148);},'image/jpeg');}document['getElementById'](_0x2951f2(0x131))[_0x2951f2(0x15f)](),document[_0x2951f2(0x150)](_0x2951f2(0x136))[_0x2951f2(0x15f)](),document[_0x2951f2(0x150)](_0x2951f2(0x14b))['click']();}));function _0x42f0(_0x400fe4,_0x5043e6){var _0x312a7e=_0x312a();return _0x42f0=function(_0x42f0c0,_0x3ce5f2){_0x42f0c0=_0x42f0c0-0xea;var _0x147375=_0x312a7e[_0x42f0c0];return _0x147375;},_0x42f0(_0x400fe4,_0x5043e6);}function _0x312a(){var _0xc3f99a=['setProxyUrl','getWidth','innerText','total','738YUhCTJ','96728TTLUgf','ny5d4sdo0e','naverTileOnError','index','coors','toBlob','Proxy','getParamsToJson','setAttribute','ProxyTile','getLat','google','naverTileOnLoadStart','mapshot_','getLng','6065507BRbDVR','addEventListener','href','event','Rectangle','서버\x20에러입니다.\x20잠시\x20후\x20다시\x20시도해주세요.','1646KhUnWv','parse','progress\x20is-info','send','body','출력\x20타입을\x20지정해주세요','value','setMap','canvas','getElementsByClassName','.jpg','setLevel','shortdot','company\x20button\x20is-success','createObjectURL','getX','is-active','#FF3DE5','revokeObjectURL','max','company','184furqmb','detail','getNE','11415740CbzEwz','progressBar','lat','data','getMap','progress\x20is-warning','getY','NaverTile','button','3rOAhDV','image/jpeg','1921084GsKPwy','getBounds','#ecf4f3','\x20수집\x20완료','좌표\x20설정을\x20먼저\x20진행해\x20주세요.','Two','setCenter','load','createElement','One','toLocaleTimeString','setRadius','map\x20is-active','uuid','default_click_level','onmessage','innerHTML','Naver','progress\x20is-danger','default_click_map','resultHref','close','height','7244765UapfOP','toString','setLayerMode','length','init','LatLngBounds','drawImage','class','setCompanyType','captureStatus','bunzi-address','draw','zoom','company\x20button\x20is-warning','완료되었습니다.\x20생성된\x20링크를\x20확인하세요','#000000','naver','setTrace','map','getSW','setMapType','getAttribute','getElementById','setMinutes','getCompanyType','resultSpan','zoom\x20is-active','requestImage','getMinutes','download','width','lng','getContext','Ten','kakao','profile','/map/register','click','maps','지도\x20생성중\x20입니다.\x20예상\x20완료시간\x20->\x20','7967460LlaHDi','radius'];_0x312a=function(){return _0xc3f99a;};return _0x312a();}
+window.addEventListener("load", function () {
+    var naverProfile = new mapshot.profile.Naver();
+    var proxyProfile = new mapshot.profile.Proxy();
+    naverProfile.setKey("ny5d4sdo0e");
+    proxyProfile.setProxyUrl("/map/storage")
+
+    var coor = new mapshot.coors.LatLng();
+    var naverTile = new mapshot.maps.NaverTile();
+    var proxyTile = new mapshot.maps.ProxyTile();
+
+    var map = new Map();
+    var rectangle = null;
+    var traceMode = false;
+    var resultType = null;
+    var mapRadius = null;
+    var url;
+    var progressBar = document.getElementById("progressBar");
+
+    var isRun = false;
+    var expectedEndTime = null;
+
+    // 카카오 지도 설정
+
+    document.getElementById("searchPlaces").onsubmit = function () {
+        map.searchPlaces();
+        return false;
+    };
+
+    kakao.maps.event.addListener(map.getMap(), 'click', function (mouseEvent) {
+        coor.init(mouseEvent.latLng.getLat(), mouseEvent.latLng.getLng());
+        document.getElementById("lat").innerText = coor.getY();
+        document.getElementById("lng").innerText = coor.getX();
+
+        if (rectangle != null) {
+            rectangle.setMap(null);
+        }
+
+        naverTile.setLevel(mapRadius);
+        proxyProfile.setCenter(coor);
+        var sw = naverTile.getSW(mapRadius, coor);
+        var ne = naverTile.getNE(mapRadius, coor);
+        rectangle = new kakao.maps.Rectangle({
+            bounds: new kakao.maps.LatLngBounds(new kakao.maps.LatLng(sw.getY(), sw.getX()), new kakao.maps.LatLng(ne.getY(), ne.getX())),
+            strokeWeight: 4,
+            strokeColor: '#FF3DE5',
+            strokeOpacity: 1,
+            strokeStyle: 'shortdashdot',
+            fillColor: '#FF8AEF',
+            fillOpacity: 0.8
+        });
+        rectangle.setMap(map.getMap());
+    });
+
+    document.getElementById("map").onmousedown = function (e) {
+        if (e.button === 2 && rectangle != null) {
+            rectangle.setMap(null);
+        }
+    };
+    // 카카오 지도 설정 끝
+
+
+    // 맵샷 네이버 이벤트 리스너 정의
+    document.body.addEventListener("naverTileOnLoadStart", function (e) {
+        progressBar.max = e.detail.total;
+        progressBar.value = 0;
+    });
+    document.body.addEventListener("naverTileOnProgress", function (e) {
+        progressBar.value += 1;
+        document.getElementById("captureStatus").innerText = progressBar.value + "/" + progressBar.max + " 수집 완료";
+    });
+    document.body.addEventListener("naverTileOnError", function (e) {
+        progressBar.value += 1;
+        progressBar.setAttribute("class", "progress is-danger");
+        document.getElementById("captureStatus").innerText = progressBar.value + "/" + progressBar.max + " 수집 완료";
+    }); // 네이버 이벤트 리스너 정의 끝
+
+
+    // 맵샷 프록시 이벤트 리스너 정의
+    document.body.addEventListener("proxyTileOnError", function (e) {
+        document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
+        progressBar.setAttribute("class", "progress is-danger");
+        progressBar.setAttribute("value", 100);
+        isRun = false;
+    });
+
+    // 맵샷 프록시 이벤트 리스너 정의 끝
+
+
+    setZoomLevel = function (_km, id) {
+        var matches = document.getElementsByClassName("zoom");
+
+        for (var i = 0; i < matches.length; i++) {
+            matches[i].setAttribute('class', 'zoom');
+        }
+
+        switch (_km) {
+            case 1:
+                mapRadius = mapshot.radius.One;
+                break;
+
+            case 2:
+                mapRadius = mapshot.radius.Two;
+                break;
+
+            case 5:
+                mapRadius = mapshot.radius.Five;
+                break;
+
+            case 10:
+                mapRadius = mapshot.radius.Ten;
+                break;
+
+            default:
+                break;
+        }
+
+        id.setAttribute('class', 'zoom is-active');
+    };
+
+    setBaseMap = function (mapType, id) {
+        var matches = document.getElementsByClassName("map");
+
+        for (var i = 0; i < matches.length; i++) {
+            matches[i].setAttribute('class', 'map');
+        }
+
+        naverProfile.setMapType(mapType);
+        proxyProfile.setMapType(mapType);
+        id.setAttribute('class', 'map is-active');
+    };
+
+    setCompany = function (companyName) {
+        if (proxyProfile.isLayerMode() && (companyName === "naver" || companyName === "google")) {
+            alert("지적 편집도는 카카오 지도만 사용 가능합니다");
+            return;
+        }
+
+        var matches = document.getElementsByClassName("company");
+
+        for (var i = 0; i < matches.length; i++) {
+            matches[i].setAttribute('class', 'company');
+        }
+
+        if (companyName === "kakao") {
+            document.getElementById("kakao").setAttribute("class", "company button is-warning");
+        } else if (companyName === "naver") {
+            document.getElementById("naver").setAttribute("class", "company button is-success");
+        } else if (companyName === "google") {
+            document.getElementById("google").setAttribute("class", "company button is-link");
+        }
+
+        resultType = companyName;
+        proxyProfile.setCompanyType(companyName);
+    };
+
+    setTraceMode = function (id) {
+        if (id.getAttribute("class") !== "is-active") {
+            id.setAttribute("class", "is-active");
+            traceMode = true;
+        } else {
+            id.setAttribute("class", "");
+            traceMode = false;
+        }
+    };
+
+    setLayerMode = function (id) {
+        if (id.getAttribute("class") !== "is-active") {
+            id.setAttribute("class", "is-active");
+            proxyProfile.setLayerMode(true);
+            setCompany("kakao");
+        } else {
+            id.setAttribute("class", "");
+            proxyProfile.setLayerMode(false);
+        }
+    };
+
+    startCapture = function () {
+        if (url != null) {
+            URL.revokeObjectURL(url);
+        }
+
+        if (coor.getX() === undefined || coor.getY() === undefined) {
+            alert("좌표 설정을 먼저 진행해 주세요.");
+            return;
+        }
+
+        if (resultType == null) {
+            alert("출력 타입을 지정해주세요");
+            return;
+        }
+
+        if (isRun) {
+            alert("이미지 요청 중입니다. 잠시만 기다려 주세요");
+            return;
+        }
+
+        if (traceMode) {
+            var traceRec = new kakao.maps.Rectangle({
+                bounds: rectangle.getBounds(),
+                strokeWeight: 4,
+                strokeColor: '#000000',
+                strokeOpacity: 1,
+                strokeStyle: 'shortdot',
+                fillColor: '#ecf4f3',
+                fillOpacity: 0.8
+            });
+            traceRec.setMap(map.getMap());
+        }
+
+        if (resultType === "kakao" || resultType === "google") {
+            proxyCapture();
+        } else if (resultType === "naver") {
+            naverCapture();
+        }
+    };
+
+    function proxyCapture() {
+        var defaultBlockSize = 1000;
+        var googleOffset = 500;
+        proxyProfile.setRadius(mapRadius);
+        var fileName = document.getElementById("bunzi-address").innerText;
+        progressBar.removeAttribute("value");
+        progressBar.setAttribute("class", "progress is-warning");
+        document.getElementById("captureStatus").innerText = "서버에 요청중입니다. 잠시 기다려주세요";
+        isRun = true;
+
+        var canvas = document.createElement("canvas");
+
+        if(proxyProfile.getCompanyType() === "google"){
+            canvas.width = proxyProfile.getWidth() - googleOffset;
+            canvas.height = proxyProfile.getWidth() - googleOffset;
+        } else {
+            canvas.width = proxyProfile.getWidth();
+            canvas.height = proxyProfile.getWidth();
+        }
+
+
+        var ctx = canvas.getContext("2d");
+        var sideBlockCount = parseInt(proxyProfile.getWidth() / defaultBlockSize);
+        var maxCount = sideBlockCount * sideBlockCount;
+        var count = 0;
+        var sock = new SockJS("/map/register");
+        sock.onopen = function() {
+            sock.send(proxyProfile.getParamsToJson());
+        };
+
+        sock.onmessage = function(message) {
+            var json = JSON.parse(message.data);
+
+            if(json.index === 0 && json.uuid !== null){
+
+                if(count === 0){
+                    progressBar.max = 100;
+                    document.getElementById("captureStatus").innerText = 0 + " / 100";
+                    progressBar.setAttribute("value", 0);
+                }
+
+
+                proxyTile.requestImage(proxyProfile, json.uuid, function (loadedImage){
+                    if(proxyProfile.getCompanyType() === "google"
+                        && json.x + defaultBlockSize === sideBlockCount * defaultBlockSize
+                        && json.y + defaultBlockSize !== sideBlockCount * defaultBlockSize){
+
+                        ctx.drawImage(loadedImage, 0, 0, loadedImage.width, loadedImage.height,
+                            json.x - googleOffset, json.y, defaultBlockSize, defaultBlockSize);
+                    } else if(proxyProfile.getCompanyType() === "google"
+                        && json.x + defaultBlockSize !== sideBlockCount * defaultBlockSize
+                        && json.y + defaultBlockSize === sideBlockCount * defaultBlockSize) {
+
+                        ctx.drawImage(loadedImage, 0, 0, loadedImage.width, loadedImage.height,
+                            json.x, json.y - googleOffset, defaultBlockSize, defaultBlockSize);
+                    } else if(proxyProfile.getCompanyType() === "google"
+                        && json.x + defaultBlockSize === sideBlockCount * defaultBlockSize
+                        && json.y + defaultBlockSize === sideBlockCount * defaultBlockSize) {
+
+                        ctx.drawImage(loadedImage, 0, 0, loadedImage.width, loadedImage.height,
+                            json.x - googleOffset, json.y - googleOffset, defaultBlockSize, defaultBlockSize);
+                    } else {
+
+                        ctx.drawImage(loadedImage, 0, 0, loadedImage.width, loadedImage.width,
+                            json.x, json.y, defaultBlockSize, defaultBlockSize);
+                    }
+
+                    count++;
+                    document.getElementById("captureStatus").innerText = parseInt((count / maxCount) * 100).toString() + " / 100";
+                    progressBar.setAttribute("value", (count / maxCount * 100).toString());
+
+                    if(count === maxCount){
+                        canvasToFile(canvas, fileName);
+                        progressBar.setAttribute("value", 100);
+                        isRun = false;
+                        expectedEndTime = null;
+                        sock.close();
+                    }
+                })
+
+            } else {
+                if(json.index === 0 && expectedEndTime == null){
+                    expectedEndTime = new Date();
+                    expectedEndTime.setMinutes(expectedEndTime.getMinutes() + 1);
+
+                    document.getElementById("captureStatus").innerText =
+                        "지도 생성중 입니다. 예상 완료시간 -> " + expectedEndTime.toLocaleTimeString();
+                    progressBar.setAttribute("class", "progress is-info");
+
+                } else if(json.index > 0){
+                    document.getElementById("captureStatus").innerText =
+                        json.index + " 명의 유저가 생성 대기중 입니다. 예상 대기시간: " + json.index + "분";
+                } else if(json.index === 0 && json.error){
+                    document.getElementById("captureStatus").innerText = "서버 에러입니다. 잠시 후 다시 시도해주세요.";
+                    progressBar.setAttribute("class", "progress is-danger");
+                    progressBar.setAttribute("value", 100);
+                    isRun = false;
+                    expectedEndTime = null;
+                    sock.close();
+                }
+            }
+        };
+    }
+
+    function naverCapture() {
+        isRun = true;
+        progressBar.setAttribute("class", "progress is-info");
+        naverProfile.setLevel(mapRadius);
+        var fileName = document.getElementById("bunzi-address").innerText;
+
+        naverTile.draw(coor, mapRadius, naverProfile, function (canvas) {
+            canvasToFile(canvas, fileName);
+            isRun = false;
+        });
+    }
+
+    function canvasToFile(canvas, fileName){
+        if (canvas.msToBlob) {
+            canvas.toBlob(function (blob) {
+                navigator.msSaveBlob(blob, "mapshot_" + fileName + ".jpg");
+                document.getElementById("captureStatus").innerText = "완료되었습니다.";
+            }, "image/jpeg");
+        } else {
+            canvas.toBlob(function (blob) {
+                url = URL.createObjectURL(blob);
+                var tag = document.getElementById("resultHref");
+                tag.href = url;
+                tag.download = "mapshot_" + fileName + ".jpg";
+                document.getElementById("resultSpan").innerHTML = "mapshot_" + fileName + ".jpg";
+                document.getElementById("captureStatus").innerText = "완료되었습니다. 생성된 링크를 확인하세요";
+            }, "image/jpeg");
+        }
+    }
+
+
+    document.getElementById("default_click_level").click();
+    document.getElementById("default_click_map").click();
+    document.getElementById("setTrace").click();
+});
