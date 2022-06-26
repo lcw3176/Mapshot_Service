@@ -1,0 +1,80 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-job:
+    name: Build Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Start build job'
+        run: echo "Starting the build job."
+
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+
+      - name: 'Setup Java'
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: 'Grant execute permission for gradlew'
+        run: chmod +x gradlew
+
+      - name: 'Build JAR'
+        run: ./gradlew bootJar
+
+      - name: 'Push JAR'
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: "build/libs/mapshot.jar"
+          target: "app"
+          strip_components: 2
+
+      - name: 'Switch App'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          script: |
+            CURRENT_PROFILE=$(curl -s https://kmapshot.com/status/profile)
+
+            if [ $CURRENT_PROFILE == set1 ]; then
+              IDLE_PROFILE=set2
+              IDLE_PORT=8083
+              WORKED_PORT=8082
+            elif [ $CURRENT_PROFILE == set2 ]; then
+              IDLE_PROFILE=set1
+              IDLE_PORT=8082
+              WORKED_PORT=8083
+            else
+              IDLE_PROFILE=set1
+              IDLE_PORT=8082
+              WORKED_PORT=8083
+            fi
+
+            nohup java -jar -Duser.timezone=Asia/Seoul -Dspring.profiles.active=$IDLE_PROFILE -Xms300m -Xmx300m -server -XX:OnOutOfMemoryError=restart.sh ./app/mapshot.jar 2>> /dev/null >> /dev/null &
+
+            sleep 60
+
+            set \$service_url http://127.0.0.1:${IDLE_PORT}; | sudo tee /etc/nginx/conf.d/service-url.inc
+            sudo service nginx reload
+
+            WORKED_PID=$(lsof -ti tcp:${WORKED_PORT})
+
+            if [ "$WORKED_PID" == "" ];
+            then
+                echo "mapshot web application is not running."
+            else
+                kill -15 $WORKED_PID
+            fi
