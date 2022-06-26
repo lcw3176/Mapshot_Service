@@ -67,7 +67,7 @@ jobs:
 
             sleep 60
 
-            set \$service_url http://127.0.0.1:${IDLE_PORT}; | sudo tee /etc/nginx/conf.d/service-url.inc
+            echo "set \$service_url http://127.0.0.1:${IDLE_PORT};" | sudo tee /etc/nginx/conf.d/service-url.inc
             sudo service nginx reload
 
             WORKED_PID=$(lsof -ti tcp:${WORKED_PORT})
