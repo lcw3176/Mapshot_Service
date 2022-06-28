@@ -61,8 +61,13 @@
 
 
 ## 서비스 구조도
-### (구) Jenkins를 활용한 배포 환경 구축
+
+<details>
+<summary>(구) Jenkins를 활용한 배포 환경 구축</summary>
+
 ![예전](https://user-images.githubusercontent.com/59993347/176195783-e9c6b652-f691-4b23-9ec0-00a5ed61710a.png)
+
+</details>
 
 ### (현) Github Action을 활용한 배포 환경 구축
 ![현재](https://user-images.githubusercontent.com/59993347/176195801-7f12827f-09f3-40e0-8ef2-55a0c5bca798.png)
