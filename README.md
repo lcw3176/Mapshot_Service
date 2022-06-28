@@ -12,6 +12,7 @@
   <a href="#서비스-소개">서비스 소개</a> •
   <a href="#결과-샘플">결과 샘플</a> •
   <a href="#기술-스택">기술 스택</a> •
+  <a href="#서비스-구조도">서비스 구조도</a> •
   <a href="#관련-프로젝트">관련 프로젝트</a>
 </p>  
 <p align="center">
@@ -57,6 +58,14 @@
 - Jenkins, Github WebHook
 - Nginx 
 - Slack API, Whatap
+
+
+## 서비스 구조도
+### (구) Jenkins를 활용한 배포 환경 구축
+![예전](https://user-images.githubusercontent.com/59993347/176195783-e9c6b652-f691-4b23-9ec0-00a5ed61710a.png)
+
+### (현) Github Action을 활용한 배포 환경 구축
+![현재](https://user-images.githubusercontent.com/59993347/176195801-7f12827f-09f3-40e0-8ef2-55a0c5bca798.png)
 
 ## 관련 프로젝트
 - 이미지 api 서버: [Mapshot_Image_Api](https://github.com/lcw3176/Mapshot_Image_Api)
