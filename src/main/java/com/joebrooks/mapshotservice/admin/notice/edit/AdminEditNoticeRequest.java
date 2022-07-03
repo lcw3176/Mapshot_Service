@@ -1,6 +1,6 @@
-package com.joebrooks.mapshotservice.admin.dashboard;
+package com.joebrooks.mapshotservice.admin.notice.edit;
 
-import com.joebrooks.mapshotservice.repository.notice.NoticeType;
+import com.joebrooks.mapshotservice.notice.NoticeType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 @Builder
-public class AdminRegisterNoticeRequest {
+public class AdminEditNoticeRequest {
+
+    private Long id;
 
     @NotEmpty(message = "제목을 입력해 주세요")
     private String title;
@@ -19,3 +21,4 @@ public class AdminRegisterNoticeRequest {
     private String content;
 
 }
+

@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotservice.repository.admin;
+package com.joebrooks.mapshotservice.admin;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

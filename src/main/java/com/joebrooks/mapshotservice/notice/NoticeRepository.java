@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotservice.repository.notice;
+package com.joebrooks.mapshotservice.notice;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

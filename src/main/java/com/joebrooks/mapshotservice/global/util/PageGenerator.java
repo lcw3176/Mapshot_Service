@@ -1,28 +1,27 @@
 package com.joebrooks.mapshotservice.global.util;
 
-import com.joebrooks.mapshotservice.repository.notice.NoticeService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import lombok.experimental.UtilityClass;
 
-@Component
-@RequiredArgsConstructor
+@UtilityClass
 public class PageGenerator {
 
-    private final NoticeService noticeService;
     private int nowPage;
+    private long totalPageSize;
 
-    public void init(int nowPage){
-        nowPage = Math.max(nowPage, 1);
-        nowPage = Math.min(nowPage, getTotalPage());
-        this.nowPage = nowPage;
+    public void init(int nowUserPage, long totalSize){
+        totalPageSize = totalSize;
+
+        nowUserPage = Math.max(nowUserPage, 1);
+        nowUserPage = Math.min(nowUserPage, getTotalPage());
+        nowPage = nowUserPage;
     }
 
     private int getTotalPage(){
-        return (int) (((noticeService.getSize() - 1) / 10) + 1);
+        return (int) (((totalPageSize - 1) / 10) + 1);
     }
 
     public int getNowPage(){
-        return this.nowPage;
+        return nowPage;
     }
 
 

@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotservice.repository.notice;
+package com.joebrooks.mapshotservice.notice;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -42,9 +42,10 @@ public class NoticeService {
 
     public void removePost(long id){
         noticeRepository.deleteById(id);
+        fetchSize();
     }
 
-    public void save(NoticeEntity noticeEntity){
+    public void editPost(NoticeEntity noticeEntity){
         noticeRepository.save(noticeEntity);
     }
 
