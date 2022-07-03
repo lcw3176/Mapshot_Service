@@ -1,9 +1,7 @@
-package com.joebrooks.mapshotservice.user;
+package com.joebrooks.mapshotservice.notice;
 
 import com.joebrooks.mapshotservice.global.util.DigitValidator;
 import com.joebrooks.mapshotservice.global.util.PageGenerator;
-import com.joebrooks.mapshotservice.repository.notice.NoticeEntity;
-import com.joebrooks.mapshotservice.repository.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +17,6 @@ import java.util.Optional;
 public class NoticeController {
 
     private final NoticeService noticeService;
-    private final PageGenerator pageGenerator;
 
     @GetMapping
     public String showNotices(@RequestParam(name = "post", required = false) Optional<String> post,
@@ -39,12 +36,12 @@ public class NoticeController {
             return "fragment/notice/notice-detail";
         } else {
             int nowPage = DigitValidator.isDigit(page) ? Integer.parseInt(page) : 1;
-            pageGenerator.init(nowPage);
+            PageGenerator.init(nowPage, noticeService.getSize());
             
-            model.addAttribute("posts", noticeService.getPosts(pageGenerator.getNowPage() - 1));
-            model.addAttribute("startPage", pageGenerator.getStartPage());
-            model.addAttribute("lastPage", pageGenerator.getLastPage());
-            model.addAttribute("nowPage", pageGenerator.getNowPage());
+            model.addAttribute("posts", noticeService.getPosts(PageGenerator.getNowPage() - 1));
+            model.addAttribute("startPage", PageGenerator.getStartPage());
+            model.addAttribute("lastPage", PageGenerator.getLastPage());
+            model.addAttribute("nowPage", PageGenerator.getNowPage());
 
             return "fragment/notice/notice";
         }

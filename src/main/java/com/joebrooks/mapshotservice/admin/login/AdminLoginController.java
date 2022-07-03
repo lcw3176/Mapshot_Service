@@ -1,6 +1,6 @@
 package com.joebrooks.mapshotservice.admin.login;
 
-import com.joebrooks.mapshotservice.repository.admin.AdminService;
+import com.joebrooks.mapshotservice.admin.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

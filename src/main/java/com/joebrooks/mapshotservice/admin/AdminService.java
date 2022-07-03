@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotservice.repository.admin;
+package com.joebrooks.mapshotservice.admin;
 
 import com.joebrooks.mapshotservice.admin.login.AdminLoginRequest;
 import com.joebrooks.mapshotservice.global.encrypto.SHA256;

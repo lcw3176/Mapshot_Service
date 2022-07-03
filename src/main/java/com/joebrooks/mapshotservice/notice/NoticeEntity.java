@@ -1,6 +1,6 @@
-package com.joebrooks.mapshotservice.repository.notice;
+package com.joebrooks.mapshotservice.notice;
 
-import com.joebrooks.mapshotservice.repository.BaseTimeEntity;
+import com.joebrooks.mapshotservice.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

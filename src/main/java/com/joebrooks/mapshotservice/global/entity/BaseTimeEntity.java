@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotservice.repository;
+package com.joebrooks.mapshotservice.global.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
