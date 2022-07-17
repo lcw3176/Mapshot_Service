@@ -2,6 +2,7 @@ package com.joebrooks.mapshotservice.admin.dashboard;
 
 import com.joebrooks.mapshotservice.global.util.PageGenerator;
 import com.joebrooks.mapshotservice.notice.NoticeService;
+import com.joebrooks.mapshotservice.notice.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,12 +27,17 @@ public class AdminDashboardController {
             throw new IllegalStateException("잘못된 공지사항 접근");
         }
 
+        int startPage = PageGenerator.getStartPage(page);
+        int lastPage = PageGenerator.getLastPage(page, noticeService.getSize());
 
         model.addAttribute("posts", noticeService.getPosts(page - 1));
-        model.addAttribute("startPage", PageGenerator.getStartPage(page));
-        model.addAttribute("lastPage", PageGenerator.getLastPage(page, noticeService.getSize()));
-        model.addAttribute("nowPage", page);
-
+        model.addAttribute("pageResponse", PageResponse.builder()
+                .startPage(startPage)
+                .lastPage(lastPage)
+                .nowPage(page)
+                .nextPage((lastPage + 1) * 10 < noticeService.getSize() ? lastPage : lastPage + 1)
+                .previousPage(startPage - 1 <= 0 ? startPage : startPage - 10)
+                .build());
 
         return "fragment/admin/admin-board";
     }

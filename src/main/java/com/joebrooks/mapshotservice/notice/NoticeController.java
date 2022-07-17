@@ -47,11 +47,17 @@ public class NoticeController {
             throw new IllegalStateException("잘못된 공지사항 접근");
         }
 
-        model.addAttribute("posts", noticeService.getPosts(requestPage - 1));
-        model.addAttribute("startPage", PageGenerator.getStartPage(requestPage));
-        model.addAttribute("lastPage", PageGenerator.getLastPage(requestPage, noticeService.getSize()));
-        model.addAttribute("nowPage", requestPage);
+        int startPage = PageGenerator.getStartPage(requestPage);
+        int lastPage = PageGenerator.getLastPage(requestPage, noticeService.getSize());
 
+        model.addAttribute("posts", noticeService.getPosts(requestPage - 1));
+        model.addAttribute("pageResponse", PageResponse.builder()
+                .startPage(startPage)
+                .lastPage(lastPage)
+                .nowPage(requestPage)
+                .nextPage((lastPage + 1) * 10 < noticeService.getSize() ? lastPage : lastPage + 1)
+                .previousPage(startPage - 1 <= 0 ? startPage : startPage - 10)
+                .build());
 
         return "fragment/notice/notice";
     }
