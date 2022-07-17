@@ -6,8 +6,9 @@ import com.joebrooks.mapshotservice.notice.NoticeType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,13 +49,13 @@ public class AdminEditNoticeController {
     }
 
     @PostMapping
-    public String editPost(Model model, @Valid AdminEditNoticeRequest noticeRequest, Errors errors){
+    public String editPost(Model model, @Valid AdminEditNoticeRequest noticeRequest, BindingResult result){
 
-        if(errors.hasErrors()){
+        if(result.hasErrors()){
             model.addAttribute("editNoticeRequest", noticeRequest);
             model.addAttribute("types", NoticeType.values());
 
-            for (FieldError error : errors.getFieldErrors()) {
+            for (FieldError error : result.getFieldErrors()) {
                 String validKeyName = String.format("valid_%s", error.getField());
                 model.addAttribute(validKeyName, error.getDefaultMessage());
             }
@@ -62,16 +63,7 @@ public class AdminEditNoticeController {
             return "fragment/admin/admin-edit-notice";
         }
 
-        NoticeEntity noticeEntity = noticeService.getPost(noticeRequest.getId())
-                .orElseThrow(() -> {
-                    throw new RuntimeException("no such post");
-                });
-
-        noticeEntity.changeNoticeType(noticeRequest.getNoticeType());
-        noticeEntity.changeContent(noticeRequest.getContent());
-        noticeEntity.changeTitle(noticeRequest.getTitle());
-
-        noticeService.editPost(noticeEntity);
+        noticeService.editPost(noticeRequest);
 
         return "redirect:/admin/board";
     }

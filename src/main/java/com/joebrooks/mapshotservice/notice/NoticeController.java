@@ -1,17 +1,19 @@
 package com.joebrooks.mapshotservice.notice;
 
-import com.joebrooks.mapshotservice.global.util.DigitValidator;
 import com.joebrooks.mapshotservice.global.util.PageGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Optional;
+import javax.validation.constraints.Positive;
 
 @Controller
+@Validated
 @RequiredArgsConstructor
 @RequestMapping("/notice")
 public class NoticeController {
@@ -19,14 +21,11 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @GetMapping
-    public String showNotices(@RequestParam(name = "post", required = false) Optional<String> post,
-                              @RequestParam(name = "page", required = false, defaultValue = "1") String page,
+    public String showPost(@Positive @RequestParam(name = "post", required = false) Long postNumber,
                                  Model model){
 
-        if(post.isPresent() && DigitValidator.isDigit(post.get())){
-            long postNum = Long.parseLong(post.get());
-
-            NoticeEntity noticeEntity = noticeService.getPost(postNum)
+        if(postNumber != null){
+            NoticeEntity noticeEntity = noticeService.getPost(postNumber)
                     .orElseThrow(() -> {
                         throw new IllegalStateException("잘못된 공지사항 접근");
                     });
@@ -34,17 +33,32 @@ public class NoticeController {
             model.addAttribute("post", noticeEntity);
 
             return "fragment/notice/notice-detail";
-        } else {
-            int nowPage = DigitValidator.isDigit(page) ? Integer.parseInt(page) : 1;
-            PageGenerator.init(nowPage, noticeService.getSize());
-            
-            model.addAttribute("posts", noticeService.getPosts(PageGenerator.getNowPage() - 1));
-            model.addAttribute("startPage", PageGenerator.getStartPage());
-            model.addAttribute("lastPage", PageGenerator.getLastPage());
-            model.addAttribute("nowPage", PageGenerator.getNowPage());
-
-            return "fragment/notice/notice";
         }
 
+        return "redirect:/notice/1";
+    }
+
+
+    @GetMapping("/{page}")
+    public String showNoticeList(@Positive @PathVariable(value = "page") int requestPage,
+                                 Model model) {
+
+        if(!PageGenerator.isValidate(requestPage, noticeService.getSize())){
+            throw new IllegalStateException("잘못된 공지사항 접근");
+        }
+
+        int startPage = PageGenerator.getStartPage(requestPage);
+        int lastPage = PageGenerator.getLastPage(requestPage, noticeService.getSize());
+
+        model.addAttribute("posts", noticeService.getPosts(requestPage - 1));
+        model.addAttribute("pageResponse", PageResponse.builder()
+                .startPage(startPage)
+                .lastPage(lastPage)
+                .nowPage(requestPage)
+                .nextPage((lastPage + 1) * 10 < noticeService.getSize() ? lastPage : lastPage + 1)
+                .previousPage(startPage - 1 <= 0 ? startPage : startPage - 10)
+                .build());
+
+        return "fragment/notice/notice";
     }
 }

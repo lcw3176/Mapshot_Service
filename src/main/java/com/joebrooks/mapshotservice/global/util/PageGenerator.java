@@ -5,32 +5,23 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class PageGenerator {
 
-    private int nowPage;
-    private long totalPageSize;
+    public boolean isValidate(int requestPage, long totalElementSize){
+        long maxPage = totalElementSize / 10 + 1;
 
-    public void init(int nowUserPage, long totalSize){
-        totalPageSize = totalSize;
-
-        nowUserPage = Math.max(nowUserPage, 1);
-        nowUserPage = Math.min(nowUserPage, getTotalPage());
-        nowPage = nowUserPage;
+        return maxPage >= requestPage;
     }
 
-    private int getTotalPage(){
-        return (int) (((totalPageSize - 1) / 10) + 1);
+    public int getStartPage(int nowPage){
+        return Math.max((nowPage - 1) / 10 * 10 + 1, 1);
     }
 
-    public int getNowPage(){
-        return nowPage;
+    public int getLastPage(int nowPage, long totalElementSize){
+        if(nowPage % 10 == 0){
+            nowPage -= 1;
+        }
+
+        return (int) Math.min((nowPage / 10 + 1) * 10, ((totalElementSize - 1) / 10) + 1);
     }
 
-
-    public int getStartPage(){
-        return Math.max(nowPage / 10, 1);
-    }
-
-    public int getLastPage(){
-        return Math.min(((nowPage / 10) + 1) * 10, getTotalPage());
-    }
 
 }
