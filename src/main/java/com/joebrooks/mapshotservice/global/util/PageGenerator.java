@@ -23,5 +23,19 @@ public class PageGenerator {
         return (int) Math.min((nowPage / 10 + 1) * 10, ((totalElementSize - 1) / 10) + 1);
     }
 
+    public int getPreviousPage(int startPage){
+        return startPage - 1 <= 0 ? startPage : startPage - 10;
+    }
+
+    public int getNextPage(int lastPage, long totalElementSize){
+        if((lastPage + 1) * 10 < totalElementSize
+                || ((lastPage + 1) * 10 > totalElementSize
+                && lastPage * 10 < totalElementSize)) {
+            return lastPage + 1;
+        }
+
+        return lastPage;
+    }
+
 
 }

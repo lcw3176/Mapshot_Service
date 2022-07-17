@@ -35,8 +35,8 @@ public class AdminDashboardController {
                 .startPage(startPage)
                 .lastPage(lastPage)
                 .nowPage(page)
-                .nextPage((lastPage + 1) * 10 < noticeService.getSize() ? lastPage : lastPage + 1)
-                .previousPage(startPage - 1 <= 0 ? startPage : startPage - 10)
+                .nextPage(PageGenerator.getNextPage(lastPage, noticeService.getSize()))
+                .previousPage(PageGenerator.getPreviousPage(startPage))
                 .build());
 
         return "fragment/admin/admin-board";
