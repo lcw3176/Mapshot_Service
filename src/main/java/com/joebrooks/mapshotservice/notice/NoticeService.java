@@ -1,5 +1,6 @@
 package com.joebrooks.mapshotservice.notice;
 
+import com.joebrooks.mapshotservice.admin.notice.edit.AdminEditNoticeRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -7,7 +8,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 @Service
@@ -16,20 +16,9 @@ import java.util.Optional;
 public class NoticeService {
 
     private final NoticeRepository noticeRepository;
-    private long noticeSize;
-
-    @PostConstruct
-    private void init(){
-        fetchSize();
-    }
-
-    private void fetchSize(){
-        noticeSize = noticeRepository.count();
-    }
 
     public void addPost(NoticeEntity noticeEntity){
         noticeRepository.save(noticeEntity);
-        fetchSize();
     }
 
     public Page<NoticeEntity> getPosts(int index){
@@ -42,14 +31,21 @@ public class NoticeService {
 
     public void removePost(long id){
         noticeRepository.deleteById(id);
-        fetchSize();
     }
 
-    public void editPost(NoticeEntity noticeEntity){
-        noticeRepository.save(noticeEntity);
+    public void editPost(AdminEditNoticeRequest noticeRequest){
+
+        NoticeEntity noticeEntity = noticeRepository.findById(noticeRequest.getId())
+                .orElseThrow(() -> {
+                    throw new RuntimeException("no such post");
+                });
+
+        noticeEntity.changeNoticeType(noticeRequest.getNoticeType());
+        noticeEntity.changeContent(noticeRequest.getContent());
+        noticeEntity.changeTitle(noticeRequest.getTitle());
     }
 
     public long getSize(){
-        return noticeSize;
+        return noticeRepository.count();
     }
 }
