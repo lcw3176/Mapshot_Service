@@ -1,44 +1,33 @@
 package com.joebrooks.mapshotservice.global.sns;
 
-import com.joebrooks.mapshotservice.global.exception.ExceptionResponse;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
 
 @Component
 public class SlackClient extends SnsClient {
 
     private final String slackUrl = System.getenv("SLACK_URL");
 
-    public void sendMessage(ExceptionResponse errors) {
+    public void sendMessage(MessageResponse errors) {
         String message = SlackMessageFormatter.makeErrorMessage(errors);
-        getClient(slackUrl).post();
         post(slackUrl, message);
     }
 
     public void sendMessage(Exception e){
-        ExceptionResponse errorMessage = ExceptionResponse.builder()
-                .name(e.getClass().getName())
+        MessageResponse errorMessage = MessageResponse.builder()
+                .title(e.getClass().getName())
                 .message(makeTransmissible(e))
                 .build();
 
         sendMessage(errorMessage);
     }
 
-    public void sendMessage(String name, Exception exception) {
-        ExceptionResponse errorMessage = ExceptionResponse.builder()
-                .name(name)
-                .message(makeTransmissible(exception))
-                .build();
-
-        sendMessage(errorMessage);
-    }
-
     private String makeTransmissible(Exception e){
-//        String stackTrace = Arrays.toString(e.getStackTrace());
-//        int len = Math.min(stackTrace.length(), 1700);
-//
-//        return stackTrace.substring(0, len);
+        String stackTrace = Arrays.toString(e.getStackTrace());
+        int len = Math.min(stackTrace.length(), 1700);
 
-        return e.getMessage();
+        return stackTrace.substring(0, len);
     }
 
 }
