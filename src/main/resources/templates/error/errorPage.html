@@ -3,7 +3,9 @@
       layout:decorate="~{layout/layout}">
 <th:block layout:fragment="layout_content">
     <div class="container is-fluid mt-5">
-        <h1 th:text="${'status: ' + status}"></h1>
+        <div th:replace="error/exceptionMan :: exception_man"></div>
+        <div class="title is-3 has-text-centered">에러가 계속되면 관리자에게 문의해주세요</div>
+
     </div>
 </th:block>
 </html>
