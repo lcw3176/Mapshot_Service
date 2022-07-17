@@ -63,8 +63,6 @@
 
                         <div class="container is-fluid mt-5">
                             <div class="pagination" role="navigation" aria-label="pagination">
-                                <a class="pagination-previous" th:href="@{/admin/board(page=${nowPage} - 1)}">Previous</a>
-                                <a class="pagination-next" th:href="@{/admin/board(page=${nowPage} + 1)}">Next page</a>
                                 <ul class="pagination-list">
                                     <li th:each="num : ${#numbers.sequence(startPage, lastPage)}">
                                         <a class="pagination-link" th:href="@{/admin/board(page=${num})}" th:text="${num}" th:classappend="${nowPage == num} ? 'is-current': ''"></a>
