@@ -32,23 +32,27 @@ public class ControllerExceptionAdvice {
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public void violationExceptionHandler(ConstraintViolationException e){
+    public String violationExceptionHandler(ConstraintViolationException e){
         log.info(e.getMessage(), e);
-//        slackClient.sendMessage(e);
+
+        return "error/errorPage";
     }
 
     @ExceptionHandler(IllegalStateException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public void illegalStateExceptionHandler(IllegalStateException e){
+    public String illegalStateExceptionHandler(IllegalStateException e){
         log.info(e.getMessage(), e);
-//        slackClient.sendMessage(e);
+
+        return "error/errorPage";
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public void exceptionHandler(Exception exception){
+    public String exceptionHandler(Exception exception){
         log.error(exception.getMessage(), exception);
         slackClient.sendMessage(exception);
+
+        return "error/errorPage";
     }
 
 }
