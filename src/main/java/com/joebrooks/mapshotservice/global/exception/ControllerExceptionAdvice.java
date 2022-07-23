@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.ConstraintViolationException;
 
@@ -30,29 +32,28 @@ public class ControllerExceptionAdvice {
         slackClient.sendMessage(adminLoginException);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler({ConstraintViolationException.class, IllegalStateException.class, MethodArgumentTypeMismatchException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String violationExceptionHandler(ConstraintViolationException e){
+    public ModelAndView violationExceptionHandler(Exception e){
         log.info(e.getMessage(), e);
 
-        return "error/errorPage";
+        ModelAndView modelAndView = new ModelAndView("error/errorPage");
+        modelAndView.addObject("code", HttpStatus.BAD_REQUEST.value());
+
+        return modelAndView;
     }
 
-    @ExceptionHandler(IllegalStateException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String illegalStateExceptionHandler(IllegalStateException e){
-        log.info(e.getMessage(), e);
-
-        return "error/errorPage";
-    }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String exceptionHandler(Exception exception){
+    public ModelAndView exceptionHandler(Exception exception){
         log.error(exception.getMessage(), exception);
         slackClient.sendMessage(exception);
 
-        return "error/errorPage";
+        ModelAndView modelAndView = new ModelAndView("error/errorPage");
+        modelAndView.addObject("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+
+        return modelAndView;
     }
 
 }

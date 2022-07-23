@@ -1,15 +1,16 @@
 package com.joebrooks.mapshotservice.manual;
 
-import com.joebrooks.mapshotservice.global.util.DigitValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Optional;
+import javax.validation.constraints.PositiveOrZero;
 
 @Controller
+@Validated
 @RequestMapping("/manual")
 public class ManualController {
 
@@ -20,15 +21,13 @@ public class ManualController {
     }
 
     @GetMapping("/{page}")
-    public String showManual(Model model, @PathVariable(value = "page", required = false) Optional<String> page){
-        int manualNum = 0;
-
-        if(page.isPresent() && DigitValidator.isDigit(page.get())){
-            manualNum = Integer.parseInt(page.get());
+    public String showManual(Model model, @PositiveOrZero @PathVariable(value = "page", required = false) Integer page){
+        if(page >= ManualType.values().length){
+            throw new IllegalStateException("잘못된 매뉴얼 접근");
         }
 
         model.addAttribute("manual", ManualType.values());
-        model.addAttribute("pageNumber", manualNum);
+        model.addAttribute("pageNumber", page);
 
         return "fragment/manual/manual";
     }
