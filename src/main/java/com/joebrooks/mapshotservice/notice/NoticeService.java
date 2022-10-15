@@ -8,8 +8,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -25,8 +23,10 @@ public class NoticeService {
         return noticeRepository.findAll(PageRequest.of(index, 10, Sort.by("id").descending()));
     }
 
-    public Optional<NoticeEntity> getPost(long id){
-        return noticeRepository.findById(id);
+    public NoticeEntity getPost(long id){
+        return noticeRepository.findById(id).orElseThrow(() -> {
+            throw new IllegalArgumentException("잘못된 공지사항 접근");
+        });
     }
 
     public void removePost(long id){
@@ -37,7 +37,7 @@ public class NoticeService {
 
         NoticeEntity noticeEntity = noticeRepository.findById(noticeRequest.getId())
                 .orElseThrow(() -> {
-                    throw new RuntimeException("no such post");
+                    throw new IllegalArgumentException("해당되는 공지사항 없음");
                 });
 
         noticeEntity.changeNoticeType(noticeRequest.getNoticeType());
