@@ -20,31 +20,11 @@ public class NoticeController {
 
     private final NoticeService noticeService;
 
-    @GetMapping
-    public String showPost(@Positive @RequestParam(name = "post", required = false) Long postNumber,
-                                 Model model){
-
-        if(postNumber != null){
-            NoticeEntity noticeEntity = noticeService.getPost(postNumber)
-                    .orElseThrow(() -> {
-                        throw new IllegalStateException("잘못된 공지사항 접근");
-                    });
-
-            model.addAttribute("post", noticeEntity);
-
-            return "fragment/notice/notice-detail";
-        }
-
-        return "redirect:/notice/1";
-    }
-
-
     @GetMapping("/{page}")
-    public String showNoticeList(@Positive @PathVariable(value = "page") int requestPage,
-                                 Model model) {
+    public String showNoticeList(@Positive @PathVariable(value = "page") int requestPage, Model model) {
 
         if(!PageGenerator.isValidate(requestPage, noticeService.getSize())){
-            throw new IllegalStateException("잘못된 공지사항 접근");
+            requestPage = 1;
         }
 
         int startPage = PageGenerator.getStartPage(requestPage);
@@ -61,4 +41,18 @@ public class NoticeController {
 
         return "fragment/notice/notice";
     }
+
+    @GetMapping
+    public String showPost(@Positive @RequestParam(name = "post", required = false) Long postNumber, Model model){
+
+        if(postNumber == null){
+            return "redirect:/notice/1";
+        }
+
+        NoticeEntity noticeEntity = noticeService.getPost(postNumber);
+        model.addAttribute("post", noticeEntity);
+
+        return "fragment/notice/notice-detail";
+    }
+
 }

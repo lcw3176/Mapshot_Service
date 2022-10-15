@@ -24,7 +24,7 @@ public class AdminDashboardController {
                                 Model model){
 
         if(!PageGenerator.isValidate(page, noticeService.getSize())){
-            throw new IllegalStateException("잘못된 공지사항 접근");
+            page = 1;
         }
 
         int startPage = PageGenerator.getStartPage(page);

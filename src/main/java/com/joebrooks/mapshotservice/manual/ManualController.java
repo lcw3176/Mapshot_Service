@@ -23,7 +23,7 @@ public class ManualController {
     @GetMapping("/{page}")
     public String showManual(Model model, @PositiveOrZero @PathVariable(value = "page", required = false) Integer page){
         if(page >= ManualType.values().length){
-            throw new IllegalStateException("잘못된 매뉴얼 접근");
+            throw new IllegalArgumentException("잘못된 매뉴얼 접근");
         }
 
         model.addAttribute("manual", ManualType.values());

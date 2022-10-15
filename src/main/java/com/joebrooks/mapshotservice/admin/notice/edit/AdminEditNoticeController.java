@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.Optional;
+import javax.validation.constraints.Positive;
 
 @Controller
+@Validated
 @RequiredArgsConstructor
 @RequestMapping("/admin/notice/edit")
 public class AdminEditNoticeController {
@@ -25,16 +26,8 @@ public class AdminEditNoticeController {
     private final NoticeService noticeService;
 
     @GetMapping
-    public String showEditPostPage(@RequestParam(name = "post", required = false) Optional<Long> post,
-                                   Model model){
-
-        long postNumber = post.orElseThrow(() -> {
-            throw new RuntimeException("no such post");
-        });
-
-        NoticeEntity noticeEntity = noticeService.getPost(postNumber).orElseThrow(() -> {
-            throw new RuntimeException("no such post");
-        });
+    public String showEditPostPage(@Positive @RequestParam(name = "post") Long post, Model model){
+        NoticeEntity noticeEntity = noticeService.getPost(post);
 
         model.addAttribute("editNoticeRequest",  AdminEditNoticeRequest.builder()
                 .id(noticeEntity.getId())
