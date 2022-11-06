@@ -254,7 +254,7 @@ window.addEventListener("load", function () {
             sessionId = sessionId.replace("/websocket", "");
             sessionId = sessionId.replace(/^[0-9]+\//, "");
 
-            stompClient.subscribe("/queue/waiter", function(message){
+            stompClient.subscribe("/topic/waiter", function(message){
                 var json = JSON.parse(message.body);
 
                 if(json.index === 0 && json.sessionId === sessionId){
