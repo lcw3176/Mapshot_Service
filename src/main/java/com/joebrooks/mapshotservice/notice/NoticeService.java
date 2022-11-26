@@ -14,13 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class NoticeService {
 
     private final NoticeRepository noticeRepository;
+    private static final int PAGE_SIZE = 10;
 
     public void addPost(NoticeEntity noticeEntity){
         noticeRepository.save(noticeEntity);
     }
 
     public Page<NoticeEntity> getPosts(int index){
-        return noticeRepository.findAll(PageRequest.of(index, 10, Sort.by("id").descending()));
+        return noticeRepository.findAll(PageRequest.of(index, PAGE_SIZE, Sort.by("id").descending()));
     }
 
     public NoticeEntity getPost(long id){
