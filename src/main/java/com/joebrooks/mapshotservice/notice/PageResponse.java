@@ -13,4 +13,6 @@ public class PageResponse {
     private int nowPage;
     private int nextPage;
     private int previousPage;
+    private boolean hasNext;
+    private boolean hasPrevious;
 }

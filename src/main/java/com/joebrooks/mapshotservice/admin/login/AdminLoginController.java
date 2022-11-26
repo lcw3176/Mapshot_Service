@@ -26,12 +26,8 @@ public class AdminLoginController {
 
     @PostMapping
     public String tryLogin(AdminLoginRequest adminLoginRequest, HttpSession session) throws NoSuchAlgorithmException {
-        adminService.login(adminLoginRequest)
-                    .orElseThrow(() -> {
-                        throw new AdminLoginException(adminLoginRequest);
-                    });
-
-        session.setAttribute("admin", true);
+        boolean result = adminService.login(adminLoginRequest);
+        session.setAttribute("admin", result);
 
         return "redirect:/admin/board";
     }

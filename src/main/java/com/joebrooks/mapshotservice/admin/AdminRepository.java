@@ -2,9 +2,7 @@ package com.joebrooks.mapshotservice.admin;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
-
 public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
-    Optional<AdminEntity> findByNickNameAndPassword(String id, String pw);
+    boolean existsByNickNameAndPassword(String id, String pw);
 
 }

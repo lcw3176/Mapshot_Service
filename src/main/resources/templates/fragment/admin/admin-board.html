@@ -63,10 +63,10 @@
 
                         <div class="container is-fluid mt-5">
                             <div class="pagination is-centered" role="navigation" aria-label="pagination">
-                                <a class="pagination-previous" th:href="@{/admin/board(page=${pageResponse.previousPage})}">
+                                <a th:if="${pageResponse.hasPrevious}" class="pagination-previous" th:href="@{/admin/board(page=${pageResponse.previousPage})}">
                                     <i class="fas fa-arrow-left"></i>
                                 </a>
-                                <a class="pagination-next" th:href="@{/admin/board(page=${pageResponse.nextPage})}">
+                                <a th:if="${pageResponse.hasNext}" class="pagination-next" th:href="@{/admin/board(page=${pageResponse.nextPage})}">
                                     <i class="fas fa-arrow-right"></i>
                                 </a>
                                 <ul class="pagination-list">
