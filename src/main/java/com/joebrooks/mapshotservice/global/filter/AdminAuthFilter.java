@@ -31,7 +31,9 @@ public class AdminAuthFilter implements Filter {
             if (isNotWhitelistPath(requestURI)) {
                 HttpSession session = httpRequest.getSession(false);
 
-                if (session == null || session.getAttribute("admin") == null) {
+                if (session == null
+                        || session.getAttribute("admin") == null
+                        || !Boolean.parseBoolean(session.getAttribute("admin").toString())) {
                     ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper((HttpServletRequest) request);
                     ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper((HttpServletResponse) response);
 
