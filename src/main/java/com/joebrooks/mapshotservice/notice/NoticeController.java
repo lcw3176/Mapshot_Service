@@ -1,7 +1,10 @@
 package com.joebrooks.mapshotservice.notice;
 
 import com.joebrooks.mapshotservice.global.util.PageGenerator;
+import javax.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -10,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.constraints.Positive;
-
 @Controller
 @Validated
 @RequiredArgsConstructor
@@ -19,24 +20,27 @@ import javax.validation.constraints.Positive;
 public class NoticeController {
 
     private final NoticeService noticeService;
+    private static final int OFFSET = 1;
 
     @GetMapping("/{page}")
     public String showNoticeList(@Positive @PathVariable(value = "page") int requestPage, Model model) {
-
-        if(!PageGenerator.isValidate(requestPage, noticeService.getSize())){
-            requestPage = 1;
-        }
+        int index = requestPage - OFFSET;
+        Page<NoticeEntity> pages =  noticeService.getPosts(index);
 
         int startPage = PageGenerator.getStartPage(requestPage);
-        int lastPage = PageGenerator.getLastPage(requestPage, noticeService.getSize());
+        int lastPage = PageGenerator.getLastPage(requestPage, pages.getTotalElements());
 
-        model.addAttribute("posts", noticeService.getPosts(requestPage - 1));
+        Pageable pageable = pages.getPageable();
+
+        model.addAttribute("posts", pages);
         model.addAttribute("pageResponse", PageResponse.builder()
                 .startPage(startPage)
                 .lastPage(lastPage)
                 .nowPage(requestPage)
-                .nextPage(PageGenerator.getNextPage(lastPage, noticeService.getSize()))
-                .previousPage(PageGenerator.getPreviousPage(startPage))
+                .previousPage(pageable.previousOrFirst().getPageNumber() + OFFSET)
+                .nextPage(pageable.next().getPageNumber() + OFFSET)
+                .hasNext(pages.hasNext())
+                .hasPrevious(pages.hasPrevious())
                 .build());
 
         return "fragment/notice/notice";
