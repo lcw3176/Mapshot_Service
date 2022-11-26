@@ -8,12 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PageGeneratorTest {
 
     @Test
-    void 유효한_페이지_테스트(){
-        assertEquals(false, PageGenerator.isValidate(2, 9));
-        assertEquals(true, PageGenerator.isValidate(2, 11));
-    }
-    
-    @Test
     void 첫_페이지_테스트(){
         for(int i = 1; i <= 10; i++){
             assertEquals(1, PageGenerator.getStartPage(i));
