@@ -8,7 +8,7 @@ window.addEventListener("load", function () {
     var naverTile = new mapshot.maps.NaverTile();
     var proxyTile = new mapshot.maps.ProxyTile();
 
-    var kakaoMaps = new Map();
+    var kakaoMaps = new KakaoMap();
     var rectangle = null;
     var traceMode = false;
     var resultType = null;
