@@ -1,5 +1,6 @@
 package com.joebrooks.mapshotservice.global.util;
 
+import com.joebrooks.mapshotservice.user.util.PageGenerator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
