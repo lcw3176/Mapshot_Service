@@ -8,7 +8,7 @@ window.addEventListener("load", function () {
     var naverTile = new mapshot.maps.NaverTile();
     var proxyTile = new mapshot.maps.ProxyTile();
 
-    var map = new Map();
+    var kakaoMaps = new Map();
     var rectangle = null;
     var traceMode = false;
     var resultType = null;
@@ -22,11 +22,11 @@ window.addEventListener("load", function () {
     // 카카오 지도 설정
 
     document.getElementById("searchPlaces").onsubmit = function () {
-        map.searchPlaces();
+        kakaoMaps.searchPlaces();
         return false;
     };
 
-    kakao.maps.event.addListener(map.getMap(), 'click', function (mouseEvent) {
+    kakao.maps.event.addListener(kakaoMaps.getMap(), 'click', function (mouseEvent) {
         coor.init(mouseEvent.latLng.getLat(), mouseEvent.latLng.getLng());
         document.getElementById("lat").innerText = coor.getY();
         document.getElementById("lng").innerText = coor.getX();
@@ -48,7 +48,7 @@ window.addEventListener("load", function () {
             fillColor: '#FF8AEF',
             fillOpacity: 0.8
         });
-        rectangle.setMap(map.getMap());
+        rectangle.setMap(kakaoMaps.getMap());
     });
 
     document.getElementById("map").onmousedown = function (e) {
@@ -204,7 +204,7 @@ window.addEventListener("load", function () {
                 fillColor: '#ecf4f3',
                 fillOpacity: 0.8
             });
-            traceRec.setMap(map.getMap());
+            traceRec.setMap(kakaoMaps.getMap());
         }
 
         if (resultType === "kakao" || resultType === "google") {
