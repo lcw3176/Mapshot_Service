@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotservice.global.encrypto;
+package com.joebrooks.mapshotservice.global.util;
 
 import lombok.experimental.UtilityClass;
 
