@@ -1,6 +1,5 @@
 package com.joebrooks.mapshotservice.notice;
 
-import com.joebrooks.mapshotservice.admin.notice.edit.AdminEditNoticeRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,19 +33,15 @@ public class NoticeService {
         noticeRepository.deleteById(id);
     }
 
-    public void editPost(AdminEditNoticeRequest noticeRequest){
+    public void editPost(NoticeEntity noticeEntityToChange){
 
-        NoticeEntity noticeEntity = noticeRepository.findById(noticeRequest.getId())
+        NoticeEntity noticeEntity = noticeRepository.findById(noticeEntityToChange.getId())
                 .orElseThrow(() -> {
                     throw new IllegalArgumentException("해당되는 공지사항 없음");
                 });
 
-        noticeEntity.changeNoticeType(noticeRequest.getNoticeType());
-        noticeEntity.changeContent(noticeRequest.getContent());
-        noticeEntity.changeTitle(noticeRequest.getTitle());
-    }
-
-    public long getSize(){
-        return noticeRepository.count();
+        noticeEntity.changeNoticeType(noticeEntityToChange.getNoticeType());
+        noticeEntity.changeContent(noticeEntityToChange.getContent());
+        noticeEntity.changeTitle(noticeEntityToChange.getTitle());
     }
 }
