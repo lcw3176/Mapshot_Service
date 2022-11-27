@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotservice.admin.notice.register;
+package com.joebrooks.mapshotservice.admin.notice;
 
 import com.joebrooks.mapshotservice.notice.NoticeType;
 import lombok.Builder;
