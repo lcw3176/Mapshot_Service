@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
+@ExtendWith({MockitoExtension.class})
 class HttpRequestFilterTest {
 
     private MockMvc mockMvc;
@@ -48,5 +48,11 @@ class HttpRequestFilterTest {
     void patch_요청_방지_테스트() throws Exception {
         mockMvc.perform(patch("/notice"))
                 .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    void get_요청시_성공() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk());
     }
 }

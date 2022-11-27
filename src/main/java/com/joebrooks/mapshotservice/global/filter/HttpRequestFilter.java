@@ -17,20 +17,13 @@ public class HttpRequestFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         String requestURI = httpRequest.getRequestURI();
 
-        if(isNotWhitelistPath(requestURI)){
-            if (httpRequest.getMethod().equalsIgnoreCase("OPTIONS")
-                    || httpRequest.getMethod().equalsIgnoreCase("PUT")
-                    || httpRequest.getMethod().equalsIgnoreCase("DELETE")
-                    || httpRequest.getMethod().equalsIgnoreCase("TRACE")
-                    || httpRequest.getMethod().equalsIgnoreCase("PATCH")
-                    || httpRequest.getMethod().equalsIgnoreCase("OPTION")
-                    || httpRequest.getMethod().equalsIgnoreCase("POST")) {
+        if(isNotWhitelistPath(requestURI)
+                && !httpRequest.getMethod().equalsIgnoreCase("GET")){
 
-                httpResponse.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-                httpResponse.setStatus(405);
+            httpResponse.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+            httpResponse.setStatus(405);
 
-                return;
-            }
+            return;
         }
 
 
