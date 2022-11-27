@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotservice.contact;
+package com.joebrooks.mapshotservice.user.contact;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

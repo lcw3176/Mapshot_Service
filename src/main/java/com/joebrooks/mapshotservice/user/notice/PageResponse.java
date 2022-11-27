@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotservice.notice;
+package com.joebrooks.mapshotservice.user.notice;
 
 import lombok.*;
 

@@ -1,10 +1,10 @@
 package com.joebrooks.mapshotservice.admin.notice;
 
 import com.joebrooks.mapshotservice.global.util.PageGenerator;
-import com.joebrooks.mapshotservice.notice.NoticeEntity;
-import com.joebrooks.mapshotservice.notice.NoticeService;
-import com.joebrooks.mapshotservice.notice.NoticeType;
-import com.joebrooks.mapshotservice.notice.PageResponse;
+import com.joebrooks.mapshotservice.user.notice.NoticeEntity;
+import com.joebrooks.mapshotservice.user.notice.NoticeService;
+import com.joebrooks.mapshotservice.user.notice.NoticeType;
+import com.joebrooks.mapshotservice.user.notice.PageResponse;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;

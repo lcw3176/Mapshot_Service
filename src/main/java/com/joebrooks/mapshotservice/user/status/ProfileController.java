@@ -1,4 +1,4 @@
-package com.joebrooks.mapshotservice.status;
+package com.joebrooks.mapshotservice.user.status;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;

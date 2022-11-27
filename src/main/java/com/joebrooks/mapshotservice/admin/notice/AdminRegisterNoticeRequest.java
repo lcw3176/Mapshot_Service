@@ -1,6 +1,6 @@
 package com.joebrooks.mapshotservice.admin.notice;
 
-import com.joebrooks.mapshotservice.notice.NoticeType;
+import com.joebrooks.mapshotservice.user.notice.NoticeType;
 import lombok.Builder;
 import lombok.Data;
 
