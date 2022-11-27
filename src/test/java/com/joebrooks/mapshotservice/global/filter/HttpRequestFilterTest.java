@@ -49,4 +49,10 @@ class HttpRequestFilterTest {
         mockMvc.perform(patch("/notice"))
                 .andExpect(status().is4xxClientError());
     }
+
+    @Test
+    void get_요청시_성공() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk());
+    }
 }
