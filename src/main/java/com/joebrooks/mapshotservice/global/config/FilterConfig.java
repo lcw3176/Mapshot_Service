@@ -1,5 +1,7 @@
-package com.joebrooks.mapshotservice.global.filter;
+package com.joebrooks.mapshotservice.global.config;
 
+import com.joebrooks.mapshotservice.global.filter.AdminAuthFilter;
+import com.joebrooks.mapshotservice.global.filter.HttpRequestFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
