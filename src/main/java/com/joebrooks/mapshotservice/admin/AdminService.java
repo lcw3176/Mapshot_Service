@@ -1,7 +1,7 @@
 package com.joebrooks.mapshotservice.admin;
 
 import com.joebrooks.mapshotservice.admin.login.AdminLoginRequest;
-import com.joebrooks.mapshotservice.global.encrypto.SHA256;
+import com.joebrooks.mapshotservice.global.util.SHA256;
 import java.security.NoSuchAlgorithmException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
