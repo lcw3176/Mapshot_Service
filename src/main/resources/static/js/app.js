@@ -223,10 +223,10 @@ window.addEventListener("load", function () {
         progressBar.setAttribute("class", "progress is-warning");
         document.getElementById("captureStatus").innerText = "서버에 요청중입니다. 잠시 기다려주세요";
         isRun = true;
-
+        var nowCompanyType = proxyProfile.getCompanyType();
         var canvas = document.createElement("canvas");
 
-        if(proxyProfile.getCompanyType() === "google"){
+        if(nowCompanyType === "google"){
             canvas.width = proxyProfile.getWidth() - googleOffset;
             canvas.height = proxyProfile.getWidth() - googleOffset;
         } else {
@@ -293,19 +293,19 @@ window.addEventListener("load", function () {
 
 
                 proxyTile.requestImage(proxyProfile, json.uuid, function (loadedImage){
-                    if(proxyProfile.getCompanyType() === "google"
+                    if(nowCompanyType === "google"
                         && json.x + defaultBlockSize === sideBlockCount * defaultBlockSize
                         && json.y + defaultBlockSize !== sideBlockCount * defaultBlockSize){
 
                         ctx.drawImage(loadedImage, 0, 0, loadedImage.width, loadedImage.height,
                             json.x - googleOffset, json.y, defaultBlockSize, defaultBlockSize);
-                    } else if(proxyProfile.getCompanyType() === "google"
+                    } else if(nowCompanyType === "google"
                         && json.x + defaultBlockSize !== sideBlockCount * defaultBlockSize
                         && json.y + defaultBlockSize === sideBlockCount * defaultBlockSize) {
 
                         ctx.drawImage(loadedImage, 0, 0, loadedImage.width, loadedImage.height,
                             json.x, json.y - googleOffset, defaultBlockSize, defaultBlockSize);
-                    } else if(proxyProfile.getCompanyType() === "google"
+                    } else if(nowCompanyType === "google"
                         && json.x + defaultBlockSize === sideBlockCount * defaultBlockSize
                         && json.y + defaultBlockSize === sideBlockCount * defaultBlockSize) {
 
