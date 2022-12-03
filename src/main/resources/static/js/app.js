@@ -130,7 +130,7 @@ window.addEventListener("load", function () {
     };
 
     setCompany = function (companyName) {
-        if (proxyProfile.isLayerMode() && (companyName === "naver" || companyName === "google")) {
+        if (proxyProfile.isLayerMode() && (companyName === "naver")) {
             alert("지적 편집도는 카카오 지도만 사용 가능합니다");
             return;
         }
@@ -145,8 +145,6 @@ window.addEventListener("load", function () {
             document.getElementById("kakao").setAttribute("class", "company button is-warning");
         } else if (companyName === "naver") {
             document.getElementById("naver").setAttribute("class", "company button is-success");
-        } else if (companyName === "google") {
-            document.getElementById("google").setAttribute("class", "company button is-link");
         }
 
         resultType = companyName;
@@ -207,7 +205,7 @@ window.addEventListener("load", function () {
             traceRec.setMap(kakaoMaps.getMap());
         }
 
-        if (resultType === "kakao" || resultType === "google") {
+        if (resultType === "kakao") {
             proxyCapture();
         } else if (resultType === "naver") {
             naverCapture();
@@ -216,24 +214,16 @@ window.addEventListener("load", function () {
 
     function proxyCapture() {
         var defaultBlockSize = 1000;
-        var googleOffset = 500;
         proxyProfile.setRadius(mapRadius);
         var fileName = document.getElementById("bunzi-address").innerText;
         progressBar.removeAttribute("value");
         progressBar.setAttribute("class", "progress is-warning");
         document.getElementById("captureStatus").innerText = "서버에 요청중입니다. 잠시 기다려주세요";
         isRun = true;
-        var nowCompanyType = proxyProfile.getCompanyType();
         var canvas = document.createElement("canvas");
 
-        if(nowCompanyType === "google"){
-            canvas.width = proxyProfile.getWidth() - googleOffset;
-            canvas.height = proxyProfile.getWidth() - googleOffset;
-        } else {
-            canvas.width = proxyProfile.getWidth();
-            canvas.height = proxyProfile.getWidth();
-        }
-
+        canvas.width = proxyProfile.getWidth();
+        canvas.height = proxyProfile.getWidth();
 
         var ctx = canvas.getContext("2d");
         var sideBlockCount = parseInt(proxyProfile.getWidth() / defaultBlockSize);
@@ -242,6 +232,11 @@ window.addEventListener("load", function () {
         var sock = new SockJS("/map/register");
         var stompClient = Stomp.over(sock);
         stompClient.debug = null;
+
+        sock.onclose = function() {
+            stompClient.disconnect();
+        };
+
         stompClient.connect({}, function(){
 
             var sessionId = stompClient.ws._transport.url;
@@ -293,30 +288,8 @@ window.addEventListener("load", function () {
 
 
                 proxyTile.requestImage(proxyProfile, json.uuid, function (loadedImage){
-                    if(nowCompanyType === "google"
-                        && json.x + defaultBlockSize === sideBlockCount * defaultBlockSize
-                        && json.y + defaultBlockSize !== sideBlockCount * defaultBlockSize){
-
-                        ctx.drawImage(loadedImage, 0, 0, loadedImage.width, loadedImage.height,
-                            json.x - googleOffset, json.y, defaultBlockSize, defaultBlockSize);
-                    } else if(nowCompanyType === "google"
-                        && json.x + defaultBlockSize !== sideBlockCount * defaultBlockSize
-                        && json.y + defaultBlockSize === sideBlockCount * defaultBlockSize) {
-
-                        ctx.drawImage(loadedImage, 0, 0, loadedImage.width, loadedImage.height,
-                            json.x, json.y - googleOffset, defaultBlockSize, defaultBlockSize);
-                    } else if(nowCompanyType === "google"
-                        && json.x + defaultBlockSize === sideBlockCount * defaultBlockSize
-                        && json.y + defaultBlockSize === sideBlockCount * defaultBlockSize) {
-
-                        ctx.drawImage(loadedImage, 0, 0, loadedImage.width, loadedImage.height,
-                            json.x - googleOffset, json.y - googleOffset, defaultBlockSize, defaultBlockSize);
-                    } else {
-
-                        ctx.drawImage(loadedImage, 0, 0, loadedImage.width, loadedImage.width,
-                            json.x, json.y, defaultBlockSize, defaultBlockSize);
-                    }
-
+                    ctx.drawImage(loadedImage, 0, 0, loadedImage.width, loadedImage.width,
+                        json.x, json.y, defaultBlockSize, defaultBlockSize);
                     count++;
                     document.getElementById("captureStatus").innerText = parseInt((count / maxCount) * 100).toString() + " / 100";
                     progressBar.setAttribute("value", (count / maxCount * 100).toString());
