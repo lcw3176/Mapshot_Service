@@ -2,17 +2,44 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 <th:block layout:fragment="layout_content">
-    <div class="container is-fluid tabs is-boxed mt-5">
-        <ul>
-            <li th:each="m, i : ${manual}" th:classappend="${pageNumber == i.index} ? 'is-active': ''">
-                <a th:href="${i.index}" th:text="${m.info}"></a>
-            </li>
-        </ul>
+    <script src="https://cdn.jsdelivr.net/npm/bulma-steps@2.2.1/dist/js/bulma-steps.min.js"
+            integrity="sha256-RguSWIp8xU7Pb8DOP9LlaypP8KkExzz6VuG0wtkNig0="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-steps@2.2.1/dist/css/bulma-steps.min.css"
+          integrity="sha256-2VMsFL68nak478Q553stUdMbocucF0+fqbGQeAc3KCU="
+          crossorigin="anonymous">
+    <script>
+        window.addEventListener('load', function(){
+            bulmaSteps.attach();
+        });
+
+    </script>
+
+    <div class="container is-fluid mt-5 steps">
+        <div th:each="manualValue : ${manual}" class="step-item">
+            <div class="step-marker" th:text="${manualValue.ordinal()}"> </div>
+            <div class="step-details">
+                <p class="step-title" th:text="${manualValue.getInfo()}"></p>
+            </div>
+        </div>
+        <div class="steps-actions">
+            <div class="steps-action">
+                <a href="#" data-nav="previous" class="button is-light"><i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="steps-action">
+                <a href="#" data-nav="next" class="button is-light"><i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="steps-content">
+            <div class="step-content" th:each="manualValue : ${manual}">
+                <div class="container is-fluid card">
+                    <div th:replace="fragment/manual/__${manualValue.ordinal()}__/index"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="container is-fluid card">
-        <div th:replace="fragment/manual/__${pageNumber}__/index"></div>
-    </div>
 </th:block>
 </html>
 
