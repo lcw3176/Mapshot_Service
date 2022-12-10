@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>다익스트라 | Blog</title>
+    <meta name="generator" content="Jekyll v4.3.1"/>
+    <meta property="og:title" content="다익스트라"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta name="description"
+          content="다익스트라 알고리즘 개요, 특징 하나의 출발점에서 모든 정점까지의 최단 거리 계산 구현방법 우선순위 큐 파이썬은 heapq 모듈 사용하면 편함 시간 복잡도 간선 탐색 각 노드는 한번씩 방문, 고로 간선도 한번씩 방문 O(E) 우선 순위 큐 데이터 입,출력 검사 시 거리값 리스트 갱신, 데이터 저장 우선 순위 큐 재정렬, 성질 유지 O(ElogE) 총 시간 복잡도 O(E) + O(ElogE) = O(ElogE)"/>
+    <meta property="og:description"
+          content="다익스트라 알고리즘 개요, 특징 하나의 출발점에서 모든 정점까지의 최단 거리 계산 구현방법 우선순위 큐 파이썬은 heapq 모듈 사용하면 편함 시간 복잡도 간선 탐색 각 노드는 한번씩 방문, 고로 간선도 한번씩 방문 O(E) 우선 순위 큐 데이터 입,출력 검사 시 거리값 리스트 갱신, 데이터 저장 우선 순위 큐 재정렬, 성질 유지 O(ElogE) 총 시간 복잡도 O(E) + O(ElogE) = O(ElogE)"/>
+    <link rel="canonical" href="https://kmapshot.com/blog/%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC/"/>
+    <meta property="og:url" content="https://kmapshot.com/blog/%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC/"/>
+    <meta property="og:site_name" content="Blog"/>
+    <meta property="og:type" content="article"/>
+    <meta property="article:published_time" content="2022-12-03T21:33:34+09:00"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta property="twitter:title" content="다익스트라"/>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "dateModified": "2022-12-03T21:33:34+09:00",
+            "datePublished": "2022-12-03T21:33:34+09:00",
+            "description": "다익스트라 알고리즘 개요, 특징 하나의 출발점에서 모든 정점까지의 최단 거리 계산 구현방법 우선순위 큐 파이썬은 heapq 모듈 사용하면 편함 시간 복잡도 간선 탐색 각 노드는 한번씩 방문, 고로 간선도 한번씩 방문 O(E) 우선 순위 큐 데이터 입,출력 검사 시 거리값 리스트 갱신, 데이터 저장 우선 순위 큐 재정렬, 성질 유지 O(ElogE) 총 시간 복잡도 O(E) + O(ElogE) = O(ElogE)",
+            "headline": "다익스트라",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://kmapshot.com/blog/%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC/"
+            },
+            "url": "https://kmapshot.com/blog/%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC/"
+        }</script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link type="application/atom+xml" rel="alternate" href="https://kmapshot.com/blog/feed.xml" title="Blog"/>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7390022674285155"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header" role="banner">
+
+    <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Blog</a>
+        <nav class="site-nav">
+            <input type="checkbox" id="nav-trigger" class="nav-trigger"/>
+            <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+            </label>
+
+            <div class="trigger"></div>
+        </nav>
+    </div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+            <header class="post-header">
+                <h1 class="post-title p-name" itemprop="name headline">다익스트라</h1>
+                <p class="post-meta">
+                    <time class="dt-published" datetime="2022-12-03T21:33:34+09:00" itemprop="datePublished">Dec 3, 2022
+                    </time>
+                </p>
+            </header>
+
+            <div class="post-content e-content" itemprop="articleBody">
+                <h1 id="다익스트라-알고리즘">다익스트라 알고리즘</h1>
+                <h2 id="개요-특징">개요, 특징</h2>
+                <ul>
+                    <li>하나의 출발점에서 모든 정점까지의 최단 거리 계산</li>
+                    <li>구현방법
+                        <ul>
+                            <li>우선순위 큐</li>
+                            <li>파이썬은 heapq 모듈 사용하면 편함</li>
+                        </ul>
+                    </li>
+                    <li>시간 복잡도
+                        <ul>
+                            <li>간선 탐색
+                                <ul>
+                                    <li>각 노드는 한번씩 방문,</li>
+                                    <li>고로 간선도 한번씩 방문</li>
+                                    <li>O(E)</li>
+                                </ul>
+                            </li>
+                            <li>우선 순위 큐 데이터 입,출력
+                                <ul>
+                                    <li>검사 시 거리값 리스트 갱신, 데이터 저장</li>
+                                    <li>우선 순위 큐 재정렬, 성질 유지</li>
+                                    <li>O(ElogE)</li>
+                                </ul>
+                            </li>
+                            <li>총 시간 복잡도
+                                <ul>
+                                    <li>O(E) + O(ElogE) = O(ElogE)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h2 id="대표적인-문제들">대표적인 문제들</h2>
+                <ul>
+                    <li>최단 경로 탐색 알고리즘</li>
+                    <li>지하철 노선도</li>
+                    <li>네비게이션</li>
+                    <li>기타 최단거리를 찾는 문제들</li>
+                </ul>
+
+                <div class="language-python highlighter-rouge">
+                    <div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">heapq</span>
+
+<span class="k">def</span> <span class="nf">dijkstra</span><span class="p">(</span><span class="n">graph</span><span
+                                class="p">,</span> <span class="n">start</span><span class="p">):</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span
+                                class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="s">"inf"</span><span
+                                class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span
+                                class="ow">in</span> <span class="n">graph</span><span class="p">}</span>
+    <span class="n">distances</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span
+                                class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">queue</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">heapq</span><span class="p">.</span><span class="n">heappush</span><span class="p">(</span><span
+                                class="n">queue</span><span class="p">,</span> <span class="p">[</span><span class="n">distances</span><span
+                                class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">start</span><span
+                                class="p">])</span>
+
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span> 
+        <span class="n">current_distance</span><span class="p">,</span> <span class="n">current_destination</span> <span
+                                class="o">=</span> <span class="n">heapq</span><span class="p">.</span><span class="n">heappop</span><span
+                                class="p">(</span><span class="n">queue</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">distances</span><span class="p">[</span><span class="n">current_destination</span><span
+                                class="p">]</span> <span class="o">&lt;</span> <span
+                                class="n">current_distance</span><span class="p">:</span>
+            <span class="k">continue</span>
+        
+        <span class="k">for</span> <span class="n">new_destination</span><span class="p">,</span> <span class="n">new_distance</span> <span
+                                class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span
+                                class="n">current_destination</span><span class="p">].</span><span
+                                class="n">items</span><span class="p">():</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="n">current_distance</span> <span
+                                class="o">+</span> <span class="n">new_distance</span>
+
+            <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="n">distances</span><span
+                                class="p">[</span><span class="n">new_destination</span><span class="p">]:</span>
+                <span class="n">distances</span><span class="p">[</span><span class="n">new_destination</span><span
+                                class="p">]</span> <span class="o">=</span> <span class="n">distance</span>
+                <span class="n">heapq</span><span class="p">.</span><span class="n">heappush</span><span
+                                class="p">(</span><span class="n">queue</span><span class="p">,</span> <span
+                                class="p">[</span><span class="n">distance</span><span class="p">,</span> <span
+                                class="n">new_destination</span><span class="p">])</span>
+        
+    <span class="k">return</span> <span class="n">distances</span>
+
+
+<span class="n">graph</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'A'</span><span class="p">:</span> <span class="p">{</span><span class="s">'B'</span><span
+                                class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span
+                                class="s">'C'</span><span class="p">:</span> <span class="mi">1</span><span
+                                class="p">,</span> <span class="s">'D'</span><span class="p">:</span> <span
+                                class="mi">2</span><span class="p">},</span>
+    <span class="s">'B'</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s">'C'</span><span class="p">:</span> <span class="p">{</span><span class="s">'B'</span><span
+                                class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span
+                                class="s">'D'</span><span class="p">:</span> <span class="mi">2</span><span
+                                class="p">},</span>
+    <span class="s">'D'</span><span class="p">:</span> <span class="p">{</span><span class="s">'E'</span><span
+                                class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span
+                                class="s">'F'</span><span class="p">:</span> <span class="mi">5</span><span
+                                class="p">},</span>
+    <span class="s">'E'</span><span class="p">:</span> <span class="p">{</span><span class="s">'F'</span><span
+                                class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="s">'F'</span><span class="p">:</span> <span class="p">{</span><span class="s">'A'</span><span
+                                class="p">:</span> <span class="mi">5</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">dijkstra</span><span class="p">(</span><span
+                                class="n">graph</span><span class="p">,</span> <span class="s">"A"</span><span
+                                class="p">))</span>
+
+</code></pre>
+                    </div>
+                </div>
+
+            </div>
+            <a class="u-url" href="/blog/%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC/" hidden></a>
+        </article>
+
+    </div>
+</main>
+<footer class="site-footer h-card">
+    <data class="u-url" href="/blog/"></data>
+
+    <div class="wrapper">
+
+        <h2 class="footer-heading">Blog</h2>
+
+        <div class="footer-col-wrapper">
+            <div class="footer-col footer-col-1">
+                <ul class="contact-list">
+                    <li class="p-name">Blog</li>
+                    <li><a class="u-email" href="mailto:chanwoo3176@naver.com">chanwoo3176@naver.com</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-col-2">
+                <ul class="social-media-list"></ul>
+            </div>
+
+            <div class="footer-col footer-col-3">
+                <p></p>
+            </div>
+        </div>
+
+    </div>
+
+</footer>
+</body>
+
+</html>

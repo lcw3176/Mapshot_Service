@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>Transaction | Blog</title>
+    <meta name="generator" content="Jekyll v4.3.1"/>
+    <meta property="og:title" content="Transaction"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta name="description" content="Transaction 정의 한 번 질의가 실행되면 질의가 모두 수행되거나 모두 수행되지 않는, 작업 수행의 논리적 단위."/>
+    <meta property="og:description" content="Transaction 정의 한 번 질의가 실행되면 질의가 모두 수행되거나 모두 수행되지 않는, 작업 수행의 논리적 단위."/>
+    <link rel="canonical" href="https://kmapshot.com/blog/Transaction/"/>
+    <meta property="og:url" content="https://kmapshot.com/blog/Transaction/"/>
+    <meta property="og:site_name" content="Blog"/>
+    <meta property="og:type" content="article"/>
+    <meta property="article:published_time" content="2022-11-08T17:02:52+09:00"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta property="twitter:title" content="Transaction"/>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "dateModified": "2022-11-08T17:02:52+09:00",
+            "datePublished": "2022-11-08T17:02:52+09:00",
+            "description": "Transaction 정의 한 번 질의가 실행되면 질의가 모두 수행되거나 모두 수행되지 않는, 작업 수행의 논리적 단위.",
+            "headline": "Transaction",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://kmapshot.com/blog/Transaction/"
+            },
+            "url": "https://kmapshot.com/blog/Transaction/"
+        }</script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link type="application/atom+xml" rel="alternate" href="https://kmapshot.com/blog/feed.xml" title="Blog"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7390022674285155"
+          crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header" role="banner">
+
+    <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Blog</a>
+        <nav class="site-nav">
+            <input type="checkbox" id="nav-trigger" class="nav-trigger"/>
+            <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+            </label>
+
+            <div class="trigger"></div>
+        </nav>
+    </div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+            <header class="post-header">
+                <h1 class="post-title p-name" itemprop="name headline">Transaction</h1>
+                <p class="post-meta">
+                    <time class="dt-published" datetime="2022-11-08T17:02:52+09:00" itemprop="datePublished">Nov 8, 2022
+                    </time>
+                </p>
+            </header>
+
+            <div class="post-content e-content" itemprop="articleBody">
+                <h1 id="transaction">Transaction</h1>
+                <h2 id="정의">정의</h2>
+                <p>한 번 질의가 실행되면 질의가 모두 수행되거나 모두 수행되지 않는, 작업 수행의 논리적 단위.</p>
+
+                <h2 id="사용-이유">사용 이유</h2>
+                <p>데이터 부정합을 방지하고자 할 때 사용</p>
+
+                <h2 id="특성">특성</h2>
+                <p>ACID 특성</p>
+                <ul>
+                    <li>원자성 (Atomicity)
+                        <ul>
+                            <li>All or Nothing</li>
+                            <li>작업 단위를 일부분만 실행하지 않음</li>
+                        </ul>
+                    </li>
+                    <li>일관성 (Consistency)
+                        <ul>
+                            <li>트랜잭션 완료 시 일관적인 DB 상태 유지</li>
+                            <li>ex) 트랜잭션 완료 후 동일한 데이터 타입 유지</li>
+                        </ul>
+                    </li>
+                    <li>격리성 (Isolation)
+                        <ul>
+                            <li>트랜잭션 수행 중 다른 트랜잭션이 끼어들지 못하도록 보장</li>
+                            <li>서로 간섭 X</li>
+                        </ul>
+                    </li>
+                    <li>지속성 (Durability)
+                        <ul>
+                            <li>성공적으로 수행된 트랜잭션은 영원히 반영</li>
+                            <li>commit 시 현재 상태는 영원히 보장</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h2 id="원자성-보장">원자성 보장</h2>
+                <p>수행중인 트랜잭션에 의해 변경된 내역은 유지하면서, 이전에 commit된 상태를 임시 영역에 따로 저장.</p>
+
+                <p>현재 수행중인 트랜잭션에서 오류가 발생하면 임시 영역에 저장된 상태로 rollback</p>
+
+                <h3 id="롤백-세그먼트-undo-영역">롤백 세그먼트, Undo 영역</h3>
+                <p>이전 데이터들이 임시로 저장되는 영역</p>
+
+                <h2 id="일관성-보장">일관성 보장</h2>
+                <p>트랜잭션 수행 전, 후에 데이터 모델의 모든 제약 조건(기본키, 외래키, 도메인, 도메인 제약조건 등)을 만족하는 것을 통해 보장</p>
+
+                <p>이벤트와 조건이 발생 시 트리거를 통해 보장</p>
+
+                <p>
+                    <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=http%3A%2F%2Fcfile8.uf.tistory.com%2Fimage%2F9987213A5A7D978C169828"/>
+                </p>
+
+                <p>create는 트리거를 생성하는 코드, after는 트리거가 실행되기 위한 event</p>
+
+                <h2 id="고립성-보장">고립성 보장</h2>
+                <h3 id="병행-처리">병행 처리</h3>
+                <p>트랜잭션에 정해진 시간을 할당해서 작업을 하다가 부여된 시간이 끝나면 다른 트랜잭션을 실행하는 방식, 점차적으로 트랜잭션들을 처리함</p>
+
+                <p>이때 공통된 데이터가 다른 트랜잭션에 의해 방해되면 안됨.</p>
+                <div class="language-plaintext highlighter-rouge">
+                    <div class="highlight"><pre class="highlight"><code>A 트랜잭션: x = 100
+&lt;!-- timeout --&gt;
+B 트랜잭션: x -= 50
+&lt;!-- timeout --&gt;
+A 트랜잭션: x == 50 ?????
+</code></pre>
+                    </div>
+                </div>
+
+                <p>트랜잭션의 간섭이 일어날 경우 갱신분실, 오손판독, 반복불가능, 팬텀문제 등 여러 문제점들이 발생.</p>
+
+                <h3 id="고립성-보장-방법">고립성 보장 방법</h3>
+                <p>lock &amp; excute unlock을 통해 고립성을 보장</p>
+
+                <p>데이터를 읽거나 쓸 때는 문을 잠궈서 다른 트랜잭션이 접근하지 못하도록 고립성을 보장하고, 수행을 마치면 unlock을 통해 데이터를 다른 트랜잭션이 접근할 수 있도록 허용하는
+                    방식.</p>
+
+                <h4 id="shared_lock">shared_lock</h4>
+                <ul>
+                    <li>트랜잭션에서는 데이터를 읽을 때 사용</li>
+                    <li>여러 트랜잭션이 읽을 수는 있고 쓰기를 허용하지 않는 것</li>
+                </ul>
+
+                <h4 id="exclusive_lock">exclusive_lock</h4>
+                <ul>
+                    <li>데이터를 쓸 때 사용</li>
+                    <li>다른 트랜잭션이 읽을 수도 쓸 수도 없도록 하는 것</li>
+                </ul>
+
+                <h4 id="unlock">unlock</h4>
+                <ul>
+                    <li>읽기, 쓰기 작업이 끝나면 사용</li>
+                    <li>다른 트랜잭션이 lock을 할 수 있도록 데이터에 대한 잠금을 풀어줌.</li>
+                </ul>
+
+                <h4 id="deadlock">deadlock</h4>
+                <ul>
+                    <li>모든 트랜잭션이 아무것도 수행할 수 없는 상태</li>
+                </ul>
+
+                <p>
+                    <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=http%3A%2F%2Fcfile24.uf.tistory.com%2Fimage%2F99961F4B5A7D9C8712D0F9"/>
+                </p>
+
+                <h3 id="2pl-프로토콜--2-phase-locking-protocol-">2PL 프로토콜 ( 2 Phase Locking protocol )</h3>
+                <p>여러 트랜잭션이 공유하고 있는 데이터에 동시에 접근할 수 없도록 하는, 병행 처리 상황에서 트랜잭션의 고립성을 보장하기 위한 프로토콜</p>
+
+                <h4 id="growing-phase">growing phase</h4>
+                <p>read_lock, write_lock을 의미</p>
+
+                <h4 id="shrinking-phase">shrinking phase</h4>
+                <p>unlock을 의미</p>
+
+                <h4 id="방법">방법</h4>
+                <p>
+                    <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=http%3A%2F%2Fcfile1.uf.tistory.com%2Fimage%2F9958D24B5A7D9F440F1103"/>
+                </p>
+
+                <p>상승 단계와 하강 단계가 섞이면 안된다는 것을 의미.</p>
+
+                <p>lock과 unlock이 번갈아 수행되지 않고 lock이 모두 수행된 이후 unlock이 수행되어야 함</p>
+
+                <h4 id="한계">한계</h4>
+                <p><img src="https://miro.medium.com/max/1400/1*StVsQ4erIFszl37zwA3fyw.png"/></p>
+
+                <p>여전히 데드락의 발생 소지가 존재</p>
+
+                <p>좌측 그림은 데드락이 발생하지 않지만, 우측 그림은 프로토콜을 준수했음에도 교착상태가 발생한 예시.</p>
+
+                <p><img src="https://miro.medium.com/max/1400/1*pFcb4xEBqZfOCyaGNZ859g.png"/></p>
+
+                <p>연쇄 복귀, 회복 불가능 문제 발생 가능</p>
+
+                <p>만약 T2 트랜잭션이 commit 되지 않았다면 아무 문제 없는 트랜잭션까지 연달아 복귀하는 문제 발생</p>
+
+                <p>이미 T2 트랜잭션이 commit된 상태라면 지속성 조건에 따라 복귀 불가능</p>
+
+                <h4 id="해결법">해결법</h4>
+                <h4 id="보수적-lock">보수적 lock</h4>
+
+                <p>트랜잭션이 시작되면 모든 lock을 얻음, 데드락 발생은 없지만 병행성 안좋음</p>
+
+                <h4 id="엄격한-lock">엄격한 lock</h4>
+
+                <p>모든 lock에 대한 unlock 연산을 트랜잭션이 완전히 완료된 후에 실행.</p>
+
+                <p>트랜잭션이 commit을 만날 때 까지 lock을 갖고
+                    있다가 commit을 만날 때 unlock 하는 방식</p>
+
+                <p>대부분의 DBMS에서 사용중인 방식</p>
+
+                <h2 id="격리-수준">격리 수준</h2>
+                <p>동시에 여러 트랜잭션이 처리될 때</p>
+
+                <p>특정 트랜잭션이 다른 트랜잭션에서 변경하거나 조회하는 데이터를 볼 수 있도록 허용할지 말지를 결정하는 것.</p>
+
+                <h3 id="read-uncommitted">READ UNCOMMITTED</h3>
+                <p><img src="https://nesoy.github.io/assets/posts/img/2019-05-08-21-09-02.png" height="600"/></p>
+
+                <ul>
+                    <li>COMMIT이나 ROLLBACK 여부에 상관 없이 다른 트랜잭션에서 값을 읽을 수 있음</li>
+                    <li>DIRTY READ 발생</li>
+                </ul>
+
+                <h3 id="read-committed">READ COMMITTED</h3>
+                <p><img src="https://nesoy.github.io/assets/posts/img/2019-05-08-21-25-41.png" height="600"/></p>
+
+                <ul>
+                    <li>RDB에서 대부분 기본적으로 사용되고 있는 격리 수준.</li>
+                    <li>실제 테이블 값을 가져오는 것이 아니라 Undo 영역에 백업된 레코드에서 값을 가져옴</li>
+                    <li>같은 SELECT 쿼리 실행 시 정합성이 어긋나는 경우 발생</li>
+                </ul>
+
+                <h3 id="repeatable-read">REPEATABLE READ</h3>
+                <p><img src="https://nesoy.github.io/assets/posts/img/2019-05-08-21-52-08.png" height="600"/></p>
+
+                <ul>
+                    <li>트랜잭션마다 트랜잭션 ID를 부여하여 트랜잭션 ID보다 작은 트랜잭션 번호에서 변경한 것만 읽게 함 (MYSQL)</li>
+                    <li>Undo 공간에 백업해두고 실제 레코드 값을 변경</li>
+                </ul>
+
+                <p><img src="https://nesoy.github.io/assets/posts/img/2019-05-08-22-14-18.png" height="600"/></p>
+
+                <ul>
+                    <li>PHANTOM READ 발생
+                        <ul>
+                            <li>다른 트랜잭션에서 수행한 변경 작업에 의해 레코드가 보였다가 안 보였다가 하는 현상</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3 id="serializable">SERIALIZABLE</h3>
+                <ul>
+                    <li>한 트랜잭션에서 읽는 레코드는 공유 잠금 설정</li>
+                    <li>다른 트랜잭션에서 데이터 수정 불가</li>
+                </ul>
+
+            </div>
+            <a class="u-url" href="/blog/Transaction/" hidden></a>
+        </article>
+
+    </div>
+</main>
+<footer class="site-footer h-card">
+    <data class="u-url" href="/blog/"></data>
+
+    <div class="wrapper">
+
+        <h2 class="footer-heading">Blog</h2>
+
+        <div class="footer-col-wrapper">
+            <div class="footer-col footer-col-1">
+                <ul class="contact-list">
+                    <li class="p-name">Blog</li>
+                    <li><a class="u-email" href="mailto:chanwoo3176@naver.com">chanwoo3176@naver.com</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-col-2">
+                <ul class="social-media-list"></ul>
+            </div>
+
+            <div class="footer-col footer-col-3">
+                <p></p>
+            </div>
+        </div>
+
+    </div>
+
+</footer>
+</body>
+
+</html>
