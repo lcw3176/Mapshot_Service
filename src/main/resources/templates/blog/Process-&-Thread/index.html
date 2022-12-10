@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>Process &amp; Thread | Blog</title>
+    <meta name="generator" content="Jekyll v4.3.1"/>
+    <meta property="og:title" content="Process &amp; Thread"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta name="description" content="Process &amp; Thread"/>
+    <meta property="og:description" content="Process &amp; Thread"/>
+    <link rel="canonical" href="https://kmapshot.com/blog/Process-&-Thread/"/>
+    <meta property="og:url" content="https://kmapshot.com/blog/Process-&-Thread/"/>
+    <meta property="og:site_name" content="Blog"/>
+    <meta property="og:type" content="article"/>
+    <meta property="article:published_time" content="2022-11-17T11:21:36+09:00"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta property="twitter:title" content="Process &amp; Thread"/>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "dateModified": "2022-11-17T11:21:36+09:00",
+            "datePublished": "2022-11-17T11:21:36+09:00",
+            "description": "Process &amp; Thread",
+            "headline": "Process &amp; Thread",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://kmapshot.com/blog/Process-&-Thread/"
+            },
+            "url": "https://kmapshot.com/blog/Process-&-Thread/"
+        }</script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link type="application/atom+xml" rel="alternate" href="https://kmapshot.com/blog/feed.xml" title="Blog"/>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7390022674285155"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header" role="banner">
+
+    <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Blog</a>
+        <nav class="site-nav">
+            <input type="checkbox" id="nav-trigger" class="nav-trigger"/>
+            <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+            </label>
+
+            <div class="trigger"></div>
+        </nav>
+    </div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+            <header class="post-header">
+                <h1 class="post-title p-name" itemprop="name headline">Process &amp; Thread</h1>
+                <p class="post-meta">
+                    <time class="dt-published" datetime="2022-11-17T11:21:36+09:00" itemprop="datePublished">Nov 17,
+                        2022
+                    </time>
+                </p>
+            </header>
+
+            <div class="post-content e-content" itemprop="articleBody">
+                <h1 id="process--thread">Process &amp; Thread</h1>
+
+                <h2 id="process">Process</h2>
+                <ul>
+                    <li>프로그램이 인스턴스화 되어 실행된 것</li>
+                    <li>작업의 단위</li>
+                    <li>독립된 실행 개체</li>
+                </ul>
+
+                <h2 id="thread">Thread</h2>
+                <ul>
+                    <li>프로세스 내에서 실행되는 여러 흐름의 단위</li>
+                    <li>실행의 단위</li>
+                    <li>프로세스 자원을 공유하면서 실행되는 일련의 과정들</li>
+                </ul>
+
+                <h2 id="프로세스-상태-전이">프로세스 상태 전이</h2>
+                <p>
+                    <img src="https://user-images.githubusercontent.com/59993347/177243485-31ce0b62-49cd-4ca3-bef7-67856c3425c8.png"
+                         alt="화면 캡처 2022-07-05 121519"/></p>
+
+                <h3 id="디스패치-dispatch-보내다-파견하다">디스패치 (dispatch: 보내다, 파견하다)</h3>
+                <h4 id="준비-상태">준비 상태</h4>
+                <ul>
+                    <li>준비 상태인 프로세스가 큐에 관리됨</li>
+                </ul>
+
+                <h4 id="실행-상태">실행 상태</h4>
+                <ul>
+                    <li>운영 체제는 큐에서 프로세스를 인출, 자원 할당 및 연산 수행</li>
+                    <li>CPU의 코어 수, 하이퍼 스레딩 등에 따라 인출 갯수는 달라짐</li>
+                </ul>
+
+                <h3 id="입출력-요청">입출력 요청</h3>
+                <h4 id="동기-입출력">동기 입출력</h4>
+                <ul>
+                    <li>Blocking I/O</li>
+                    <li>입출력 요청 후 대기 상태로 빠짐</li>
+                </ul>
+
+                <h4 id="비동기-입출력">비동기 입출력</h4>
+                <ul>
+                    <li>Non-Blocking I/O</li>
+                    <li>입출력 요청 후 실행 상태를 유지</li>
+                </ul>
+
+            </div>
+            <a class="u-url" href="/blog/Process-&-Thread/" hidden></a>
+        </article>
+
+    </div>
+</main>
+<footer class="site-footer h-card">
+    <data class="u-url" href="/blog/"></data>
+
+    <div class="wrapper">
+
+        <h2 class="footer-heading">Blog</h2>
+
+        <div class="footer-col-wrapper">
+            <div class="footer-col footer-col-1">
+                <ul class="contact-list">
+                    <li class="p-name">Blog</li>
+                    <li><a class="u-email" href="mailto:chanwoo3176@naver.com">chanwoo3176@naver.com</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-col-2">
+                <ul class="social-media-list"></ul>
+            </div>
+
+            <div class="footer-col footer-col-3">
+                <p></p>
+            </div>
+        </div>
+
+    </div>
+
+</footer>
+</body>
+
+</html>

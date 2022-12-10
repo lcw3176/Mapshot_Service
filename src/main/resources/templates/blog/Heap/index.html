@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>Heap | Blog</title>
+    <meta name="generator" content="Jekyll v4.3.1"/>
+    <meta property="og:title" content="Heap"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta name="description" content="Heap"/>
+    <meta property="og:description" content="Heap"/>
+    <link rel="canonical" href="https://kmapshot.com/blog/Heap/"/>
+    <meta property="og:url" content="https://kmapshot.com/blog/Heap/"/>
+    <meta property="og:site_name" content="Blog"/>
+    <meta property="og:type" content="article"/>
+    <meta property="article:published_time" content="2022-11-22T15:23:37+09:00"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta property="twitter:title" content="Heap"/>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "dateModified": "2022-11-22T15:23:37+09:00",
+            "datePublished": "2022-11-22T15:23:37+09:00",
+            "description": "Heap",
+            "headline": "Heap",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://kmapshot.com/blog/Heap/"
+            },
+            "url": "https://kmapshot.com/blog/Heap/"
+        }</script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link type="application/atom+xml" rel="alternate" href="https://kmapshot.com/blog/feed.xml" title="Blog"/>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7390022674285155"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header" role="banner">
+
+    <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Blog</a>
+        <nav class="site-nav">
+            <input type="checkbox" id="nav-trigger" class="nav-trigger"/>
+            <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+            </label>
+
+            <div class="trigger"></div>
+        </nav>
+    </div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+            <header class="post-header">
+                <h1 class="post-title p-name" itemprop="name headline">Heap</h1>
+                <p class="post-meta">
+                    <time class="dt-published" datetime="2022-11-22T15:23:37+09:00" itemprop="datePublished">Nov 22,
+                        2022
+                    </time>
+                </p>
+            </header>
+
+            <div class="post-content e-content" itemprop="articleBody">
+                <h1 id="heap">Heap</h1>
+
+                <h2 id="개요-특징">개요, 특징</h2>
+                <h3 id="자료구조">자료구조</h3>
+                <ul>
+                    <li>완전 이진 트리, 우선 순위 큐</li>
+                    <li>최댓값, 최솟값 탐색에 사용</li>
+                    <li>종류
+                        <ul>
+                            <li>최대 힙:부모 노드 &gt;= 자식 노드</li>
+                            <li>최소 힙: 자식 노드 &gt;= 부모 노드</li>
+                        </ul>
+                    </li>
+                    <li>인덱스
+                        <ul>
+                            <li>첫 인덱스는 0이 아닌 1로 잡는것이 수월함</li>
+                            <li>부모 인덱스 = (자식 인덱스) / 2</li>
+                            <li>왼쪽 자식 = (부모 인덱스) * 2</li>
+                            <li>오른쪽 자식 = (부모 인덱스) * 2 + 1
+                                <h3 id="메모리-구조">메모리 구조</h3>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>동적 할당 영역</li>
+                    <li>동적 생성된 클래스 데이터 저장
+                        <ul>
+                            <li>스택: 클래스 주소(0x0001) 저장</li>
+                            <li>힙: 0x0001의 데이터 저장</li>
+                            <li>참조 끊기면 GC에 의해 수거</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h2 id="장점">장점</h2>
+                <h3 id="자료구조-1">자료구조</h3>
+                <ul>
+                    <li>삽입, 삭제
+                        <ul>
+                            <li>O(log N)</li>
+                            <li>입,출력 자체는 O(1)</li>
+                            <li>heapify를 거쳐야 하기 때문에 O(log N)
+                                <h3 id="메모리-구조-1">메모리 구조</h3>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>스택에 비해 자유로운 용량</li>
+                    <li>상황에 맞게 유동적 조절 가능</li>
+                </ul>
+
+                <h2 id="단점">단점</h2>
+                <h3 id="자료구조-2">자료구조</h3>
+                <ul>
+                    <li>불균형 데이터 상황
+                        <ul>
+                            <li>트리가 균형잡혀 있을 때만 O(log N)</li>
+                            <li>만약 1,2,3,4…. 같은 데이터라면?</li>
+                            <li>O(n), 리스트같은 자료구조와 차이가 없음
+                                <h3 id="메모리-구조-2">메모리 구조</h3>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>할당, 해제에 의한 속도 저하</li>
+                    <li>힙 경합으로 인한 속도 저하</li>
+                    <li>해제 주체에 따른 단점
+                        <ul>
+                            <li>프로그래머가 하는 경우
+                                <ul>
+                                    <li>깜빡하는 순간 메모리 누수</li>
+                                </ul>
+                            </li>
+                            <li>가비지 컬렉터
+                                <ul>
+                                    <li>동작하는 시점에 프로그램 버벅임</li>
+                                    <li>동작 시점이 불명확</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="language-python highlighter-rouge">
+                    <div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Heap</span><span
+                            class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span
+                                class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">item</span> <span class="o">=</span> <span
+                                class="p">[</span><span class="bp">None</span><span class="p">]</span>
+
+    
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span
+                                class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">item</span><span class="p">.</span><span
+                                class="n">append</span><span class="p">(</span><span class="n">data</span><span
+                                class="p">)</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span
+                                class="bp">self</span><span class="p">.</span><span class="n">item</span><span
+                                class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span
+                                class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span
+                                class="n">item</span><span class="p">[</span><span class="n">i</span><span
+                                class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span
+                                class="p">.</span><span class="n">item</span><span class="p">[</span><span
+                                class="n">i</span> <span class="o">//</span> <span class="mi">2</span><span
+                                class="p">]:</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">item</span><span
+                                class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span
+                                class="p">.</span><span class="n">item</span><span class="p">[</span><span
+                                class="n">i</span> <span class="o">//</span> <span class="mi">2</span><span
+                                class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span
+                                class="n">item</span><span class="p">[</span><span class="n">i</span> <span
+                                class="o">//</span> <span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span
+                                class="p">.</span><span class="n">item</span><span class="p">[</span><span
+                                class="n">i</span><span class="p">]</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span
+                                class="o">//</span> <span class="mi">2</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span
+                                class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span
+                                class="p">.</span><span class="n">item</span><span class="p">)</span> <span class="o">&lt;</span> <span
+                                class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">IndexError</span><span class="p">(</span><span class="s">"Empty heap"</span><span
+                                class="p">)</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span
+                                class="n">item</span><span class="p">[</span><span class="mi">1</span><span
+                                class="p">]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">item</span><span
+                                class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">heapify</span><span class="p">(</span><span
+                                class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+    
+
+    <span class="k">def</span> <span class="nf">heapify</span><span class="p">(</span><span class="bp">self</span><span
+                                class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+        <span class="n">left_child</span> <span class="o">=</span> <span class="mi">2</span> <span
+                                class="o">*</span> <span class="n">parent</span>
+        <span class="n">right_child</span> <span class="o">=</span> <span class="mi">2</span> <span
+                                class="o">*</span> <span class="n">parent</span> <span class="o">+</span> <span
+                                class="mi">1</span>
+        <span class="n">next_index</span> <span class="o">=</span> <span class="n">parent</span>
+
+        <span class="k">if</span> <span class="n">left_child</span> <span class="o">&lt;</span> <span
+                                class="nb">len</span><span class="p">(</span><span class="bp">self</span><span
+                                class="p">.</span><span class="n">item</span><span class="p">)</span> <span class="ow">and</span> <span
+                                class="bp">self</span><span class="p">.</span><span class="n">item</span><span
+                                class="p">[</span><span class="n">parent</span><span class="p">]</span> <span class="o">&lt;</span> <span
+                                class="bp">self</span><span class="p">.</span><span class="n">item</span><span
+                                class="p">[</span><span class="n">left_child</span><span class="p">]:</span>
+            <span class="n">next_index</span> <span class="o">=</span> <span class="n">left_child</span>
+        
+        <span class="k">if</span> <span class="n">right_child</span> <span class="o">&lt;</span> <span
+                                class="nb">len</span><span class="p">(</span><span class="bp">self</span><span
+                                class="p">.</span><span class="n">item</span><span class="p">)</span> <span class="ow">and</span> <span
+                                class="bp">self</span><span class="p">.</span><span class="n">item</span><span
+                                class="p">[</span><span class="n">parent</span><span class="p">]</span> <span class="o">&lt;</span> <span
+                                class="bp">self</span><span class="p">.</span><span class="n">item</span><span
+                                class="p">[</span><span class="n">right_child</span><span class="p">]:</span>
+            <span class="n">next_index</span> <span class="o">=</span><span class="n">right_child</span>
+        
+        <span class="k">if</span> <span class="n">next_index</span> <span class="o">!=</span> <span
+                                class="n">parent</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">item</span><span class="p">[</span><span
+                                class="n">parent</span><span class="p">],</span> <span class="bp">self</span><span
+                                class="p">.</span><span class="n">item</span><span class="p">[</span><span class="n">next_index</span><span
+                                class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span
+                                class="n">item</span><span class="p">[</span><span class="n">next_index</span><span
+                                class="p">],</span> <span class="bp">self</span><span class="p">.</span><span class="n">item</span><span
+                                class="p">[</span><span class="n">parent</span><span class="p">]</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">heapify</span><span
+                                class="p">(</span><span class="n">next_index</span><span class="p">)</span>
+
+
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span
+                                class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span
+                                class="bp">self</span><span class="p">.</span><span class="n">item</span><span
+                                class="p">[</span><span class="mi">1</span><span class="p">::</span><span
+                                class="mi">1</span><span class="p">])</span>
+
+</code></pre>
+                    </div>
+                </div>
+
+            </div>
+            <a class="u-url" href="/blog/Heap/" hidden></a>
+        </article>
+
+    </div>
+</main>
+<footer class="site-footer h-card">
+    <data class="u-url" href="/blog/"></data>
+
+    <div class="wrapper">
+
+        <h2 class="footer-heading">Blog</h2>
+
+        <div class="footer-col-wrapper">
+            <div class="footer-col footer-col-1">
+                <ul class="contact-list">
+                    <li class="p-name">Blog</li>
+                    <li><a class="u-email" href="mailto:chanwoo3176@naver.com">chanwoo3176@naver.com</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-col-2">
+                <ul class="social-media-list"></ul>
+            </div>
+
+            <div class="footer-col footer-col-3">
+                <p></p>
+            </div>
+        </div>
+
+    </div>
+
+</footer>
+</body>
+
+</html>

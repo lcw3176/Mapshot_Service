@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>HashTable | Blog</title>
+    <meta name="generator" content="Jekyll v4.3.1"/>
+    <meta property="og:title" content="HashTable"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta name="description" content="HashTable"/>
+    <meta property="og:description" content="HashTable"/>
+    <link rel="canonical" href="https://kmapshot.com/blog/HashTable/"/>
+    <meta property="og:url" content="https://kmapshot.com/blog/HashTable/"/>
+    <meta property="og:site_name" content="Blog"/>
+    <meta property="og:type" content="article"/>
+    <meta property="article:published_time" content="2022-11-23T12:26:38+09:00"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta property="twitter:title" content="HashTable"/>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "dateModified": "2022-11-23T12:26:38+09:00",
+            "datePublished": "2022-11-23T12:26:38+09:00",
+            "description": "HashTable",
+            "headline": "HashTable",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://kmapshot.com/blog/HashTable/"
+            },
+            "url": "https://kmapshot.com/blog/HashTable/"
+        }</script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link type="application/atom+xml" rel="alternate" href="https://kmapshot.com/blog/feed.xml" title="Blog"/>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7390022674285155"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header" role="banner">
+
+    <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Blog</a>
+        <nav class="site-nav">
+            <input type="checkbox" id="nav-trigger" class="nav-trigger"/>
+            <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+            </label>
+
+            <div class="trigger"></div>
+        </nav>
+    </div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+            <header class="post-header">
+                <h1 class="post-title p-name" itemprop="name headline">HashTable</h1>
+                <p class="post-meta">
+                    <time class="dt-published" datetime="2022-11-23T12:26:38+09:00" itemprop="datePublished">Nov 23,
+                        2022
+                    </time>
+                </p>
+            </header>
+
+            <div class="post-content e-content" itemprop="articleBody">
+                <h1 id="hashtable">HashTable</h1>
+
+                <h2 id="개요">개요</h2>
+                <h3 id="용어-정리">용어 정리</h3>
+                <p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Hash_table_3_1_1_0_1_0_0_SP.svg/330px-Hash_table_3_1_1_0_1_0_0_SP.svg.png"/>
+                </p>
+
+                <ul>
+                    <li>해시(hash): 다양한 길이를 가진 데이터를 고정된 길이를 가진 데이터로 매핑한 <strong>값</strong> (key)</li>
+                    <li>해시 테이블(hash table): 키와 값을 매핑해 둔 데이터 <strong>구조</strong></li>
+                    <li>해싱(hashing): 해시함수를 사용하여 주어진 값을 변환한 뒤, 해시 테이블에 저장하고 검색하는 <strong>기법</strong></li>
+                    <li>해시 함수: 임의의 길이를 갖는 임의의 데이터에 대해 고정된 길이의 데이터로 매핑하는 <strong>함수</strong></li>
+                    <li>슬롯, 버킷: 데이터(value)가 저장되는 공간</li>
+                </ul>
+
+                <h2 id="장점">장점</h2>
+                <ul>
+                    <li>리소스 관리
+                        <ul>
+                            <li>해시 함수를 통한 매핑을 통해 키값 축약</li>
+                        </ul>
+                    </li>
+                    <li>인덱스
+                        <ul>
+                            <li>해시값을 통한 삽입 / 삭제</li>
+                            <li>빠른 접근, 데이터 액세스 O(1)</li>
+                        </ul>
+                    </li>
+                    <li>보안
+                        <ul>
+                            <li>키와 해시값 사이에 직접적 연관 x, 키 복원 어려움</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h2 id="단점">단점</h2>
+                <h3 id="충돌">충돌</h3>
+                <ul>
+                    <li>해시 함수가 서로 다른 입력에 대해 같은 값을 리턴할 수 있음
+                        <h3 id="예방법">예방법</h3>
+                        <p>
+                            <img src="https://media.vlpt.us/post-images/cyranocoding/329e7e60-b226-11e9-a4ce-730fc6b3757a/16eBeaqTti8MxWPsw4xBgw.png"/>
+                        </p>
+                    </li>
+                    <li>체이닝
+                        <ul>
+                            <li>링크드 리스트 이용</li>
+                            <li>중복되는 버킷을 링크드 리스트로 만듬</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Hash_table_5_0_1_1_1_1_0_SP.svg/570px-Hash_table_5_0_1_1_1_1_0_SP.svg.png"/>
+                </p>
+
+                <ul>
+                    <li>오픈 어드레싱
+                        <ul>
+                            <li>버킷에 데이터를 직접 전부 저장함</li>
+                            <li>순차적으로 빈 공간 탐색 후 값 저장</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="language-python highlighter-rouge">
+                    <div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">HashTableWithChain</span><span
+                            class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span
+                                class="p">,</span> <span class="n">size</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">bucket</span> <span class="o">=</span> <span
+                                class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span
+                                class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span
+                                class="p">(</span><span class="n">size</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span
+                                class="n">size</span>
+
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span
+                                class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span
+                                class="p">):</span>
+        <span class="nb">hash</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span
+                                class="n">hashFunction</span><span class="p">(</span><span class="n">key</span><span
+                                class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">bucket</span><span
+                                class="p">[</span><span class="nb">hash</span><span class="p">]</span> <span class="o">!=</span> <span
+                                class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span
+                                class="bp">self</span><span class="p">.</span><span class="n">bucket</span><span
+                                class="p">[</span><span class="nb">hash</span><span class="p">])</span> <span class="o">==</span> <span
+                                class="nb">list</span><span class="p">:</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">bucket</span><span
+                                class="p">[</span><span class="nb">hash</span><span class="p">].</span><span class="n">append</span><span
+                                class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span
+                                class="p">.</span><span class="n">bucket</span><span class="p">[</span><span class="nb">hash</span><span
+                                class="p">]</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">bucket</span><span
+                                class="p">[</span><span class="nb">hash</span><span class="p">]</span> <span
+                                class="o">=</span> <span class="p">[]</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">bucket</span><span
+                                class="p">[</span><span class="nb">hash</span><span class="p">].</span><span class="n">append</span><span
+                                class="p">(</span><span class="n">temp</span><span class="p">)</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">bucket</span><span
+                                class="p">[</span><span class="nb">hash</span><span class="p">].</span><span class="n">append</span><span
+                                class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">bucket</span><span
+                                class="p">[</span><span class="nb">hash</span><span class="p">]</span> <span
+                                class="o">=</span> <span class="n">value</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span
+                                class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="nb">hash</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span
+                                class="n">hashFunction</span><span class="p">(</span><span class="n">key</span><span
+                                class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span
+                                class="n">bucket</span><span class="p">[</span><span class="nb">hash</span><span
+                                class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">hashFunction</span><span class="p">(</span><span
+                                class="bp">self</span><span class="p">,</span> <span class="n">key</span><span
+                                class="p">):</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="o">%</span> <span
+                                class="bp">self</span><span class="p">.</span><span class="n">size</span>
+
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span
+                                class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span
+                                class="n">bucket</span><span class="p">)</span>
+
+
+<span class="nb">hash</span> <span class="o">=</span> <span class="n">HashTableWithChain</span><span
+                                class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span
+                                class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="nb">hash</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span
+                                class="n">i</span><span class="p">,</span> <span class="s">"hello"</span><span
+                                class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">hash</span><span class="p">.</span><span class="n">get</span><span
+                                class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="c1">## hello
+</span><span class="nb">hash</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span
+                                class="mi">0</span><span class="p">,</span> <span class="s">"hello"</span><span
+                                class="p">)</span>
+<span class="nb">hash</span><span class="p">.</span><span class="n">show</span><span class="p">()</span> <span
+                                class="c1">## [['hello', 'hello'], 'hello', 'hello', 'hello', 'hello', 'hello', 'hello', 'hello', 'hello', 'hello']
+</span></code></pre>
+                    </div>
+                </div>
+
+            </div>
+            <a class="u-url" href="/blog/HashTable/" hidden></a>
+        </article>
+
+    </div>
+</main>
+<footer class="site-footer h-card">
+    <data class="u-url" href="/blog/"></data>
+
+    <div class="wrapper">
+
+        <h2 class="footer-heading">Blog</h2>
+
+        <div class="footer-col-wrapper">
+            <div class="footer-col footer-col-1">
+                <ul class="contact-list">
+                    <li class="p-name">Blog</li>
+                    <li><a class="u-email" href="mailto:chanwoo3176@naver.com">chanwoo3176@naver.com</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-col-2">
+                <ul class="social-media-list"></ul>
+            </div>
+
+            <div class="footer-col footer-col-3">
+                <p></p>
+            </div>
+        </div>
+
+    </div>
+
+</footer>
+</body>
+
+</html>

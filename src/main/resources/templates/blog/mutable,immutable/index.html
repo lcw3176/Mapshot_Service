@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>Mutable, Immutable | Blog</title>
+    <meta name="generator" content="Jekyll v4.3.1"/>
+    <meta property="og:title" content="Mutable, Immutable"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta name="description" content="Mutable - Immutable String"/>
+    <meta property="og:description" content="Mutable - Immutable String"/>
+    <link rel="canonical" href="https://kmapshot.com/blog/mutable,immutable/"/>
+    <meta property="og:url" content="https://kmapshot.com/blog/mutable,immutable/"/>
+    <meta property="og:site_name" content="Blog"/>
+    <meta property="og:type" content="article"/>
+    <meta property="article:published_time" content="2022-11-18T21:26:22+09:00"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta property="twitter:title" content="Mutable, Immutable"/>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "dateModified": "2022-11-18T21:26:22+09:00",
+            "datePublished": "2022-11-18T21:26:22+09:00",
+            "description": "Mutable - Immutable String",
+            "headline": "Mutable, Immutable",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://kmapshot.com/blog/mutable,immutable/"
+            },
+            "url": "https://kmapshot.com/blog/mutable,immutable/"
+        }</script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link type="application/atom+xml" rel="alternate" href="https://kmapshot.com/blog/feed.xml" title="Blog"/>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7390022674285155"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header" role="banner">
+
+    <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Blog</a>
+        <nav class="site-nav">
+            <input type="checkbox" id="nav-trigger" class="nav-trigger"/>
+            <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+            </label>
+
+            <div class="trigger"></div>
+        </nav>
+    </div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+            <header class="post-header">
+                <h1 class="post-title p-name" itemprop="name headline">Mutable, Immutable</h1>
+                <p class="post-meta">
+                    <time class="dt-published" datetime="2022-11-18T21:26:22+09:00" itemprop="datePublished">Nov 18,
+                        2022
+                    </time>
+                </p>
+            </header>
+
+            <div class="post-content e-content" itemprop="articleBody">
+                <h1 id="mutable---immutable">Mutable - Immutable</h1>
+                <h2 id="string">String</h2>
+
+                <div style="text-align:center;">
+                    <img src="https://t1.daumcdn.net/cfile/tistory/99948B355E2F13350F"/>
+                    <p>출처: https://ifuwanna.tistory.com/221</p>
+                    <image src="https://dz2cdn1.dzone.com/storage/temp/14332760-java-7-8-memory.jpg">
+                        <p>출처: https://dzone.com/articles/native-memory-may-cause-unknown-memory-leaks</p>
+                        &lt;/div&gt;
+
+                        - String은 Metaspace 영역에서 관리됨.
+                        - 기존의 heap에서 native 메모리 영역으로 옮김
+                        - os 레벨에서 관리하므로, 메모리 확보가 용이해짐
+
+                        ```java
+                        public static void main(String[] args) {
+                        String immutable = "hello";
+                        String shallowCopy = immutable;
+                        String immutable1 = "hello";
+                        String staticImmutable = new String("hello");
+                        String constant = "constant";
+                        String staticConstant = new String("constant");
+                        String constant2 = "constant";
+                        String brandNew = new String("good");
+                        String brandNewGood = new String("good");
+                        String brandNewTwo = new String("goodTwo");
+                        String brandNewGoodTwo = new String("goodTwo");
+
+                        printHash(
+                        immutable, shallowCopy, immutable1, staticImmutable,
+                        constant, staticConstant, constant2,
+                        brandNew,brandNewGood,
+                        brandNewTwo, brandNewGoodTwo);
+                        }
+
+                        public static void printHash(String... data){
+
+                        for(String i : data){
+                        System.out.print("데이터: " + i + " ");
+                        System.out.print("해시코드: " + i.hashCode() + " ");
+                        System.out.println("객체주소: " + System.identityHashCode(i));
+                        }
+
+                        }
+                        ```
+                        ```java
+                        ## result
+
+                        데이터: hello 해시코드: 99162322 객체주소: 2129789493
+                        데이터: hello 해시코드: 99162322 객체주소: 2129789493
+                        데이터: hello 해시코드: 99162322 객체주소: 2129789493
+                        데이터: hello 해시코드: 99162322 객체주소: 668386784
+                        데이터: constant 해시코드: -567811164 객체주소: 1329552164
+                        데이터: constant 해시코드: -567811164 객체주소: 363771819
+                        데이터: constant 해시코드: -567811164 객체주소: 1329552164
+                        데이터: good 해시코드: 3178685 객체주소: 2065951873
+                        데이터: good 해시코드: 3178685 객체주소: 1791741888
+                        데이터: goodTwo 해시코드: 207008847 객체주소: 1595428806
+                        데이터: goodTwo 해시코드: 207008847 객체주소: 1072408673
+                        ```
+
+                        - 대표적인 Immutable 객체
+                        - 큰따옴표("")로 선언된 String
+                        - String pool에 문자열 등록
+                        - 같은 값이면 계속 참조
+                        - 생성자(new)로 선언된 String
+                        - 별개의 String을 생성
+                        - 다른 패턴의 문자열 반복 연산 작업 등은 피해야 함
+                        - 같은 값의 빈번한 조회 시 사용
+
+                        ## StringBuilder, StringBuffer
+                        <div style="text-align:center;">
+
+                            <img src="https://t1.daumcdn.net/cfile/tistory/9923A9505E2F133608"/>
+                            <p>출처: https://ifuwanna.tistory.com/221</p>
+                        </div>
+
+                        ### 공통점
+                        - mutable 객체
+                        - 동일 객채 내에서 문자열 변경 가능
+                        - 추가, 수정, 삭제 빈번한 작업 시 사용
+
+                        ### 차이점
+                        - StringBuilder
+                        - 동기화 X
+                        - 성능 상대적으로 좋음
+
+                        - StringBuffer
+                        - 내부 메소드에 synchronized 붙어있음, 동기화 O
+                        - 성능 상대적으로 안좋음
+                    </image>
+                </div>
+
+            </div>
+            <a class="u-url" href="/blog/mutable,immutable/" hidden></a>
+        </article>
+
+    </div>
+</main>
+<footer class="site-footer h-card">
+    <data class="u-url" href="/blog/"></data>
+
+    <div class="wrapper">
+
+        <h2 class="footer-heading">Blog</h2>
+
+        <div class="footer-col-wrapper">
+            <div class="footer-col footer-col-1">
+                <ul class="contact-list">
+                    <li class="p-name">Blog</li>
+                    <li><a class="u-email" href="mailto:chanwoo3176@naver.com">chanwoo3176@naver.com</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-col-2">
+                <ul class="social-media-list"></ul>
+            </div>
+
+            <div class="footer-col footer-col-3">
+                <p></p>
+            </div>
+        </div>
+
+    </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>CPU | Blog</title>
+    <meta name="generator" content="Jekyll v4.3.1"/>
+    <meta property="og:title" content="CPU"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta name="description"
+          content="CPU ALU(Arithmetic and Logical Unit) 구성요소 산술 연산 장치 덧셈, 곱셈 등의 산술 연산을 수행 논리 연산 장치 AND, OR 등의 논리 연산을 수행 시프트 레지스터 비트들을 시프트 시키는 기능을 가짐 보수기 데이터를 2의 보수화함(음수화) 상태 레지스터 연산 결과의 상태를 나타내는 플래그 저장"/>
+    <meta property="og:description"
+          content="CPU ALU(Arithmetic and Logical Unit) 구성요소 산술 연산 장치 덧셈, 곱셈 등의 산술 연산을 수행 논리 연산 장치 AND, OR 등의 논리 연산을 수행 시프트 레지스터 비트들을 시프트 시키는 기능을 가짐 보수기 데이터를 2의 보수화함(음수화) 상태 레지스터 연산 결과의 상태를 나타내는 플래그 저장"/>
+    <link rel="canonical" href="https://kmapshot.com/blog/CPU/"/>
+    <meta property="og:url" content="https://kmapshot.com/blog/CPU/"/>
+    <meta property="og:site_name" content="Blog"/>
+    <meta property="og:type" content="article"/>
+    <meta property="article:published_time" content="2022-11-28T15:26:37+09:00"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta property="twitter:title" content="CPU"/>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "dateModified": "2022-11-28T15:26:37+09:00",
+            "datePublished": "2022-11-28T15:26:37+09:00",
+            "description": "CPU ALU(Arithmetic and Logical Unit) 구성요소 산술 연산 장치 덧셈, 곱셈 등의 산술 연산을 수행 논리 연산 장치 AND, OR 등의 논리 연산을 수행 시프트 레지스터 비트들을 시프트 시키는 기능을 가짐 보수기 데이터를 2의 보수화함(음수화) 상태 레지스터 연산 결과의 상태를 나타내는 플래그 저장",
+            "headline": "CPU",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://kmapshot.com/blog/CPU/"
+            },
+            "url": "https://kmapshot.com/blog/CPU/"
+        }</script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link type="application/atom+xml" rel="alternate" href="https://kmapshot.com/blog/feed.xml" title="Blog"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7390022674285155"
+          crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header" role="banner">
+
+    <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Blog</a>
+        <nav class="site-nav">
+            <input type="checkbox" id="nav-trigger" class="nav-trigger"/>
+            <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+            </label>
+
+            <div class="trigger"></div>
+        </nav>
+    </div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+            <header class="post-header">
+                <h1 class="post-title p-name" itemprop="name headline">CPU</h1>
+                <p class="post-meta">
+                    <time class="dt-published" datetime="2022-11-28T15:26:37+09:00" itemprop="datePublished">Nov 28,
+                        2022
+                    </time>
+                </p>
+            </header>
+
+            <div class="post-content e-content" itemprop="articleBody">
+                <h1 id="cpu">CPU</h1>
+                <h2 id="aluarithmetic-and-logical-unit">ALU(Arithmetic and Logical Unit)</h2>
+                <h3 id="구성요소">구성요소</h3>
+                <ul>
+                    <li>산술 연산 장치
+                        <ul>
+                            <li>덧셈, 곱셈 등의 산술 연산을 수행</li>
+                        </ul>
+                    </li>
+                    <li>논리 연산 장치
+                        <ul>
+                            <li>AND, OR 등의 논리 연산을 수행</li>
+                        </ul>
+                    </li>
+                    <li>시프트 레지스터
+                        <ul>
+                            <li>비트들을 시프트 시키는 기능을 가짐</li>
+                        </ul>
+                    </li>
+                    <li>보수기
+                        <ul>
+                            <li>데이터를 2의 보수화함(음수화)</li>
+                        </ul>
+                    </li>
+                    <li>상태 레지스터
+                        <ul>
+                            <li>연산 결과의 상태를 나타내는 플래그 저장</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h2 id="제어-유닛control-unit">제어 유닛(Control Unit)</h2>
+                <h3 id="수행-기능">수행 기능</h3>
+                <ul>
+                    <li>명령어 코드 해독</li>
+                    <li>명령어 실행에 필요한 제어 신호 발생
+                        <h3 id="명령어-세트-설계">명령어 세트 설계</h3>
+                        <ol>
+                            <li>명령어 종류, 비트 패턴 정의</li>
+                            <li>명령어 실행에 필요한 하드웨어 설계</li>
+                            <li>각 명령어를 위한 실행 사이클 루틴을 마이크로프로그래밍</li>
+                        </ol>
+                    </li>
+                </ul>
+
+                <h2 id="instruction">INSTRUCTION</h2>
+                <h3 id="명령어-사이클">명령어 사이클</h3>
+                <ol>
+                    <li>인출(instruction fetch) -&gt; 인출 사이클</li>
+                    <li>실행(instruction execution) -&gt; 실행 사이클</li>
+                </ol>
+
+                <h3 id="인출-사이클">인출 사이클</h3>
+                <ol>
+                    <li>프로그램 카운터(PC)가 가리키는 주소의 명령어 인출</li>
+                    <li>MAR을 통해 주소 전송</li>
+                    <li>기억 장치 명령어 읽음</li>
+                    <li>MBR에 데이터 적재, PC 주소 증가 -&gt; 다음 명령어 주소 가리킴</li>
+                    <li>MBR 명령어 코드 IR로 이동</li>
+                </ol>
+
+                <h3 id="실행-사이클">실행 사이클</h3>
+                <h4 id="데이터-이동">데이터 이동</h4>
+                <div class="language-plaintext highlighter-rouge">
+                    <div class="highlight"><pre class="highlight"><code>## LOAD addr
+
+t0: MAR &lt;- IR(addr)
+t1: MBR &lt;- M[MAR]
+t2: AC &lt;- MBR
+
+## 기억장치 데이터 -&gt; AC 이동
+## 오퍼랜드(addr): 연산 코드의 주소
+</code></pre>
+                    </div>
+                </div>
+                <ol>
+                    <li>IR에 적재된 오퍼랜드를 MAR를 통해 기억장치로 전송</li>
+                    <li>메모리의 데이터 인출하여 MBR에 저장</li>
+                    <li>데이터 AC 레지스터에 적재</li>
+                </ol>
+
+                <h4 id="데이터-저장">데이터 저장</h4>
+                <div class="language-plaintext highlighter-rouge">
+                    <div class="highlight"><pre class="highlight"><code>## STA addr
+
+t0: MAR &lt;- IR(addr)
+t1: MBR &lt;- AC
+t2: M[MAR] &lt;- MBR
+
+</code></pre>
+                    </div>
+                </div>
+                <ol>
+                    <li>데이터 저장할 메모리 주소 MAR 전송</li>
+                    <li>저장할 데이터 MBR 이동</li>
+                    <li>메모리 데이터 저장</li>
+                </ol>
+
+                <h4 id="데이터-처리">데이터 처리</h4>
+                <div class="language-plaintext highlighter-rouge">
+                    <div class="highlight"><pre class="highlight"><code>## ADD addr
+
+t0: MAR &lt;- IR(addr)
+t1: MBR &lt;- M[MAR]
+t2: AC &lt;- AC + MBR
+</code></pre>
+                    </div>
+                </div>
+                <ol>
+                    <li>오퍼랜드 기억장치로 전송</li>
+                    <li>기억장소 데이터 인출 후 적재</li>
+                    <li>인출한 데이터 + AC 레지스터 내용 -&gt; AC 레지스터에 저장</li>
+                </ol>
+
+                <h4 id="프로그램-제어">프로그램 제어</h4>
+                <ul>
+                    <li>분기(branch) 명령어
+                        ```
+                        <h2 id="jump-addr">JUMP addr</h2>
+                    </li>
+                </ul>
+
+                <p>t0: PC &lt;- IR(addr)</p>
+                <div class="language-plaintext highlighter-rouge">
+                    <div class="highlight"><pre class="highlight"><code>0. 분기 목적지 주소 적재, 명령어 실행 순서 변경
+
+### 인터럽트
+#### 인터럽트 사이클
+0. 인터럽트 가능 여부 파악
+1. 현재 PC 주소 스택에 저장 (ISR 종료 후 복귀할 주소)
+2. ISR 시작 주소 PC 적재
+
+#### 마이크로 연산 과정
+</code></pre>
+                    </div>
+                </div>
+                <p>t0: MBR &lt;- PC
+                    t1: MAR &lt;- SP, PC &lt;- ISR의 시작 주소
+                    t2: M[MAR] &lt;- MBR, SP &lt;- SP - 1</p>
+
+                <h2 id="spstack-pointer">SP(stack pointer)</h2>
+                <h2 id="-스택의-최상위-주소-일반적으로-주기억장치의-마지막-주소">=&gt; 스택의 최상위 주소, 일반적으로 주기억장치의 마지막 주소</h2>
+                <div class="language-plaintext highlighter-rouge">
+                    <div class="highlight"><pre class="highlight"><code>0. PC 내용 MBR 전송
+1. SP 내용 MAR을 통해 주소 버스로 나감, PC에 ISR 시작 주소 적재
+2. MBR에 저장된 PC 내용 스택에 저장, SP 내용 감소
+
+### 간접 사이클
+</code></pre>
+                    </div>
+                </div>
+                <h2 id="명령어의-주소가-데이터가-저장된-기억-장소의-주소를-가리키는-경우">명령어의 주소가 데이터가 저장된 기억 장소의 주소를 가리키는 경우</h2>
+                <h2 id="실행-사이클-이전에-데이터-실제-주소를-읽어오는-과정이-선행되어야-함">실행 사이클 이전에 데이터 실제 주소를 읽어오는 과정이 선행되어야 함</h2>
+                <h2 id="아마-c언어-포인터-비슷한듯">아마 c언어 포인터 비슷한듯</h2>
+
+                <p>t0: MAR &lt;- IR(addr)
+                    t1: MBR &lt;- M[MAR]
+                    t2: IR(addr) &lt;- MBR</p>
+                <div class="language-plaintext highlighter-rouge">
+                    <div class="highlight"><pre class="highlight"><code>0. 명령어 주소 받음
+1. 주소 내용 다시 인출
+2. IR에 저장
+
+### 명령어 파이프라이닝
+#### 2단계 파이프라이닝
+</code></pre>
+                    </div>
+                </div>
+                <p>c0: 인출
+                    c1: 선인출된 명령어 실행, 다음 명령어 인출
+                    c2: 실행, 인출….</p>
+                <div class="language-plaintext highlighter-rouge">
+                    <div class="highlight"><pre class="highlight"><code>- 장점
+    - 인출, 실행 단계로 분리
+    - 첫 클럭 후 부터는 명령어 인출, 실행 한 클럭에 완료
+    - 처리할 명령어 많아질수록 속도 향상 이론적으론 거의 2배
+- 한계
+    - 명령어의 인출과 실행에 같은 길이의 시간이 소요되는 전제가 깔림
+    - 실행 단계가 보통 더 길게 처리됨, 끝날 때까지 인출 대기
+    - 이런 이유들 때문에 속도 향상 2배 못미침
+
+#### 4단계 파이프라이닝
+</code></pre>
+                    </div>
+                </div>
+                <h2 id="명령어-인출if">명령어 인출(IF)</h2>
+                <h2 id="명령어-해독id">명령어 해독(ID)</h2>
+                <h2 id="오퍼랜드-인출of">오퍼랜드 인출(OF)</h2>
+                <h2 id="실행ex">실행(EX)</h2>
+
+                <p>c0: IF
+                    c1: ID, IF
+                    c2: OF, ID, IF
+                    c3: EX, OF, ID, IF
+                    c4: EX, OF, ID, IF…..
+                    ```</p>
+                <ul>
+                    <li>장점
+                        <ul>
+                            <li>명령어 증가할수록 속도 향상 이론적으로 4배 근접</li>
+                        </ul>
+                    </li>
+                    <li>한계
+                        <ul>
+                            <li>모든 명령어가 4개 or k개의 단계를 모두 필요로 하지는 않음</li>
+                            <li>가장 오래 걸리는 단계를 기준으로 클럭이 정해짐, 다른 명령어들 대기시간 생김</li>
+                            <li>IF, OF 단계는 기억장치 접근 필요, 둘 중 하나는 지연</li>
+                            <li>분기 명령어, 인터럽트 등이 실행되면 미리 인출되어 처리되던 명령어들 무효화</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h5 id="파이프라이닝-개선">파이프라이닝 개선</h5>
+                <ul>
+                    <li>슈퍼 파이프라이닝
+                        <ul>
+                            <li>파이프라인 단계를 더욱 세분화함, 10단계 이상</li>
+                        </ul>
+                    </li>
+                    <li>IF, OF의 접근을 명령어 캐시와 데이터 캐시로 분리</li>
+                    <li>분기 예측
+                        <ul>
+                            <li>분기 발생을 예측, 그에 맞는 경로의 명령어 인출</li>
+                            <li>확률적 방법, 분기 역사 표 참고</li>
+                        </ul>
+                    </li>
+                    <li>분기 목적지 선인출
+                        <ul>
+                            <li>분기 발생시 다음 명령어 + 분기 목적지 명령어 인출</li>
+                            <li>지연 시간 줄임</li>
+                        </ul>
+                    </li>
+                    <li>루프 버퍼
+                        <ul>
+                            <li>최근 인출된 명령어 모임소</li>
+                            <li>분기 목적지 명령어 버퍼에 존재시, 버퍼에서 명령어 인출</li>
+                        </ul>
+                    </li>
+                    <li>지연 분기
+                        <ul>
+                            <li>명령어 재배치, 분기 실행 원래보다 미룸</li>
+                            <li>분기에 따른 성능 저하 최소화</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h2 id="register">Register</h2>
+                <h3 id="software">Software</h3>
+                <h4 id="내부-레지스터">내부 레지스터</h4>
+                <ul>
+                    <li>프로그램 카운터(Program Counter)
+                        <ul>
+                            <li>다음에 인출될 명령어 주소를 가짐</li>
+                            <li>인출 후에는 자동적으로 증가</li>
+                            <li>분기 명령 실행 시 목적지 주소로 갱신</li>
+                        </ul>
+                    </li>
+                    <li>누산기(Accumulator)
+                        <ul>
+                            <li>데이터 일시 저장</li>
+                            <li>비트 수 == cpu 한번에 연산 처리량 == word 길이</li>
+                        </ul>
+                    </li>
+                    <li>명령어 레지스터(Instruction Register)
+                        <ul>
+                            <li>가장 최근 인출된 명렁어 저장</li>
+                        </ul>
+                    </li>
+                    <li>기억장치 주소 레지스터(Memory Address Register)
+                        <ul>
+                            <li>프로그램 카운터에 저장된 명령어 일시 저장</li>
+                            <li>시스템 주소 버스로 출력됨</li>
+                            <li>프로그램 카운터를 주소 버스로 전달하는 역할</li>
+                        </ul>
+                    </li>
+                    <li>기억장치 버퍼 레지스터(Memory Buffer Register)
+                        <ul>
+                            <li>기억장치 데이터가 일시 저장</li>
+                            <li>데이터 버스 선과 연결됨</li>
+                            <li>CPU로 데이터 입,출력 전달 역할</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+            <a class="u-url" href="/blog/CPU/" hidden></a>
+        </article>
+
+    </div>
+</main>
+<footer class="site-footer h-card">
+    <data class="u-url" href="/blog/"></data>
+
+    <div class="wrapper">
+
+        <h2 class="footer-heading">Blog</h2>
+
+        <div class="footer-col-wrapper">
+            <div class="footer-col footer-col-1">
+                <ul class="contact-list">
+                    <li class="p-name">Blog</li>
+                    <li><a class="u-email" href="mailto:chanwoo3176@naver.com">chanwoo3176@naver.com</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-col-2">
+                <ul class="social-media-list"></ul>
+            </div>
+
+            <div class="footer-col footer-col-3">
+                <p></p>
+            </div>
+        </div>
+
+    </div>
+
+</footer>
+</body>
+
+</html>
